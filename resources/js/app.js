@@ -1,17 +1,24 @@
-require('./bootstrap');
-import Vue from 'vue'
-import { createInertiaApp } from '@inertiajs/inertia-vue'
-import { InertiaProgress } from '@inertiajs/progress'
 
-InertiaProgress.init()
+require("./bootstrap");
 
-createInertiaApp({
-  resolve: name => import(`./Pages/${name}`),
-  setup({ el, App, props, plugin }) {
-    Vue.use(plugin)
+// Import modules...
+import Vue from "vue";
+import { App as InertiaApp } from "@inertiajs/inertia-vue";
 
-    new Vue({
-      render: h => h(App, props),
-    }).$mount(el)
-  },
-})
+// Vue.use(Vuetify);
+
+const app = document.getElementById("app");
+
+new Vue({
+    render: (h) =>
+        h(InertiaApp, {
+            props: {
+                initialPage: JSON.parse(app.dataset.page),
+                resolveComponent: (name) => {
+                    let page = require(`./Pages/${name}`).default;
+
+                    return page;
+                },
+            },
+        }),
+}).$mount(app);
