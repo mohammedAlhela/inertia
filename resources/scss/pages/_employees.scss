@@ -1,0 +1,16 @@
+.employees-page-container {
+    padding: 50px;
+    max-height: 800px;
+    overflow: auto;
+
+
+
+}
+
+.personal-fields { 
+    padding-bottom: 0px !important;
+    margin-top: 20px;
+    .v-icon { 
+        color: $black-gray-color !important;
+    }
+}

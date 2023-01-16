@@ -1,0 +1,23 @@
+.users-page-container {
+    padding: 50px;
+    max-height: 800px;
+    overflow: auto;
+
+
+}
+
+.permissions-form {
+    .permission-module {
+        position: relative;
+        top: 20px;
+    }
+
+    .permission-header {
+        background: #f5f5f5;
+        margin-top: 3px;
+    }
+
+    .buttons-holder {
+        margin-top: 20px;
+    }
+}

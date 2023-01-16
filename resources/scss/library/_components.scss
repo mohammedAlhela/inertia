@@ -1,0 +1,58 @@
+.validation-icon {
+    font-size: 11px !important ;
+    @extend .icon;
+    color: $red !important;
+}
+
+.image-file-input {
+    margin: 30px 0px;
+    img {
+        width: 200px;
+        height: 170px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+    input {
+        visibility: hidden;
+    }
+
+    .v-icon {
+        color: $black-gray-color !important;
+    }
+
+    .file-holder {
+        display: inline-block;
+        width: 60px;
+
+        position: relative;
+
+        margin-left: 20px;
+
+     
+    }
+
+    .image-paragraph {
+        position: relative;
+        top: -32px;
+    }
+
+    label {
+        &:hover {
+            background-color: whitesmoke !important;
+        }
+        border: 1px solid $border-color;
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 6px !important;
+        cursor: pointer;
+    }
+
+    .upload-holder {
+        display: inline-block;
+        position: relative;
+        .clear {
+            position: absolute;
+    left: 20px;
+        }
+    }
+}
