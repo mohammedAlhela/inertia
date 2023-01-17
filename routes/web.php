@@ -41,19 +41,19 @@ Route::post('reset-password', [PasswordResetController::class, 'reset'])
 
 // ++++++++++ email verification
 
-Route::get('/email/verify', [EmailVerificationController::class, 'create'])->name('verification.notice');
+Route::get('email/verify', [EmailVerificationController::class, 'create'])->name('verification.notice');
 
-Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])->name('verification.send');
+Route::post('email/verification-notification', [EmailVerificationController::class, 'send'])->name('verification.send');
 
-Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
+Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
 
 // ++++++++++ email verification
 
 // ++++++++++ password confirmation
-Route::get('/password/confirm', [ConfirmPasswordController::class, 'showConfirmForm'])
+Route::get('password/confirm', [ConfirmPasswordController::class, 'showConfirmForm'])
     ->name('password.confirm');
 
-Route::post('/password/confirm', [ConfirmPasswordController::class, 'confirmPassword'])
+Route::post('password/confirm', [ConfirmPasswordController::class, 'confirmPassword'])
     ->name('password.confirm.send')
     ->middleware('auth');
 

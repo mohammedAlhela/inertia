@@ -1,67 +1,8 @@
-.text-under-line { 
-    text-decoration: underline;
+.text-link { 
+    color : $black-color !important;
+    text-decoration: none !important;
 }
 
-.no-underline { 
-    text-decoration: none;
+.link { 
+    color : $black-color !important;  
 }
-
-.no-focus{
-    &:focus{
-        outline:none
-    }
-}
-
-
-.no-hover  {
- &:hover {
-     text-decoration:  none !important;
- }
-}
-.clearing{
-    clear: both;
-}
-
-.overflow-hidden{
-    overflow: hidden;
-}
-
-.capitalize{
-    text-transform: capitalize !important;
-}
-
-.cursor-pointer{
-    cursor : pointer !important;
-  }
-
-
-  .pointer{
-    cursor : pointer !important;
-  }
-
-
-  .hiddenHr{
-      display: none !important;
-  }
-
-  .hidden{
-      display: none;
-  }
-
-  .no-box-shadow {
-      box-shadow: none !important;
-  }
-
-
-  .background-cover{
-      background-size: cover;
-  }
-
-  .show_content { 
-      opacity: 1;
-  }
-
-
-  .unlink:hover { 
-      text-decoration: unset !important;
-  }

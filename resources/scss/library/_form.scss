@@ -1,58 +1,21 @@
 form {
-    .input-fields-holder {
-        padding: 30px;
-
-        .input-holder {
-            height: 90px;
-            span.label {
-                margin-left: 7px;
+    .inputs-holder {
+        padding: 30px 30px 40px;
+            .v-input--checkbox {
+               margin-top : -5px !important;
+               padding-top : 0px !important;
+               .v-label { 
+                font-size : 14px !important;
+                color : $black-color !important;
+               }
             }
-
-            input {
-                width: 100%;
-                height: auto;
-                padding: 0.6rem 1.25rem;
-                border: 1px solid $border-color;
-                outline: none;
-                border-radius: 0.5rem;
-                text-transform: unset;
-                text-rendering: optimizeLegibility;
-                margin-bottom: 20px;
-                line-height: initial;
-                margin-top: 5px;
-            }
-
-            .validation-error {
-                position: relative;
-                top: -20px;
-                left: 10px;
-                color: $red-color;
-                font-size: 12px;
-            }
-        }
-
-        .remember {
-            input {
-                width: 40px;
-                cursor: pointer;
-            }
-        }
-        .password {
-            position: relative;
-            .v-icon {
-                position: absolute;
-                right: 15px;
-                top: 13px;
-                color: $black-gray-color !important;
-                cursor: pointer;
-                &:hover {
-                    color: $main-color !important;
-                }
-            }
-        }
     }
     .buttons {
         background: $light-gray-color;
         padding: 20px 30px;
+        button:nth-of-type(1) {
+            background-color: $main-color!important;
+            color: white !important;
+        }
     }
 }

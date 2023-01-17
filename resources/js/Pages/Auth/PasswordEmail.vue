@@ -1,27 +1,28 @@
 <template>
     <section class="authentication-card">
+
         <Head>
-            <title>HR -- Password email</title>
+            <title>Sahara class - Send password reset link</title>
         </Head>
         <h2>Password reset</h2>
-        <form @submit.prevent="sendPasswordLink">
-            <div class="input-fields-holder">
-                <div class="input-holder">
-                    <span class="label"> Email :</span>
-                    <input v-model="form.email"  type="email" autofocus autocapitalize="off" />
-                    <span class="validation-error" v-if="form.errors.email">{{
-                        form.errors.email
-                    }}</span>
-                </div>
+        <v-form @submit.prevent="sendPasswordLink" ref = "form">
+            <v-row class="inputs-holder">
+                <v-col cols="12" class="py-1">
+                    <span class="input-header">
+                        Email :
+                    </span>
 
-                <Link href="/login" class="text-link">Back to login</Link>
-            </div>
+                    <v-text-field required :rules="formErrors.email" solo dense v-model="
+                        form.email
+                    " class="textfield"></v-text-field>
+                </v-col>
+
+                <Link href="/login" class="link mt-2">Back to login</Link>
+            </v-row>
             <div class="buttons">
-                <v-btn  color = "blue" dark :loading="form.processing" type="submit"
-                    >Send link</v-btn
-                >
+                <v-btn :loading="form.processing" type="submit">Send link</v-btn>
             </div>
-        </form>
+        </v-form>
     </section>
 </template>
 
@@ -33,17 +34,30 @@ export default {
 
     methods: {
         sendPasswordLink() {
-            this.form.post("forgot-password", {
-                onSuccess: () => {  this.form.reset('email'); this.helper.methods.showSuccessMessage('A fresh reset password link has been sent to your email address.');}, 
+            this.$refs.form.validate();
+            this.form.post("/forgot-password", {
+                onSuccess: () => { this.form.reset('email'); this.helper.methods.showSuccessMessage('A fresh reset password link has been sent to your email address.'); },
             });
         },
     },
 
- 
+    computed: {
+        formErrors() {
+            let keys = Object.keys(this.form.errors)
+            keys.forEach(key => {
+                this.form.errors[key] = [this.form.errors[key]]
+            });
+
+            return this.form.errors
+        }
+    },
+
     data() {
         return {
             form: this.$inertia.form({
                 email: "",
+                errors: {
+                }
             }),
         };
     },

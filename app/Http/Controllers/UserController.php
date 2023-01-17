@@ -99,12 +99,10 @@ class UserController extends Controller
 
         $user = User::find($id);
 
-        if ($user->image) {
-            $imageFileExist = file_exists(public_path() . $user->image);
+        if ($user->image && file_exists(public_path() . $user->image)) {
 
-            $imageFileExist ? $imageFileDeleted = unlink(substr($user->image, 1)) : $imageFileDeleted = false;
-
-            $imageFileExist ? ($imageFileDeleted ? $user->delete() : 1 == 1) : $user->delete();
+            unlink(substr($user->image, 1));
+            $user->delete();
         } else {
             $user->delete();
         }
@@ -167,8 +165,8 @@ class UserController extends Controller
         Helper::authorizeModel($authArray);
 
         return inertia('Users/Permissions', [
-        'user' =>     User::with('permissions')->where('id', $id)->first(),
-        'permissions' =>   User::find($id)->permissionsNames()
+            'user' => User::with('permissions')->where('id', $id)->first(),
+            'permissions' => User::find($id)->permissionsNames(),
 
         ]);
 

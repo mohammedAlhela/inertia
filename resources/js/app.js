@@ -14,7 +14,7 @@ import App from "../js/Shared/App.vue";
 import { InertiaProgress } from '@inertiajs/progress'
 import helper from "../mixins/helper"
 import DeleteConfirm from "./Shared/components/DeleteConfirm";
-InertiaProgress.init()
+InertiaProgress.init({ color: "#7E57C2" });
 
 Vue.prototype.helper = helper
 Vue.helper = helper
@@ -31,7 +31,18 @@ const app = document.getElementById("app");
 Vue.use(Vuetify);
 
 new Vue({
-    vuetify: new Vuetify(),
+    vuetify: new Vuetify({
+        theme: {
+          themes: {
+            light: {
+              primary: '#7E57C2',
+            //   secondary: '#b0bec5',
+            //   accent: '#8c9eff',
+            //   error: '#b71c1c',
+            },
+          },
+        },
+      }),
     render: (h) =>
         h(InertiaApp, {
             props: {
@@ -40,7 +51,8 @@ new Vue({
                     let page = require(`./Pages/${name}`).default;
                     return page;
                 },
-                
             },
+      
+
         }),
 }).$mount(app);

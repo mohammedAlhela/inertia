@@ -1,12 +1,10 @@
 <template>
-
     <section class="authentication-card">
-
         <Head>
-            <title> Sahara class - Login page</title>
+            <title>Sahara class - Password reset</title>
         </Head>
-        <h2>Sign in</h2>
-        <v-form @submit.prevent="login" ref="form">
+        <h2>Password reset</h2>
+        <v-form @submit.prevent="updatePassword" ref = "form">
             <v-row class="inputs-holder">
                 <v-col cols="12" class="py-1">
                     <span class="input-header">
@@ -24,27 +22,35 @@
                         Password :
                     </span>
 
-                    <v-text-field type="password" :type="passwordType ? 'text' : 'password'"
+                    <v-text-field :rules="formErrors.password" type="password"
+                        :type="passwordType ? 'text' : 'password'"
                         :append-icon="passwordType ? 'mdi-eye' : 'mdi-eye-off'"
-                        @click:append="passwordType = !passwordType" required :rules="formErrors.password" solo dense
-                        v-model="
+                        @click:append="passwordType = !passwordType" required solo dense v-model="
                             form.password
-                        " class="textfield"   autocomplete="new-password"></v-text-field>
+                        " class="textfield"></v-text-field>
                 </v-col>
 
 
-                <v-col cols="6" class="py-1">
-                    <v-checkbox label="Remember me" v-model="form.remember" color="deep-purple lighten-1"
-                        hide-details></v-checkbox>
-                </v-col>
-                <v-col cols="6" class="py-1 text-right">
-                    <Link href="/forgot-password" class="text-link">Forget passord?
-                    </Link>
+
+
+                <v-col cols="12" class="py-1">
+                    <span class="input-header">
+                        Password Confirmation :
+                    </span>
+
+                    <v-text-field type="password" :type="passwordConfirmationType ? 'text' : 'password'"
+                        :append-icon="passwordConfirmationType ? 'mdi-eye' : 'mdi-eye-off'"
+                        @click:append="passwordConfirmationType = !passwordConfirmationType" required solo dense
+                        v-model="
+                            form.password_confirmation
+                        " class="textfield" />
                 </v-col>
 
+
+                <Link href="/login" class="link mt-2">Back to login</Link>
             </v-row>
             <div class="buttons">
-                <v-btn :loading="form.processing" type="submit">Login</v-btn>
+                <v-btn :loading="form.processing" type="submit">Reset password </v-btn>
             </div>
         </v-form>
     </section>
@@ -57,9 +63,10 @@ export default {
     layout: Auth,
 
     methods: {
-        login() {
+        updatePassword() {
             this.$refs.form.validate();
-            this.form.post("/login");
+            this.form.token = this.token
+            this.form.post("/reset-password");
         },
 
     },
@@ -75,20 +82,19 @@ export default {
         }
     },
 
+    props: ['token'],
     data() {
         return {
             form: this.$inertia.form({
+                token: "",
                 email: "",
                 password: "",
-                remember: false,
+                password_confirmation: "",
                 errors: {
-
                 }
             }),
-            passwordType: false,
-
-
-
+            passwordType: "password",
+            passwordConfirmationType: "password",
         };
     },
 };
