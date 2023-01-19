@@ -1,0 +1,62 @@
+.application-container {
+    .main-holder {
+        position: relative;
+        left: 20px;
+        top: -40px;
+        min-height: 620px;
+        // small pages and paner pages  
+
+        .main-content {
+            border-radius: 5px;
+
+            background: white;
+            box-shadow: 0 3px 1px -2px rgb(0 0 0 / 10%),
+                0 2px 2px 0 rgb(0 0 0 / 10%), 0 1px 5px 0 rgb(0 0 0 / 10%);
+            float: left;
+            width: calc(100% - 320px);
+            max-width: 1400px;
+            margin-left: 20px;
+        }
+
+        .paner-section {
+            padding: 20px;
+            @extend .main-content;
+            float: left;
+            width: 300px;
+
+            .active {
+                color: $main-color !important;
+                .v-icon {
+                    color: $main-color !important;
+                }
+            }
+
+            div {
+                cursor: pointer;
+                display: block;
+                @extend .text-link;
+                margin-bottom: 20px;
+                font-size: 14px;
+                font-weight: 600;
+                .v-icon {
+                    font-size: 20px !important;
+                    color: $black-color !important;
+                    margin-right: 5px;
+                }
+
+                &:hover {
+                    @extend .active;
+                }
+            }
+        }
+
+        // small pages and paner pages  
+
+        .page-container { 
+            @extend .main-content;
+            width: 100%;
+            max-width: 1600px;
+
+        }
+    }
+}

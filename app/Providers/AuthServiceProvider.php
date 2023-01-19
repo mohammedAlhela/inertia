@@ -25,8 +25,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        $this->registerPolicies();
-
         Gate::define('manage-model', function ($user, $model , $action) {
 
             return (in_array("{$model}-{$action}", $user->permissionsNames()));

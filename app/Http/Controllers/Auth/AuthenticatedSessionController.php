@@ -7,10 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use Helper;
-use Inertia\Inertia;
+
 
 class AuthenticatedSessionController extends Controller
 {
@@ -18,7 +15,7 @@ class AuthenticatedSessionController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->only(['create','store']);
-        $this->middleware('auth')->only(['verify' , 'accountShow' , 'accountWrite']);
+        $this->middleware('auth')->only(['destroy']);
     }
 
     /**
@@ -28,7 +25,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Auth/Login');
+        return inertia('Auth/Login');
     }
 
     /**
@@ -63,42 +60,5 @@ class AuthenticatedSessionController extends Controller
     }
 
 
-    public function accountShow()
-    {
-        return Inertia::render('Auth/Account' , [
-            'user' => auth()->user()
-        ]);
 
-    }
-
-
-    public function accountWrite(Request $request)
-    {
-
-        $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'email' => 'required|string|email| max:255|unique:users,email,' . auth()->user()->id,
-            'password' => 'nullable|string|min:8|confirmed',
-            'image' => 'nullable|image',
-        ]);
-
-        $image = $request->file('image');
-
-        $user = User::find(auth()->user()->id);
-        $user->name = $request['name'];
-        $user->email = $request['email'];
-        $request->password ? $user->password = Hash::make($request['password']) : $nullExist = null;
-        $data = array(
-            "record" => $user,
-            "image" => $image,
-            "dirPath" => "/images/users/",
-            "width" => 600,
-            "height" => 600,
-
-        );
-        Helper::uploadImage($data);
-    }
-
-
-    
 }

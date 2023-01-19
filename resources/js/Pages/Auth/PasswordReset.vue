@@ -1,10 +1,11 @@
 <template>
     <section class="authentication-card">
+
         <Head>
             <title>Sahara class - Password reset</title>
         </Head>
         <h2>Password reset</h2>
-        <v-form @submit.prevent="updatePassword" ref = "form">
+        <v-form @submit.prevent="updatePassword" ref="form">
             <v-row class="inputs-holder">
                 <v-col cols="12" class="py-1">
                     <span class="input-header">
@@ -13,7 +14,7 @@
 
                     <v-text-field required :rules="formErrors.email" solo dense v-model="
                         form.email
-                    " class="textfield"></v-text-field>
+                    " class="textfield" />
                 </v-col>
 
 
@@ -22,12 +23,11 @@
                         Password :
                     </span>
 
-                    <v-text-field :rules="formErrors.password" type="password"
-                        :type="passwordType ? 'text' : 'password'"
+                    <v-text-field :rules="formErrors.password" :type="passwordType ? 'text' : 'password'"
                         :append-icon="passwordType ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="passwordType = !passwordType" required solo dense v-model="
                             form.password
-                        " class="textfield"></v-text-field>
+                        " class="textfield" />
                 </v-col>
 
 
@@ -38,7 +38,7 @@
                         Password Confirmation :
                     </span>
 
-                    <v-text-field type="password" :type="passwordConfirmationType ? 'text' : 'password'"
+                    <v-text-field :type="passwordConfirmationType ? 'text' : 'password'"
                         :append-icon="passwordConfirmationType ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="passwordConfirmationType = !passwordConfirmationType" required solo dense
                         v-model="
@@ -57,14 +57,14 @@
 </template>
 
 <script>
-import Auth from "../../Shared/Auth.vue";
+import Auth from "../../Shared/Layout/Auth";
 
 export default {
     layout: Auth,
 
     methods: {
         updatePassword() {
-            this.$refs.form.validate();
+            this.$refs.form.validate()
             this.form.token = this.token
             this.form.post("/reset-password");
         },
@@ -73,12 +73,7 @@ export default {
 
     computed: {
         formErrors() {
-            let keys = Object.keys(this.form.errors)
-            keys.forEach(key => {
-                this.form.errors[key] = [this.form.errors[key]]
-            });
-
-            return this.form.errors
+            return this.helper.methods.formErrors(this.form.errors)
         }
     },
 

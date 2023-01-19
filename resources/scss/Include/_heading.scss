@@ -1,0 +1,112 @@
+.heading {
+    padding: 10px 20px;
+    align-items: center;
+    .brand {
+        @extend .header-link;
+        img {
+            width: 30px;
+            margin-right: 15px;
+        }
+    }
+
+    .modules {
+        display: inline-block;
+        margin-left: 30px;
+        position: relative;
+        cursor: pointer;
+        @extend .brand;
+
+        .modules-popup {
+            z-index: 2;
+            position: absolute;
+            width: 900px;
+            top: 36px;
+
+            .v-card {
+                min-height: 500px;
+                .v-tabs-bar {
+                    padding: 20px 30px;
+                    width: 300px !important;
+                    background-color: $super-light-indigo-color !important;
+                    .v-tab {
+                        display: flex;
+                        justify-content: left;
+                        font-size: 12px !important;
+                        height: 35px !important;
+                        border-radius: 5px;
+                        padding: 10px !important;
+                        text-transform: capitalize !important;
+                    }
+
+                    .v-tab--active {
+                        font-weight: 600;
+                        color: white;
+                        background: $main-color;
+                    }
+                }
+
+                .v-card__text {
+                    padding: 30px;
+
+                    .holder {
+                        margin: 0px 0px 30px 0px;
+                        font-weight: 600;
+                        .v-icon {
+                            color: $main-color !important;
+                        }
+                        .links {
+                            font-weight: 500;
+                            padding-left: 10px;
+                            a {
+                                color: $black-gray-color !important;
+                                display: block;
+                                &:hover {
+                                    color: $main-color !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .actions {
+        text-align: right;
+    }
+}
+
+.expiration {
+    padding: 10px;
+    color: white;
+    background: $light-red-color;
+    font-size: 14px;
+    padding-left: 20px;
+}
+
+.panels {
+    color : white !important;
+    padding: 20px 5px 5px 20px;
+    background-color: $main-color;
+    height: 170px;
+    font-size: 13px;
+
+    .v-icon { 
+        color : white !important;  
+        margin-top: -3px;
+        font-size : 18px !important; 
+    }
+
+
+    .hr { 
+        height: .5px;
+    background: #ababab;
+    margin: 10px 0px;
+    }
+
+    a { 
+        @extend .text-link;
+        color : white !important;
+    }
+
+  }

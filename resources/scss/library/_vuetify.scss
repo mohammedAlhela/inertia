@@ -1,0 +1,26 @@
+
+.v-list-item {
+    min-height: 35px !important;
+    font-size: 14px !important;
+    letter-spacing: 1px !important;
+    &:hover {
+        background-color: $super-light-indigo-color;
+    }
+    a {
+        @extend .text-link;
+    }
+}
+
+
+
+.v-input--checkbox { 
+    .v-input__slot { 
+        box-shadow: none !important;
+        border: none !important;
+    }
+       
+}
+.v-input__slot { 
+    box-shadow: none !important;
+    border: 1px solid $border-color;
+}

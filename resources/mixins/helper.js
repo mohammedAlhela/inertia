@@ -10,7 +10,7 @@ export default {
                 document
                     .getElementById("success_message")
                     .classList.toggle("show_success_message");
-            }, 2000);
+            }, 3000);
         },
 
         TwelveHoursFormetedTime(item) {
@@ -72,5 +72,36 @@ export default {
                 return true;
             }
         },
+
+        formErrors(errors) {
+            let keys = Object.keys(errors)
+            keys.forEach(key => {
+                errors[key] = [errors[key]]
+            });
+
+            return errors
+        },
+
+        getImageParagraph(errors , name) {
+            if (errors.hasOwnProperty("image")) {
+                return `<span class = "validation-error">  ${errors.image[0]}  </span> `;
+            } else if (name) {
+                return `<span >  ${name}  </span> `;
+            } else {
+                return `<span > No image selected </span> `;
+            }
+        },
+
+        handleServerData (formData , serverData) { 
+            let formKeys = Object.keys(formData)
+            let servermKeys = Object.keys(serverData)
+    
+            formKeys.forEach((formKey) => {
+                if (servermKeys.indexOf(formKey) !== -1) {
+                    formData[formKey] = serverData[formKey]
+                }
+            })
+        }
+
     },
 };

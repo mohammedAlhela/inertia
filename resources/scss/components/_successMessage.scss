@@ -1,8 +1,8 @@
 .success-message { 
     display: inline-block;
-    position: absolute;
-    top: 20px;
-    left: -200px;
+    position: fixed;
+    top: 56px;
+    right: -200px;
     z-index: 999;
     background: $green-color;
     color: white;
@@ -16,7 +16,7 @@
 
 
 .show_success_message { 
-    left: 20px;
+    right: 0px;
     visibility: visible;
   
 }

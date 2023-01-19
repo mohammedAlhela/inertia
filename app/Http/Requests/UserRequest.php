@@ -26,13 +26,13 @@ class UserRequest extends FormRequest
         $id = app('request')->get('id');
 
         return [
-            'name' => [ 'required', 'min:3', 'string', 'max:255'],
-            'email' => ['unique:users,email,' . $id , 'required', 'min:3', 'string', 'email', 'max:255' ],
-            'image' => [ 'nullable' , 'image'],
-            'password' => [  $id ? 'nullable' : 'required' , 'string' , 'min:8' , 'confirmed']
+            'username' => ['unique:users,username,' . $id, 'required', 'min:3', 'string', 'max:255'],
+            'email' => ['unique:users,email,' . $id, 'required', 'min:3', 'string', 'email', 'max:255'],
+            'mobile' => [ 'required', 'string', 'min:10' , 'max:11' ],
+            'image' => ['nullable', 'image'],
+            'password' => [$id ? 'nullable' : 'required', 'string', 'min:8', 'confirmed'],
 
         ];
     }
-
 
 }

@@ -20,7 +20,7 @@ class ActiveUser
 
         if (Auth::check() && !Auth::user()->status) {
 
-            abort('404');
+          return inertia('Auth/Blocked');
 
         } else {
             return $next($request);

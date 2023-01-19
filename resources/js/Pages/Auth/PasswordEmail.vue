@@ -14,7 +14,7 @@
 
                     <v-text-field required :rules="formErrors.email" solo dense v-model="
                         form.email
-                    " class="textfield"></v-text-field>
+                    " class="textfield"/>
                 </v-col>
 
                 <Link href="/login" class="link mt-2">Back to login</Link>
@@ -27,14 +27,14 @@
 </template>
 
 <script>
-import Auth from "../../Shared/Auth.vue";
+import Auth from "../../Shared/Layout/Auth";
 
 export default {
     layout: Auth,
 
     methods: {
         sendPasswordLink() {
-            this.$refs.form.validate();
+            this.$refs.form.validate()
             this.form.post("/forgot-password", {
                 onSuccess: () => { this.form.reset('email'); this.helper.methods.showSuccessMessage('A fresh reset password link has been sent to your email address.'); },
             });
@@ -43,12 +43,7 @@ export default {
 
     computed: {
         formErrors() {
-            let keys = Object.keys(this.form.errors)
-            keys.forEach(key => {
-                this.form.errors[key] = [this.form.errors[key]]
-            });
-
-            return this.form.errors
+            return this.helper.methods.formErrors(this.form.errors)
         }
     },
 

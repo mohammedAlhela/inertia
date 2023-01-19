@@ -6,7 +6,7 @@
             <title> Sahara class - Login page</title>
         </Head>
         <h2>Sign in</h2>
-        <v-form @submit.prevent="login" ref="form">
+        <v-form @submit.prevent="login" ref = "form" >
             <v-row class="inputs-holder">
                 <v-col cols="12" class="py-1">
                     <span class="input-header">
@@ -15,7 +15,7 @@
 
                     <v-text-field required :rules="formErrors.email" solo dense v-model="
                         form.email
-                    " class="textfield"></v-text-field>
+                    " class="textfield" />
                 </v-col>
 
 
@@ -24,18 +24,18 @@
                         Password :
                     </span>
 
-                    <v-text-field type="password" :type="passwordType ? 'text' : 'password'"
+                    <v-text-field  :type="passwordType ? 'text' : 'password'"
                         :append-icon="passwordType ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="passwordType = !passwordType" required :rules="formErrors.password" solo dense
                         v-model="
                             form.password
-                        " class="textfield"   autocomplete="new-password"></v-text-field>
+                        " class="textfield" autocomplete="new-password" />
                 </v-col>
 
 
                 <v-col cols="6" class="py-1">
                     <v-checkbox label="Remember me" v-model="form.remember" color="deep-purple lighten-1"
-                        hide-details></v-checkbox>
+                        hide-details />
                 </v-col>
                 <v-col cols="6" class="py-1 text-right">
                     <Link href="/forgot-password" class="text-link">Forget passord?
@@ -47,31 +47,27 @@
                 <v-btn :loading="form.processing" type="submit">Login</v-btn>
             </div>
         </v-form>
+
     </section>
 </template>
 
 <script>
-import Auth from "../../Shared/Auth.vue";
+import Auth from "../../Shared/Layout/Auth";
 
 export default {
     layout: Auth,
 
     methods: {
         login() {
-            this.$refs.form.validate();
-            this.form.post("/login");
+            this.$refs.form.validate()
+            this.form.post("/login")
         },
 
     },
 
     computed: {
         formErrors() {
-            let keys = Object.keys(this.form.errors)
-            keys.forEach(key => {
-                this.form.errors[key] = [this.form.errors[key]]
-            });
-
-            return this.form.errors
+            return this.helper.methods.formErrors(this.form.errors)
         }
     },
 
@@ -86,9 +82,6 @@ export default {
                 }
             }),
             passwordType: false,
-
-
-
         };
     },
 };

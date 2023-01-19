@@ -11,7 +11,7 @@ class Helper
     {
         if ($data["image"] ) {
             // delete old image
-            if ($data["record"]->id && $data["record"]->image && file_exists(public_path() . $data["record"]->image)) {
+            if ($data["record"]->id && $data["record"]->image && file_exists(public_path() . $data["record"]->image  )) {
                 unlink(substr($data["record"]->image, 1));
             }
             // delete old image
@@ -37,15 +37,7 @@ class Helper
     {
         return $permissions = [
 
-            'employee-write', 'employee-delete', 'employee-show',
-
-            'user-write', 'user-delete', 'user-show',
-
-            'deduction-write', 'deduction-delete', 'deduction-show',
-
-            'expense-write', 'expense-delete', 'expense-show',
-
-            'report-show',
+        
 
         ];
     }

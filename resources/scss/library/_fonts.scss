@@ -1,10 +1,10 @@
-
-input { 
-color  : $black-color !important;
-font-size : 14px !important;
+input {
+    color: $black-color !important;
+    font-size: 14px !important;
 }
 .input-header {
     margin-left: 5px;
+    font-size: 14px !important;
 }
 
 .textfield {
@@ -12,6 +12,22 @@ font-size : 14px !important;
     height: 55px;
 }
 
+.v-textarea {
+    height: unset;
+}
+
+// heading
+
+.header-link {
+    @extend .text-link;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+
+    &:hover {
+        color: $main-color !important ;
+    }
+}
 
 .icon {
     cursor: pointer;
@@ -19,4 +35,16 @@ font-size : 14px !important;
 
 .icon::after {
     background-color: white !important;
+}
+
+.important-field-icon {
+    font-size: 7px !important;
+    color: $light-red-color !important;
+}
+
+
+
+//  small phont like image description 
+.label-text { 
+    font-size: 12px;
 }

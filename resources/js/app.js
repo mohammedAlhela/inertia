@@ -10,19 +10,25 @@ import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
 import { Link  , Head } from "@inertiajs/inertia-vue";
-import App from "../js/Shared/App.vue";
+import { Inertia } from "@inertiajs/inertia";
 import { InertiaProgress } from '@inertiajs/progress'
 import helper from "../mixins/helper"
-import DeleteConfirm from "./Shared/components/DeleteConfirm";
+import DeleteConfirm from "./Shared/Components/Reusable/DeleteConfirm";
+import HeaderPanels from "./Shared/Components/Reusable/HeaderPanels";
+
 InertiaProgress.init({ color: "#7E57C2" });
 
 Vue.prototype.helper = helper
-Vue.helper = helper
+Vue.prototype.Inertia = Inertia
+
+
+
 
 Vue.component("Link", Link);
 Vue.component("Head", Head);
-Vue.component("App", App);
 Vue.component("DeleteConfirm", DeleteConfirm);
+Vue.component("HeaderPanels", HeaderPanels);
+
 
 Vue.use(InertiaPlugin);
 
@@ -36,9 +42,7 @@ new Vue({
           themes: {
             light: {
               primary: '#7E57C2',
-            //   secondary: '#b0bec5',
-            //   accent: '#8c9eff',
-            //   error: '#b71c1c',
+  
             },
           },
         },
@@ -52,7 +56,5 @@ new Vue({
                     return page;
                 },
             },
-      
-
         }),
 }).$mount(app);
