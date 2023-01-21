@@ -1,25 +1,18 @@
 <template>
     <section>
         <div class="success-message" id="success_message" />
+        <div class="error-message" id="error_message" />
         <v-app>
             <v-main>
                 <section class="application-container">
-               
-                   <Heading />
 
-                <Confirmation/>
+                    <Heading />
 
-             
+                    <Confirmation />
+
                     <slot />
-             
-                    
-                  
-              
-                       
-                  
 
                     <Footing />
-                 
 
                 </section>
             </v-main>
@@ -33,6 +26,6 @@ import Confirmation from "../Components/Include/Confirmation";
 import Footing from "../Components/Include/Footing";
 
 export default {
-    components: { Heading , Footing ,Confirmation },
+    components: { Heading, Footing, Confirmation },
 };
 </script>

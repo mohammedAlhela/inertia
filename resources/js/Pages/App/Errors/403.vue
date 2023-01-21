@@ -24,14 +24,8 @@
 </template>
 
 <script>
-import App from "../../Shared/Layout/App";
-
 
 export default {
-    layout: App,
-
-
-
 
     data() {
         return {

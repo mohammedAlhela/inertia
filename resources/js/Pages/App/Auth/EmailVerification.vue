@@ -19,16 +19,15 @@
 </template>
 
 <script>
-import App from "../../Shared/Layout/App";
+
 
 export default {
-    layout: App,
 
     methods: {
         sendVerificationLink() {
             Inertia.post("/email/verification-notification", {}, {
                 onStart: () => { this.loading = true },
-                onSuccess: () => { this.helper.methods.showSuccessMessage('A fresh verification link has been sent to your email address.'); this.loading = false },
+                onSuccess: () => { this.helper.methods.fireMessage('A fresh verification link has been sent to your email address.' ,  "success"); this.loading = false },
                 onError: () => { this.loading = false },
             });
         },

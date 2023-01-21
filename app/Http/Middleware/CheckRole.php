@@ -28,7 +28,10 @@ class CheckRole
                     return $next($request);
 
                 }
-                return inertia('Auth/Blocked');
+                return inertia('Auth/Blocked' , [
+                    'message' => 'You dont have permissions to do this action' , 
+                    'type' => 'unauthorized'
+                ]);
             }
         }
 

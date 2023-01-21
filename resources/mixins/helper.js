@@ -1,15 +1,12 @@
 export default {
     methods: {
-        showSuccessMessage(message) {
-            document.getElementById("success_message").innerHTML = message;
+        fireMessage(content, type) {
+            let message = document.getElementById(type == "success" ? "success_message" : "error_message");
+            message.innerHTML = content;
 
-            document
-                .getElementById("success_message")
-                .classList.toggle("show_success_message");
+            message.classList.toggle("show_message");
             setTimeout(() => {
-                document
-                    .getElementById("success_message")
-                    .classList.toggle("show_success_message");
+                message.classList.toggle("show_message");
             }, 3000);
         },
 
@@ -74,15 +71,15 @@ export default {
         },
 
         formErrors(errors) {
-            let keys = Object.keys(errors)
-            keys.forEach(key => {
-                errors[key] = [errors[key]]
+            let keys = Object.keys(errors);
+            keys.forEach((key) => {
+                errors[key] = [errors[key]];
             });
 
-            return errors
+            return errors;
         },
 
-        getImageParagraph(errors , name) {
+        getImageParagraph(errors, name) {
             if (errors.hasOwnProperty("image")) {
                 return `<span class = "validation-error">  ${errors.image[0]}  </span> `;
             } else if (name) {
@@ -92,16 +89,15 @@ export default {
             }
         },
 
-        handleServerData (formData , serverData) { 
-            let formKeys = Object.keys(formData)
-            let servermKeys = Object.keys(serverData)
-    
+        handleServerData(formData, serverData) {
+            let formKeys = Object.keys(formData);
+            let servermKeys = Object.keys(serverData);
+
             formKeys.forEach((formKey) => {
                 if (servermKeys.indexOf(formKey) !== -1) {
-                    formData[formKey] = serverData[formKey]
+                    formData[formKey] = serverData[formKey];
                 }
-            })
-        }
-
+            });
+        },
     },
 };

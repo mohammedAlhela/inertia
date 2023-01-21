@@ -2,18 +2,20 @@
     <section class="authentication-card">
 
         <Head>
-            <title>Sahara class - Password reset</title>
+            <title>Sahara class - Set user password</title>
         </Head>
-        <h2>Password reset</h2>
-        <v-form @submit.prevent="updatePassword" >
+        <h2>Password set</h2>
+        <v-form @submit.prevent="setPassword" >
             <v-row class="inputs-holder">
                 <v-col cols="12" class="py-1">
+
+                    {{ formErrors }}
                     <span class="input-header">
                         Email :
                     </span>
 
-                    <v-text-field required :rules="formErrors.email" solo dense v-model="
-                        form.email
+                    <v-text-field disabled required :rules="formErrors.email" solo dense v-model="
+                        email
                     " class="textfield" />
                 </v-col>
 
@@ -29,9 +31,6 @@
                             form.password
                         " class="textfield" />
                 </v-col>
-
-
-
 
                 <v-col cols="12" class="py-1">
                     <span class="input-header">
@@ -50,7 +49,7 @@
                 <Link href="/login" class="link mt-2">Back to login</Link>
             </v-row>
             <div class="buttons">
-                <v-btn :loading="form.processing" type="submit">Reset password </v-btn>
+                <v-btn :loading="form.processing" type="submit">Set password </v-btn>
             </div>
         </v-form>
     </section>
@@ -60,9 +59,10 @@
 
 export default {
     methods: {
-        updatePassword() {
+        setPassword() {
             this.form.token = this.token
-            this.form.post("/reset-password");
+            this.form.email = this.email
+            this.form.post("/user/password");
         },
 
     },
@@ -73,7 +73,7 @@ export default {
         }
     },
 
-    props: ['token'],
+    props: ['token' , 'email'],
     data() {
         return {
             form: this.$inertia.form({

@@ -15,7 +15,15 @@
 }
 
 
-.show_success_message { 
+.error-message { 
+   @extend .success-message;
+   background: $light-red-color;
+
+}
+
+
+
+.show_message { 
     right: 0px;
     visibility: visible;
   

@@ -21,7 +21,7 @@ class EmailVerificationController extends Controller
 
     public function create()
     {
-        return Inertia::render('Auth/EmailVerification');
+        return Inertia::render('App/Auth/EmailVerification');
     }
 
     public function send(Request $request)

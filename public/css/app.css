@@ -10924,9 +10924,15 @@ form .buttons {
   background: #f8f8fb;
   padding: 20px 30px;
 }
-form .buttons button:nth-of-type(1) {
+form div.buttons > button:first-child {
   background-color: #7E57C2 !important;
   color: white !important;
+}
+
+.print-pdf {
+  background-color: #fd6d6d !important;
+  color: white !important;
+  margin-left: 10px;
 }
 
 .w-300 {
@@ -10984,7 +10990,7 @@ form .buttons button:nth-of-type(1) {
   opacity: 0;
 }
 
-.success-message {
+.success-message, .error-message {
   display: inline-block;
   position: fixed;
   top: 56px;
@@ -11000,7 +11006,11 @@ form .buttons button:nth-of-type(1) {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.show_success_message {
+.error-message {
+  background: #fd6d6d;
+}
+
+.show_message {
   right: 0px;
   visibility: visible;
 }

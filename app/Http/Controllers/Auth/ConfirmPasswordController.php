@@ -21,7 +21,7 @@ class ConfirmPasswordController extends Controller
 
     public function showConfirmForm()
     {
-        return Inertia::render("Auth/PasswordConfirm");
+        return Inertia::render("App/Auth/PasswordConfirm");
     }
 
     public function confirmPassword(Request $request)

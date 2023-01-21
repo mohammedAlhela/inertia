@@ -6,7 +6,7 @@
             <title> Sahara class - Login page</title>
         </Head>
         <h2>Sign in</h2>
-        <v-form @submit.prevent="login" ref = "form" >
+        <v-form @submit.prevent="login" ref="form">
             <v-row class="inputs-holder">
                 <v-col cols="12" class="py-1">
                     <span class="input-header">
@@ -24,7 +24,7 @@
                         Password :
                     </span>
 
-                    <v-text-field  :type="passwordType ? 'text' : 'password'"
+                    <v-text-field :type="passwordType ? 'text' : 'password'"
                         :append-icon="passwordType ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="passwordType = !passwordType" required :rules="formErrors.password" solo dense
                         v-model="
@@ -52,10 +52,8 @@
 </template>
 
 <script>
-import Auth from "../../Shared/Layout/Auth";
 
 export default {
-    layout: Auth,
 
     methods: {
         login() {

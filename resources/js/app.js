@@ -15,7 +15,8 @@ import { InertiaProgress } from '@inertiajs/progress'
 import helper from "../mixins/helper"
 import DeleteConfirm from "./Shared/Components/Reusable/DeleteConfirm";
 import HeaderPanels from "./Shared/Components/Reusable/HeaderPanels";
-
+import AppLayout from "./Shared/Layout/App.vue";
+import AuthLayout from "./Shared/Layout/Auth.vue";
 InertiaProgress.init({ color: "#7E57C2" });
 
 Vue.prototype.helper = helper
@@ -53,8 +54,11 @@ new Vue({
                 initialPage: JSON.parse(app.dataset.page),
                 resolveComponent: (name) => {
                     let page = require(`./Pages/${name}`).default;
+                    page.layout = name.startsWith('App/') ? AppLayout : AuthLayout
+                    page.title = "dfldfldflkdlkflkdfkl"
                     return page;
                 },
             },
+
         }),
 }).$mount(app);

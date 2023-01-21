@@ -20,7 +20,11 @@ class ActiveUser
 
         if (Auth::check() && !Auth::user()->status) {
 
-          return inertia('Auth/Blocked');
+            return inertia('Auth/Blocked' , [
+                'message' => 'You are blocked by the admin please contact him' , 
+                'type' => 'blocked'
+            ]);
+
 
         } else {
             return $next($request);

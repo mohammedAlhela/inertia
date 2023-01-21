@@ -12,11 +12,6 @@
 
             </div>
             <div class="main-content">
-
-
-
-
-
                 <v-form @submit.prevent="update" v-if="accountPanel" ref="accountForm">
                     <v-row class="inputs-holder">
 
@@ -179,9 +174,7 @@
 
 <script>
 
-import App from "../../Shared/Layout/App";
 export default {
-    layout: App,
     props: {
         user: Object,
     },
@@ -220,8 +213,8 @@ export default {
             this.form.post("/account", {
                 forceFormData: true,
                 onSuccess: () => {
-                    this.helper.methods.showSuccessMessage(
-                        "Account updated"
+                    this.helper.methods.fireMessage(
+                        "Account updated" , "success"
                     );
                     this.Inertia.get("/account");
                 },
@@ -232,8 +225,8 @@ export default {
             this.$refs.passwordForm.validate()
             this.password.post("/account/password", {
                 onSuccess: () => {
-                    this.helper.methods.showSuccessMessage(
-                        "Password updated"
+                    this.helper.methods.fireMessage(
+                        "Password updated" , "success"
                     );
                     Inertia.get("/account");
                 },
@@ -271,6 +264,7 @@ export default {
     data() {
         return {
             headerData: {
+                pageTitle : "Sahara School -- Manage Account",
                 title: "Manage Account",
                 add: {
                     src: "",

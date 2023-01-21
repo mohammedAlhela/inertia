@@ -129,10 +129,6 @@
               " :items = "currencies" class="textfield" />
             </v-col>
 
-
-
-
-
             <v-col cols="4" class="py-1">
               <span class="input-header">
                 Address
@@ -145,6 +141,7 @@
           </v-row>
           <div class="buttons">
             <v-btn :loading="form.processing" type="submit">Update</v-btn>
+           <a class="text-link"  href = "/company/export/pdf">  <v-btn class = "print-pdf" >Print PDF</v-btn></a> 
           </div>
         </v-form>
 
@@ -155,10 +152,8 @@
 </template>
 
 <script>
-import App from "../../Shared/Layout/App";
 
 export default {
-  layout: App,
   props: {
     company: Object,
   },
@@ -197,10 +192,10 @@ export default {
       this.form.post(`/company/${this.form.id}`, {
         forceFormData: true,
         onSuccess: () => {
-          this.helper.methods.showSuccessMessage(
-            "Company Data updated"
+          this.helper.methods.fireMessage(
+            "Company Data updated" , "success"
           );
-          // window.location.reload();
+          window.location.reload();
         },
       });
     },
@@ -226,6 +221,7 @@ export default {
   data() {
     return {
       headerData: {
+        pageTitle : "Sahara School -- Manage Company Data",
         title: "Company Data",
         add: {
           src: "",

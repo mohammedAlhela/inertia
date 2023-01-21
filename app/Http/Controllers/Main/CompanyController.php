@@ -7,6 +7,7 @@ use App\Http\Requests\Main\CompanyRequest;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Image;
+use PDF;
 
 class CompanyController extends Controller
 {
@@ -24,14 +25,13 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return inertia('Main/Company', [
+        return inertia('App/Main/Company', [
             'company' => Company::find(1),
         ]);
     }
 
     public function update(CompanyRequest $request, $id)
     {
-
 
         $image = request()->file("image");
 
@@ -50,6 +50,23 @@ class CompanyController extends Controller
         }
 
         $company->save();
+
+    }
+    public function exportPdf()
+    {
+        $company = Company::find(1);
+        $data = [
+            'name' => $company->name,
+            'email' => $company->email,
+            'address' => $company->address,
+            'image' => $company->image,
+            'mobile' => $company->mobile,
+            'company_register' => $company->company_register,
+
+        ];
+        $pdf = PDF::loadView('company', array('data' => $data));
+
+        return $pdf->download('company.pdf');
 
     }
 

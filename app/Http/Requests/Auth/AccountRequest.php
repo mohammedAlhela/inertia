@@ -32,7 +32,7 @@ class AccountRequest extends FormRequest
             'email' => ['unique:users,email,' . $id, 'required', 'min:3', 'string', 'email', 'max:255'],
             'mobile' => [ 'required', 'string', 'min:10' , 'max:11' ],
             'image' => ['nullable', 'image'],
-            'address' => ['nullable', 'max:255'],
+            'address' => ['nullable', 'max:500'],
            
 
         ];

@@ -1,27 +1,34 @@
 <template>
+
     <section class="authentication-card">
+
         <Head>
-            <title>Sahara class - Not active user</title>
+            <title> Sahara class - Blocked portal</title>
         </Head>
-              You blocked from the Admi 
+
+        <div v-if="type == 'blocked'">
+            You are blocked by the admin
+        </div>
+
+        <div>
+            You have no permissions
+        </div>
+
+
     </section>
 </template>
 
 <script>
-import App from "../../Shared/Layout/App";
 
 export default {
-    layout: App,
 
-    computed: {
-   
+    mounted() {
+        this.message ? this.helper.methods.fireMessage(this.message, "error") : 1 == 1;
     },
 
-
-    data() {
-return { 
-    
-}
+    props: {
+        message: String,
+        type: String
     },
 };
 </script>

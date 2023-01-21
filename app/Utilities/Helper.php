@@ -2,6 +2,7 @@
 namespace App\Utilities;
 
 use Illuminate\Support\Facades\Gate;
+use App\Providers\RouteServiceProvider;
 use Image;
 
 class Helper
@@ -57,5 +58,17 @@ class Helper
         return in_array("{$model}:{$action}", auth()->user()->permissionsNames());
 
     }
+
+
+    public static function login($request)
+    {
+
+        Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+        $request->session()->regenerate();
+
+        return redirect()->intended(RouteServiceProvider::HOME);
+
+    }
+
 
 }

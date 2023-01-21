@@ -21,7 +21,7 @@ class AccountController extends Controller
 
     public function index()
     {
-        return inertia('Auth/Account', [
+        return inertia('App/Auth/Account', [
             'user' => auth()->user(),
         ]);
 

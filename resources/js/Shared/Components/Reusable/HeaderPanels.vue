@@ -1,8 +1,8 @@
 <template>
     <section>
 
-        <Head>
-            <title>{{ headerData.title }}</title>
+        <Head >
+            <title>{{ headerData.pageTitle }}</title>
         </Head>
         <div class="panels">
 

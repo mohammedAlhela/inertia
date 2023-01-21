@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,14 +20,6 @@ class PasswordResetController extends Controller
         $this->middleware('guest');
     }
 
-    public function login($request)
-    {
-
-        Auth::attempt(['email' => $request->email, 'password' => $request->password]);
-        $request->session()->regenerate();
-
-        return redirect()->intended(RouteServiceProvider::HOME);
-    }
 
     /**
      * Display the login view.
@@ -102,7 +93,7 @@ class PasswordResetController extends Controller
 
         // redirect()->route('login')->with('successMessage', __($status))
 
-        $this->login($request)
+        Helper::login($request)
 
         : back()->withErrors(['email' => [__($status)]]);
     }

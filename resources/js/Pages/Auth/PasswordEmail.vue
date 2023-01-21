@@ -27,16 +27,14 @@
 </template>
 
 <script>
-import Auth from "../../Shared/Layout/Auth";
 
 export default {
-    layout: Auth,
 
     methods: {
         sendPasswordLink() {
             this.$refs.form.validate()
             this.form.post("/forgot-password", {
-                onSuccess: () => { this.form.reset('email'); this.helper.methods.showSuccessMessage('A fresh reset password link has been sent to your email address.'); },
+                onSuccess: () => { this.form.reset('email'); this.helper.methods.fireMessage('A fresh reset password link has been sent to your email address.' , 'success'); },
             });
         },
     },

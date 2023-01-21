@@ -6,8 +6,7 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\Main\CompanyController;
-
-
+use App\Http\Controllers\Users\AdminController;
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -77,19 +76,43 @@ Route::post('account/password', [AccountController::class, 'updatePassword']);
 // ++++++++++ authentication
 
 // ++++++++++ main
-
-
-
-
 Route::get('company' , [CompanyController::class , 'index'])->name('company.index');
 Route::post('company/{company}' , [CompanyController::class , 'update'])->name('company.update');
+Route::get('company/export/pdf' , [CompanyController::class , 'exportPdf'])->name('company.pdf');
 
 Route::get('', function () {
-    return Inertia::render('Home');
+    return Inertia::render('App/Home');
 })->middleware(['auth'])->name('home');
-
 // ++++++++++ main
 
+
+// ++++++++++ admins
+Route::get('admins' , [AdminController::class , 'index']);
+Route::get('admin/create' , [AdminController::class , 'create']);
+Route::post('admin/store' , [AdminController::class , 'store']);
+Route::get('admin/edit/{admin}' , [AdminController::class , 'edit']);
+Route::post('admin/update/{admin}' , [AdminController::class , 'update']);
+Route::delete('admin/{admin}' , [AdminController::class , 'delete']);
+Route::delete('admins/{admins}' , [AdminController::class , 'deleteSelected']);
+Route::get('admins/export/excel/{admins}' , [AdminController::class , 'exportExcel']);
+Route::get('admins/export/pdf/{admins}' , [AdminController::class , 'exportPdf']);
+Route::get('admin/credentials/{admin}' , [AdminController::class , 'ShowCredentials']);
+Route::post('admin/credentials' , [AdminController::class , 'UpdateCredentials']);
+Route::get('admin/permissions/{admin}' , [AdminController::class , 'ShowPermissions']);
+Route::post('admin/permissions' , [AdminController::class , 'UpdatePermissions']);
+Route::get('admins/block' , [AdminController::class , 'block']);
+Route::get('admins/unblock' , [AdminController::class , 'unblock']);
+Route::get('admins/sendEmailMessage' , [AdminController::class , 'sendEmailMessage']);
+Route::get('admins/sendResetPassword/{admins}' , [AdminController::class , 'sendResetPasswordNotofication']);
+// send notification message
+// Invito to login using email message 
+// Invito to login using email message 
+// ++++++++++ admins
+
+
+
+
+
 Route::any('{query}',
-    function () {return inertia('Errors/404');})
+    function () {return inertia('App/Errors/404');})
     ->where('query', '.*');
