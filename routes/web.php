@@ -7,9 +7,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\Main\CompanyController;
 use App\Http\Controllers\Users\AdminController;
-
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,13 +55,13 @@ Route::post('account/credentials', [AccountController::class, 'updateCredentials
 // ++++++++++ authentication
 
 // ++++++++++ main
-Route::get('company' , [CompanyController::class , 'index'])->name('company.index');
-Route::post('company/{company}' , [CompanyController::class , 'update'])->name('company.update');
-Route::get('company/export/pdf' , [CompanyController::class , 'exportPdf'])->name('company.pdf');
+Route::get('company' , [CompanyController::class , 'index']);
+Route::post('company/{company}' , [CompanyController::class , 'update']);
+Route::get('company/export/pdf' , [CompanyController::class , 'exportPdf']);
 
 Route::get('', function () {
-    return Inertia::render('App/Home');
-})->middleware(['auth'])->name('home');
+    return inertia('App/Home');
+})->middleware(['auth']);
 // ++++++++++ main
 
 
@@ -83,6 +81,7 @@ Route::get('admins/unblock/{admins}' , [AdminController::class , 'unblock']);
 Route::get('admins/export/excel/{admins}' , [AdminController::class , 'exportExcel']);
 Route::get('admins/export/pdf/{admins}' , [AdminController::class , 'exportPdf']);
 Route::post('admins/sendEmailMessage/{admins}' , [AdminController::class , 'emailMessage']);
+Route::post('admins/send' , [AdminController::class , 'send']);
 
 // send notification message
 // Invito to login using email message 

@@ -226,6 +226,8 @@ export default {
                     this.Inertia.get("/account");
                 },
             });
+
+            alert(this.form.id)
         },
 
         updateCredentials() {

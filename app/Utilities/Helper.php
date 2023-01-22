@@ -12,13 +12,13 @@ class Helper
     {
         if ($data["image"] ) {
             // delete old image
-            if ($data["record"]->id && $data["record"]->image && file_exists(public_path() . $data["record"]->image  )) {
-                unlink(substr($data["record"]->image, 1));
+            if ($data["record"]->id && $data["record"]->image && file_exists($data["record"]->image)) {
+                unlink($data["record"]->image);
             }
             // delete old image
 
             $imageName = time() . '.webp';
-            Image::make($data["image"])->fit($data["width"], $data["height"])->save(public_path($data["dirPath"]) . $imageName);
+            Image::make($data["image"])->fit($data["width"], $data["height"])->save($data["dirPath"] . $imageName);
             $data["record"]->image = $data["dirPath"] . $imageName;
         }
 

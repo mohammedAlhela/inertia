@@ -32,11 +32,13 @@ class AccountController extends Controller
     public function update(AccountRequest $request)
     {
 
-        auth()->user()->role == 'admin' || auth()->user()->role == 'super-admin' ? $role = 'admins' : 1 == 1;
+        $userRole = auth()->user()->role;
+
+        $userRole == 'admin' || $userRole == 'super-admin' ? $path = 'admins' : 1 == 1;
 
         $image = request()->file("image");
 
-        if ($request->roleKey == 'admin') {
+        if ($path == 'admins') {
             $user = Admin::where('user_id', auth()->user()->id);
         }
 
@@ -52,12 +54,12 @@ class AccountController extends Controller
         //     $user = Parent::where('user_id', auth()->user()->id);
         // }
 
-        $user->update($request->except('image', 'created_at', 'updated_at', 'roleKey'));
+        $user->update($request->except('image', 'created_at', 'updated_at'));
 
         $data = array(
             "record" => $user->first(),
             "image" => $image,
-            "dirPath" => "/images/$role/",
+            "dirPath" => "images/$path/",
             "width" => 250,
             "height" => 250,
 
@@ -69,10 +71,10 @@ class AccountController extends Controller
     public function updateCredentials(AccountCredentialsRequest $request)
     {
 
-        $user = User::find(auth()->user()->id);
+        $user = auth()->user();
 
         $user->username = $request->username;
-        
+
         $user->temp_credentials = 0;
 
         $request->updatePassword ? $user->password = Hash::make($request['password']) : 1 == 1;

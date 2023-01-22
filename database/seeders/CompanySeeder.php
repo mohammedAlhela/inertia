@@ -16,10 +16,10 @@ class CompanySeeder extends Seeder
     {
 
         DB::table('companies')->insert([
-            'name' => 'Sahara school',
-            'email' => 'Sahara@gmail.company',
-            'mobile' => '0504934593',
-            'image' => '/images/main/company.webp',
+            'name' => 'Company name',
+            'email' => 'company email',
+            'phone' => '0504934593',
+            'image' => 'images/main/company.webp',
 
         ]);
 

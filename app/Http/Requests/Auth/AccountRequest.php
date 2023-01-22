@@ -27,7 +27,7 @@ class AccountRequest extends FormRequest
 
         return [
             'name' => [ 'required', 'min:3', 'string', 'max:255'],
-            'email' => ['unique:admins,email,' . auth()->user()->id, 'required', 'min:3', 'string', 'email', 'max:255'],
+            'email' => ['unique:admins,email' . $id , 'required', 'min:3', 'string', 'email', 'max:255'],
             'phone' => [ 'required', 'string', 'min:10' , 'max:11' ],
             'image' => ['nullable', 'image'],
             'address' => ['nullable', 'max:500'],

@@ -242,4 +242,40 @@ class AdminController extends Controller
         return Excel::download(new AdminExport($ids), 'admins.xlsx');
     }
 
+    public function send(Request $request)
+    {
+
+        $data["email"] = "mohamdalhelal7@gmail";
+
+        $data["title"] = "test email with descroption";
+
+        $data["body"] = "This is test mail with pdf attachment";
+
+        $files = request()->file("files");
+
+        $paths = array();
+
+        foreach ($files as $file) {
+
+            $file->move('send', $file->getClientOriginalName());
+
+            array_push($paths, 'send/' . $file->getClientOriginalName());
+        }
+
+        Mail::send('mail', $data, function ($message) use ($data, $paths) {
+            $message->to($data["email"])
+                ->subject($data["title"]);
+
+            foreach ($paths as $path) {
+                $message->attach($path);
+
+            }
+        });
+
+        foreach ($paths as $path) {
+            file_exists($path) ? unlink($path) : 1 == 1;
+        }
+
+    }
+
 }

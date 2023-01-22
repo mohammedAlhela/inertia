@@ -37,7 +37,7 @@
 
 
     <div class="logo">
-        <img src="https://istanbuliat.store/wp-content/uploads/2016/11/logo.png" alt="sdsd" width="60px">
+        <img src="images/main/company.webp" alt="sdsd" width="60px">
 
     </div>
 

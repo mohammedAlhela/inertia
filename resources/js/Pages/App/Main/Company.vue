@@ -192,9 +192,6 @@ export default {
       this.form.post(`/company/${this.form.id}`, {
         forceFormData: true,
         onSuccess: () => {
-          this.helper.methods.fireMessage(
-            "Company Data updated" , "success"
-          );
           window.location.reload();
         },
       });
