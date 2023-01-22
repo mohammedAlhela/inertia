@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Rules\Auth\ValidateEmailRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AccountRequest extends FormRequest
+class ValidateEmailRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +24,11 @@ class AccountRequest extends FormRequest
      */
     public function rules()
     {
-        $id = app('request')->get('id');
 
         return [
-            'name' => [ 'required', 'min:3', 'string', 'max:255'],
-            'email' => ['unique:admins,email,' . auth()->user()->id, 'required', 'min:3', 'string', 'email', 'max:255'],
-            'phone' => [ 'required', 'string', 'min:10' , 'max:11' ],
-            'image' => ['nullable', 'image'],
-            'address' => ['nullable', 'max:500'],
+
+            "email" => ['required', 'email', new ValidateEmailRule()],
+
         ];
     }
 

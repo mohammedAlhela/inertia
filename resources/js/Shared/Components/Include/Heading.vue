@@ -102,7 +102,7 @@
             </v-menu>
 
 
-    
+
 
             <v-menu offset-y open-on-hover>
                 <template v-slot:activator="{ on, attrs }">
@@ -119,44 +119,35 @@
             </v-menu>
 
 
-            <v-menu
-      open-on-hover
-      offset-y
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on">
+            <v-menu open-on-hover offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon v-bind="attrs" v-on="on">
                         <v-icon> mdi-account</v-icon>
                     </v-btn>
-      </template>
+                </template>
 
-      <v-card class = "w-300">
-        <v-list>
-          <v-list-item>
-            <v-list-item-avatar>
-              <img
-                :src="$page.props.auth.image || '/images/users/user.webp'"
-                alt="User"
-              >
-            </v-list-item-avatar>
+                <v-card class="w-300">
+                    <v-list>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title>{{ $page.props.auth.role }}</v-list-item-title>
+                                <v-list-item-subtitle>{{ $page.props.auth.username }}</v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
 
-            <v-list-item-content>
-              <v-list-item-title>{{ $page.props.auth.role }}</v-list-item-title>
-              <v-list-item-subtitle>{{ $page.props.auth.username }}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
+                    <v-divider></v-divider>
 
-        <v-divider></v-divider>
+                    <v-list>
 
-        <v-list>
-     
-            <Link href='/account' class="text-link"> <v-list-item> Personal Setting </v-list-item></Link>
-                    <Link method="post" class="text-link" href='/logout' as = "button"> <v-list-item> Logout </v-list-item></Link>
-        </v-list>
+                        <Link href='/account' class="text-link"> <v-list-item> Personal Setting </v-list-item></Link>
+                        <Link method="post" class="text-link" href='/logout' as="button"> <v-list-item> Logout
+                        </v-list-item></Link>
+                    </v-list>
 
-     
-      </v-card>
-    </v-menu>
+
+                </v-card>
+            </v-menu>
 
 
 
@@ -186,7 +177,7 @@ export default {
 
 
             showModules: false,
-            settings : true , 
+            settings: true,
             // ++++++++++++++++++++ academics ++++++++++++++++++++++++
             modules: {
                 // ++++++++++++++++++++ academics ++++++++++++++++++++++++

@@ -4,7 +4,7 @@ namespace App\Utilities;
 use Illuminate\Support\Facades\Gate;
 use App\Providers\RouteServiceProvider;
 use Image;
-
+use Illuminate\Support\Facades\Auth;
 class Helper
 {
 
@@ -36,7 +36,7 @@ class Helper
 
     public static function getPermissions()
     {
-        return $permissions = [
+        return $permissions = ['admin-show' , 'admin-delete' , 'admin-update' , 'admin-create'
 
         
 
@@ -63,7 +63,7 @@ class Helper
     public static function login($request)
     {
 
-        Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+        Auth::attempt(['username' => $request->username, 'password' => $request->password]);
         $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);

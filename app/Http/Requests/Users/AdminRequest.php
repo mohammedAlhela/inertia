@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AccountRequest extends FormRequest
+class AdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,12 @@ class AccountRequest extends FormRequest
      */
     public function rules()
     {
-        $id = app('request')->get('id');
+
+        $id = (request()->get('id'));
 
         return [
             'name' => [ 'required', 'min:3', 'string', 'max:255'],
-            'email' => ['unique:admins,email,' . auth()->user()->id, 'required', 'min:3', 'string', 'email', 'max:255'],
+            'email' => ['unique:admins,email,' . $id, 'required', 'min:3', 'string', 'email', 'max:255'],
             'phone' => [ 'required', 'string', 'min:10' , 'max:11' ],
             'image' => ['nullable', 'image'],
             'address' => ['nullable', 'max:500'],

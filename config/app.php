@@ -233,10 +233,7 @@ return [
         'Image' => 'Intervention\Image\Facades\Image',
         'Helper' => App\Utilities\Helper::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class ,
-        'PdfReport' => Jimmyjs\ReportGenerator\Facades\PdfReportFacade::class,
-        'ExcelReport' => Jimmyjs\ReportGenerator\Facades\ExcelReportFacade::class,
-         'CSVReport' => Jimmyjs\ReportGenerator\Facades\CSVReportFacade::class,
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class 
 
     ],
 

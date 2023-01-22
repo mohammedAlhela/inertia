@@ -2,11 +2,10 @@
 
 namespace App\Rules\Auth;
 
-use Carbon\Carbon;
 use DB;
 use Illuminate\Contracts\Validation\Rule;
 
-class ValidateTokenRule implements Rule
+class ValidateEmailRule implements Rule
 {
     /**
      * Create a new rule instance.
@@ -27,11 +26,8 @@ class ValidateTokenRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        $token = app('request')->get('token');
 
-        $record = DB::table('password_resets')->where('email', $value)->where('token', $token)->first();
-
-        return $record && Carbon::now()->subMinutes(30) < $record->created_at;
+        return DB::table('admins')->where('email', $value)->first();
 
     }
 
@@ -42,6 +38,6 @@ class ValidateTokenRule implements Rule
      */
     public function message()
     {
-        return 'Reset token not exist or not valid';
+        return 'We cant find user with this email';
     }
 }

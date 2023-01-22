@@ -30,33 +30,14 @@ Route::get('forgot-password', [PasswordResetController::class, 'create'])
 Route::post('forgot-password', [PasswordResetController::class, 'store'])
     ->name('password.email');
 
-Route::get('reset-password/{token}', [PasswordResetController::class, 'update'])
+Route::get('password-reset/{token}/{email}', [PasswordResetController::class, 'update'])
     ->name('password.reset');
 
-Route::post('reset-password', [PasswordResetController::class, 'reset'])
-    ->name('password-update');
+Route::post('password-reset', [PasswordResetController::class, 'reset'])
+    ->name('password.update');
 
 // ++++++++++ password reset
 
-// ++++++++++ email verification
-
-Route::get('email/verify', [EmailVerificationController::class, 'create'])->name('verification.notice');
-
-Route::post('email/verification-notification', [EmailVerificationController::class, 'send'])->name('verification.send');
-
-Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
-
-// ++++++++++ email verification
-
-// ++++++++++ password confirmation
-Route::get('password/confirm', [ConfirmPasswordController::class, 'showConfirmForm'])
-    ->name('password.confirm');
-
-Route::post('password/confirm', [ConfirmPasswordController::class, 'confirmPassword'])
-    ->name('password.confirm.send')
-    ->middleware('auth');
-
-// ++++++++++ password confirmation
 
 // ++++++++++ authentication
 Route::get('login', [AuthenticatedSessionController::class, 'create'])
@@ -72,7 +53,7 @@ Route::get('account', [AccountController::class, 'index']);
 
 Route::post('account', [AccountController::class, 'update']);
 
-Route::post('account/password', [AccountController::class, 'updatePassword']);
+Route::post('account/credentials', [AccountController::class, 'updateCredentials']);
 // ++++++++++ authentication
 
 // ++++++++++ main
@@ -92,25 +73,21 @@ Route::get('admin/create' , [AdminController::class , 'create']);
 Route::post('admin/store' , [AdminController::class , 'store']);
 Route::get('admin/edit/{admin}' , [AdminController::class , 'edit']);
 Route::post('admin/update/{admin}' , [AdminController::class , 'update']);
-Route::delete('admin/{admin}' , [AdminController::class , 'delete']);
-Route::delete('admins/{admins}' , [AdminController::class , 'deleteSelected']);
+Route::delete('admins/{admins}' , [AdminController::class , 'delete']);
+Route::get('admin/permissions/{admin}' , [AdminController::class , 'ShowPermissions']);
+Route::post('admin/permissions/{admin}' , [AdminController::class , 'UpdatePermissions']);
+Route::get('admin/credentials/{admin}' , [AdminController::class , 'ShowCredentials']);
+Route::post('admin/credentials/{admin}' , [AdminController::class , 'UpdateCredentials']);
+Route::get('admins/block/{admins}' , [AdminController::class , 'block']);
+Route::get('admins/unblock/{admins}' , [AdminController::class , 'unblock']);
 Route::get('admins/export/excel/{admins}' , [AdminController::class , 'exportExcel']);
 Route::get('admins/export/pdf/{admins}' , [AdminController::class , 'exportPdf']);
-Route::get('admin/credentials/{admin}' , [AdminController::class , 'ShowCredentials']);
-Route::post('admin/credentials' , [AdminController::class , 'UpdateCredentials']);
-Route::get('admin/permissions/{admin}' , [AdminController::class , 'ShowPermissions']);
-Route::post('admin/permissions' , [AdminController::class , 'UpdatePermissions']);
-Route::get('admins/block' , [AdminController::class , 'block']);
-Route::get('admins/unblock' , [AdminController::class , 'unblock']);
-Route::get('admins/sendEmailMessage' , [AdminController::class , 'sendEmailMessage']);
-Route::get('admins/sendResetPassword/{admins}' , [AdminController::class , 'sendResetPasswordNotofication']);
+Route::post('admins/sendEmailMessage/{admins}' , [AdminController::class , 'emailMessage']);
+
 // send notification message
 // Invito to login using email message 
 // Invito to login using email message 
 // ++++++++++ admins
-
-
-
 
 
 Route::any('{query}',

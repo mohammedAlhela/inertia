@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Rules\Auth\CurrentPasswordRule;
+use App\Rules\Auth\ValidateTokenRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AccountPasswordRequest extends FormRequest
+class PasswordResetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,11 +27,11 @@ class AccountPasswordRequest extends FormRequest
 
         return [
 
-            "old_password" => ["required", new CurrentPasswordRule()],
+            "email" => [new ValidateTokenRule()],
 
             "password" => ["required", "confirmed", "min:8",
 
-            ],
+            ]
 
         ];
     }

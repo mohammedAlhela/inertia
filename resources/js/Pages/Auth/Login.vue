@@ -10,11 +10,11 @@
             <v-row class="inputs-holder">
                 <v-col cols="12" class="py-1">
                     <span class="input-header">
-                        Email :
+                        username :
                     </span>
 
-                    <v-text-field required :rules="formErrors.email" solo dense v-model="
-                        form.email
+                    <v-text-field required :rules="formErrors.username" solo dense v-model="
+                        form.username
                     " class="textfield" />
                 </v-col>
 
@@ -72,7 +72,7 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                email: "",
+                username: "",
                 password: "",
                 remember: false,
                 errors: {

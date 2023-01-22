@@ -10846,7 +10846,7 @@ textarea.form-control-lg {
   clear: both;
 }
 
-input {
+input, textarea {
   color: #545454 !important;
   font-size: 14px !important;
 }

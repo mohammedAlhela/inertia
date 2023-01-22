@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Users;
 
-use App\Rules\Auth\ValidateTokenRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserPasswordRequest extends FormRequest
+class EmailMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +25,8 @@ class UserPasswordRequest extends FormRequest
     {
 
         return [
-
-            "email" => [new ValidateTokenRule()],
-
-            // "password" => ["required", "confirmed", "min:8",
-
-            // ]
-
+            'subject' => [ 'required', 'string', 'max:255'],
+            'message' => [ 'required', 'min:10', 'string', 'max:500'],
         ];
     }
 

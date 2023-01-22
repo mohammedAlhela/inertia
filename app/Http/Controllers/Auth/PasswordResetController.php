@@ -1,25 +1,28 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use App\Http\Requests\Auth\PasswordResetRequest;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\PasswordReset;
+use App\Http\Requests\Auth\ValidateEmailRequest;
+use App\Mail\Auth\PasswordResetMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-use Inertia\Inertia;
+use App\Models\Admin;
+use App\Models\User;
+use Mail;
+use Helper;
+use DB;
 
 class PasswordResetController extends Controller
 {
-
 
     public function __construct()
     {
         $this->middleware('guest');
     }
-
 
     /**
      * Display the login view.
@@ -28,7 +31,7 @@ class PasswordResetController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Auth/PasswordEmail');
+        return inertia('Auth/PasswordEmail');
     }
 
     /**
@@ -36,66 +39,55 @@ class PasswordResetController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(ValidateEmailRequest $request)
     {
-        $request->validate(['email' => 'required|email']);
 
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+        $user = Admin::with('user')->where('email', $request->email)->first()->user();
 
-        return $status === Password::RESET_LINK_SENT
-        ?
+        $user->token = Str::random(60);
 
-        Inertia::render('Auth/PasswordEmail', ['successMessage' => __($status)])
-        : back()->withErrors(['email' => __($status)]);
+        $user->email = $request->email;
 
-    }
+        Mail::to($user)->send(new PasswordResetMail($user));
 
-    /**
-     * Destroy an authenticated session.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Request $request, $token)
-    {
-        return Inertia::render('Auth/PasswordReset', ['token' => $token]);
-    }
-
-    /**
-     * Destroy an authenticated session.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function reset(Request $request)
-    {
-        $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
+        DB::table('password_resets')->insert([
+            'email' => $user->email,
+            'token' => $user->token,
+            'created_at' => now()
         ]);
 
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user, $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password),
-                ])->setRememberToken(Str::random(60));
+    }
 
-                $user->save();
+    /**
+     * Destroy an authenticated session.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, $token , $email)
+    {
+        return inertia('Auth/PasswordReset', ['token' => $token , 'email' => $email]);
+    }
 
-                event(new PasswordReset($user));
-            }
-        );
+    /**
+     * Destroy an authenticated session.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function reset(PasswordResetRequest $request)
+    {
+        DB::table('password_resets')->where('email', $request->email)->where('token', $request->token)->delete();
 
-        return $status === Password::PASSWORD_RESET
-        ?
+        $user_id = Admin::with('user')->where('email', $request->email)->first()->user->id;
 
-        // redirect()->route('login')->with('successMessage', __($status))
+        $user = User::find($user_id);
 
-        Helper::login($request)
+        $user->password = Hash::make($request->password);
 
-        : back()->withErrors(['email' => [__($status)]]);
+        $user->save();
+
+        $request->username  = $user->username;
+
+        Helper::login($request);
     }
 
 }

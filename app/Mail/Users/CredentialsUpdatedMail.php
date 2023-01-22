@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Mail\Auth;
+namespace App\Mail\Users;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserPasswordMail extends Mailable
+class CredentialsUpdatedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($data)
     {
-        $this->user = $user;
+        $this->data = $data;
     }
 
     /**
@@ -30,9 +30,9 @@ class UserPasswordMail extends Mailable
      */
     public function build()
     {
-        return $this->view('userpassword' , [
-            'email' => $this->user->email,
-            'token' => $this->user->token,
+        return $this->view('credentialsUpdated' , [
+            'username' => $this->data->username,
+            'password' => $this->data->password_label,
 
         ]);
     }

@@ -5,6 +5,7 @@
             <title>Sahara class - Password reset</title>
         </Head>
         <h2>Password reset</h2>
+        {{ form.errors }}
         <v-form @submit.prevent="updatePassword" >
             <v-row class="inputs-holder">
                 <v-col cols="12" class="py-1">
@@ -12,8 +13,8 @@
                         Email :
                     </span>
 
-                    <v-text-field required :rules="formErrors.email" solo dense v-model="
-                        form.email
+                    <v-text-field disabled required :rules="formErrors.email" solo dense v-model="
+                        email
                     " class="textfield" />
                 </v-col>
 
@@ -62,7 +63,8 @@ export default {
     methods: {
         updatePassword() {
             this.form.token = this.token
-            this.form.post("/reset-password");
+            this.form.email = this.email
+            this.form.post("/password-reset");
         },
 
     },
@@ -73,7 +75,7 @@ export default {
         }
     },
 
-    props: ['token'],
+    props: ['token' , 'email'],
     data() {
         return {
             form: this.$inertia.form({

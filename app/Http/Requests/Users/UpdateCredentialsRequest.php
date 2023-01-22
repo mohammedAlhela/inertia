@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Users\Admins;
+namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class UpdateCredentialsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,15 +23,21 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        $id = app('request')->get('id');
+
+        $id = (request()->get('user_id'));
+
+        $updatePassword = (request()->get('updatePassword'));
+
+        $passwordRule = $updatePassword ? 'required' : 'nullable';
 
         return [
-            'name' => [ 'required', 'min:3', 'string', 'max:255'],
+
             'username' => ['unique:users,username,' . $id, 'required', 'min:3', 'string', 'max:255'],
-            'email' => ['unique:users,email,' . $id, 'required', 'min:3', 'string', 'email', 'max:255'],
-            'mobile' => [ 'required', 'string', 'min:10' , 'max:11' ],
-            'image' => ['nullable', 'image'],
-            'address' => ['nullable', 'max:500']
+
+            "password" => [$passwordRule, "min:8", 'confirmed',
+
+            ],
+
         ];
     }
 
