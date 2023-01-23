@@ -1,0 +1,81 @@
+.roles-crud-pdf {
+    .container {
+        padding-top: 15px;
+
+        .row { 
+            align-items: center;
+        }
+
+
+
+        .header {
+           
+            .count {
+                color: #3e3d3d ;
+                font-size: 24px;
+                font-weight: 400;
+            }
+
+            .date { 
+                color: #8f8b8b !important;
+                font-size: 18px;
+            }
+        }
+
+        table {
+            margin-top: 15px;
+            border-top: 1px solid #e5e4e4;
+        }
+        .col-xs-9,
+        .col-xs-8,
+        .col-xs-6,
+        .col-xs-4,
+        .col-xs-3,
+        .col-md-6 {
+            border: 2px solid #747474;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            text-align: center;
+            background-color: #192a53;
+            color: #f2f2f2;
+        }
+    }
+}
+
+
+.mail-message-template { 
+    .container { 
+        padding: 30px 0px;
+.content { 
+    border: 1px solid #e1e1e1;
+    padding-top: 20px;
+    padding: 20px;
+
+    .brand { 
+        text-align: center;
+    color: gray;
+    img { 
+        width: 60px;
+    }
+    }
+
+    .message { 
+        color: #646464;
+
+        div:nth-of-type(1){ 
+            margin: 30px 0px 15px;
+        }
+
+        div:nth-of-type(2){ 
+            margin: 0px 0px 40px 0px;
+        }
+
+        div:nth-of-type(3){ 
+        span { 
+            display: block;
+        }
+        }
+    }
+}
+    }
+}

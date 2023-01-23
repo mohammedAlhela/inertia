@@ -12,7 +12,6 @@
         <v-form @submit.prevent="update"  ref="form">
           <v-row class="inputs-holder">
 
-
             <div class="upload-image-container">
               <div class="description">
                 Recomended dimensions are 100 x 100
@@ -71,8 +70,8 @@
               </span>
               <v-icon class="important-field-icon"> mdi-star </v-icon>
 
-              <v-text-field required :rules="formErrors.mobile" solo dense v-model="
-                form.mobile
+              <v-text-field required :rules="formErrors.phone" solo dense v-model="
+                form.phone
               " class="textfield" />
             </v-col>
 
@@ -243,7 +242,7 @@ export default {
         email: "",
         id: "",
         image: "",
-        mobile: "",
+        phone: "",
         name: "",
         timezone: "",
         updated_at: ""

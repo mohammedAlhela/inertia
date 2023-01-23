@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Http\Requests\Auth;
-
-use App\Rules\Auth\CurrentPasswordRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AccountCredentialsRequest extends FormRequest
+class CredentialsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,19 +23,22 @@ class AccountCredentialsRequest extends FormRequest
     public function rules()
     {
 
-        $updatePassword = (request()->get('updatePassword'));
+        $updatePassword = request()->get('updatePassword');
 
         $passwordRule = $updatePassword ? 'required' : 'nullable';
 
         return [
 
-            'username' => ['unique:users,username,' . auth()->user()->id, 'required', 'min:3', 'string', 'max:255'],
+            'email' => ['unique:users,email,' . auth()->user()->id, 'required', 'email', 'string', 'max:255'],
 
-            "old_password" => [$passwordRule, new CurrentPasswordRule()],
+            "old_password" => [$passwordRule, 'current_password'],
 
             "password" => [$passwordRule, "min:8", 'confirmed'
 
             ],
+            "password_confirmation" => ['required']
+
+        
 
         ];
     }

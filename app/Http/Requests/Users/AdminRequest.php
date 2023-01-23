@@ -24,13 +24,17 @@ class AdminRequest extends FormRequest
     public function rules()
     {
 
-        $id = (request()->get('id'));
+        $id = request()->get('id');
+
+        $emailRule = $id ? 'nullable' : 'required';
 
         return [
-            'name' => [ 'required', 'min:3', 'string', 'max:255'],
-            'email' => ['unique:admins,email,' . $id, 'required', 'min:3', 'string', 'email', 'max:255'],
-            'phone' => [ 'required', 'string', 'min:10' , 'max:11' ],
-            'image' => ['nullable', 'image'],
+            'email' => [$emailRule, 'unique:users,email', 'email', 'string', 'max:255'],
+            'first_name' => ['required', 'min:3', 'string', 'max:255'],
+            'last_name' => ['required', 'min:3', 'string', 'max:255'],
+            'username' => ['required', 'min:3', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'min:10', 'max:11'],
+            'image' => ['nullable', 'image', 'max:500'],
             'address' => ['nullable', 'max:500'],
         ];
     }

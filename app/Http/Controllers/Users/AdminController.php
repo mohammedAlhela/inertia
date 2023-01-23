@@ -5,11 +5,8 @@ namespace App\Http\Controllers\Users;
 use App\Exports\Users\AdminExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\AdminRequest;
+use App\Http\Requests\Users\CredentialsRequest;
 use App\Http\Requests\Users\EmailMessageRequest;
-use App\Http\Requests\Users\UpdateCredentialsRequest;
-use App\Mail\Users\CredentialsUpdatedMail;
-use App\Mail\Users\EmailMessageMail;
-use App\Mail\Users\UserCreatedMail;
 use App\Models\Admin;
 use App\Models\Permission;
 use App\Models\User;
@@ -27,7 +24,7 @@ class AdminController extends Controller
     public function index()
     {
 
-        return inertia('App/Admins/Index', [
+        return inertia('App/Users/Admins/Index', [
             'admins' => Admin::all(),
         ]);
 
@@ -35,7 +32,7 @@ class AdminController extends Controller
 
     public function create()
     {
-        return inertia('App/Admins/Create');
+        return inertia('App/Users/Admins/Create');
     }
 
     public function store(AdminRequest $request)
@@ -44,7 +41,7 @@ class AdminController extends Controller
         $password = Str::random(8);
 
         $user = User::create([
-            'username' => explode("@", $request->email)[0],
+            'email' => $request->email,
             'password' => Hash::make($password),
             'password_label' => $password,
             'role' => 'admin',
@@ -53,18 +50,27 @@ class AdminController extends Controller
 
         $request['user_id'] = $user->id;
 
-        $user->email = $request->email;
+        $user->username = $request->username;
 
-        Mail::to($user)->send(new UserCreatedMail($user));
+        $data = array(
+            'user' => $user,
+            'company' => Helper::getCompany(),
+        );
+
+        Mail::send('auth.userCreated', array ('data' => $data), function ($mail) use ( $user) {
+            $mail->to($user->email)
+                ->subject('New user created');
+
+        });
 
         $image = request()->file("image");
 
-        $admin = Admin::create($request->except('image', 'created_at', 'updated_at'));
+        $admin = Admin::create($request->except('image', 'email', 'created_at', 'updated_at'));
 
         $data = array(
             "record" => $admin,
             "image" => $image,
-            "dirPath" => "/images/admins/",
+            "dirPath" => "images/admins/",
             "width" => 250,
             "height" => 250,
 
@@ -76,7 +82,7 @@ class AdminController extends Controller
     public function edit($id)
     {
 
-        return inertia('App/Admins/Edit', [
+        return inertia('App/Users/Admins/Edit', [
             'admin' => Admin::find($id),
         ]);
 
@@ -87,14 +93,14 @@ class AdminController extends Controller
 
         $image = request()->file("image");
 
-        $admin = Admin::update($request->except('image', 'created_at', 'updated_at'))->where('id', $id);
+        $admin = Admin::update($request->except('image', 'email', 'created_at', 'updated_at'))->where('id', $id);
 
         $admin = Admin::find($id);
 
         $data = array(
             "record" => $admin,
             "image" => $image,
-            "dirPath" => "/images/admins/",
+            "dirPath" => "images/admins/",
             "width" => 250,
             "height" => 250,
 
@@ -110,9 +116,9 @@ class AdminController extends Controller
         $admins = Admin::with('user')->whereIn('id', $ids)->get();
 
         foreach ($admins as $admin) {
-            if ($admin->image && file_exists(public_path() . $admin->image)) {
+            if ($admin->image && file_exists($admin->image)) {
 
-                unlink(substr($admin->image, 1));
+                unlink($admin->image);
 
             }
             $admin->delete();
@@ -121,32 +127,21 @@ class AdminController extends Controller
 
     }
 
-    public function block($ids)
+    public function block($ids, $key)
     {
 
         $ids = Helper::getArrayFromString($ids);
 
         $usersIds = Admin::with('user')->whereIn('id', $ids)->pluck('user_id')->toArray();
 
-        User::whereIn('id', $usersIds)->update(['status' => false]);
-
-    }
-
-    public function unblock($ids)
-    {
-
-        $ids = Helper::getArrayFromString($ids);
-
-        $usersIds = Admin::with('user')->whereIn('id', $ids)->pluck('user_id')->toArray();
-
-        User::whereIn('id', $usersIds)->update(['status' => true]);
+        User::whereIn('id', $usersIds)->update(['status' => $key == 'block' ? false : true]);
 
     }
 
     public function ShowPermissions($id)
     {
 
-        return inertia('App/Admins/Permissions', [
+        return inertia('App/Users/Admins/Permissions', [
             'permissions' => Admin::find($id)->user->permissions,
         ]);
 
@@ -170,19 +165,19 @@ class AdminController extends Controller
     public function ShowCredentials($id)
     {
 
-        return inertia('App/Admins/Credentials', [
-            'username' => Admin::find($id)->user->username,
+        return inertia('App/Users/Admins/Credentials', [
+            'email' => Admin::find($id)->user->email,
         ]);
 
     }
 
-    public function UpdateCredentials(UpdateCredentialsRequest $request, $id)
+    public function UpdateCredentials(CredentialsRequest $request, $id)
     {
         $user_id = Admin::find($id)->user->id;
 
         $user = User::find($user_id);
 
-        $user->username = $request->username;
+        $user->email = $request->email;
 
         $user->temp_credentials = 0;
 
@@ -192,64 +187,39 @@ class AdminController extends Controller
 
         $user->save();
 
-        $user->email = Admin::find(1)->email;
+        $user->username = Admin::find($id)->username;
+
+        $data = array(
+            'user' => $user,
+            'company' => Helper::getCompany(),
+        );
 
         $request->logoutFromSessions ? DB::table('sessions')->where('user_id', $user->id)->where('ip_address', '!=', $request->ip())->delete() : 1 == 1;
 
-        $request->sendUpdateNotification ? Mail::to($user)->send(new CredentialsUpdatedMail($user)) : 1 == 1;
+        $request->sendUpdateNotification ? Mail::send('auth.credentialsUpdated', array('data' => $data), function ($mail) use ($user) {
+            $mail->to($user->email)
+                ->subject('User Credentials Updated ');
+
+        }) : 1 == 1;
 
     }
 
     public function emailMessage(EmailMessageRequest $request, $ids)
     {
+
+        $data = array(
+            'subject' => $request->subject,
+            'details' => $request->message,
+            'company' => Helper::getCompany(),
+        );
+
         $ids = Helper::getArrayFromString($ids);
 
         $usersIds = Admin::with('user')->whereIn('id', $ids)->pluck('user_id')->toArray();
 
         $users = User::whereIn('id', $usersIds)->get();
-        $admins = Admin::whereIn('id', $ids)->get();
 
-        foreach ($admins as $admin) {
-            foreach ($users as $user) {
-
-                if ($admin->user_id == $user->id) {
-                    $user->email = $admin->email;
-                }
-
-            }
-        }
-
-        foreach ($users as $user) {
-            Mail::to($user)->send(new EmailMessageMail($request));
-        }
-
-    }
-
-    public function exportPdf(Request $request, $ids)
-    {
-        $ids = Helper::getArrayFromString($ids);
-
-        $admins = Admin::whereIn('id', $ids)->get();
-
-        $pdf = PDF::loadView('admins.export.pdf', array('admins' => $admins));
-
-        return $pdf->download('admins.pdf');
-    }
-
-    public function exportExcel(Request $request, $ids)
-    {
-        $ids = Helper::getArrayFromString($ids);
-        return Excel::download(new AdminExport($ids), 'admins.xlsx');
-    }
-
-    public function send(Request $request)
-    {
-
-        $data["email"] = "mohamdalhelal7@gmail";
-
-        $data["title"] = "test email with descroption";
-
-        $data["body"] = "This is test mail with pdf attachment";
+        $emails = $users->pluck('email')->toArray();
 
         $files = request()->file("files");
 
@@ -262,12 +232,12 @@ class AdminController extends Controller
             array_push($paths, 'send/' . $file->getClientOriginalName());
         }
 
-        Mail::send('mail', $data, function ($message) use ($data, $paths) {
-            $message->to($data["email"])
-                ->subject($data["title"]);
+        Mail::send('users.emailMessage', array('data' => $data), function ($mail) use ($data, $emails, $paths) {
+            $mail->to($emails)
+                ->subject($data['subject']);
 
             foreach ($paths as $path) {
-                $message->attach($path);
+                $mail->attach($path);
 
             }
         });
@@ -276,6 +246,24 @@ class AdminController extends Controller
             file_exists($path) ? unlink($path) : 1 == 1;
         }
 
+    }
+
+    public function exportPdf(Request $request, $ids)
+    {
+        $ids = Helper::getArrayFromString($ids);
+
+        $admins = Admin::with('user')->whereIn('id', $ids)->get();
+
+        $pdf = PDF::loadView('users.admins.pdf', $admins);
+
+        return $pdf->download('admins.pdf');
+    }
+
+    public function exportExcel($ids)
+    {
+        $ids = Helper::getArrayFromString($ids);
+
+        return Excel::download(new AdminExport($ids), 'admins.xlsx');
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Utilities;
 use Illuminate\Support\Facades\Gate;
 use App\Providers\RouteServiceProvider;
 use Image;
+use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
 class Helper
 {
@@ -63,12 +64,20 @@ class Helper
     public static function login($request)
     {
 
-        Auth::attempt(['username' => $request->username, 'password' => $request->password]);
+        Auth::attempt(['email' => $request->email, 'password' => $request->password]);
         $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);
 
     }
+
+    public static function getCompany()
+    {
+
+return Company::find(1);
+
+    }
+
 
 
 }

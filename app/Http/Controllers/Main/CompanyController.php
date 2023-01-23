@@ -7,7 +7,7 @@ use App\Http\Requests\Main\CompanyRequest;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Image;
-use PDF;
+use PdfReport;
 
 class CompanyController extends Controller
 {
@@ -41,12 +41,12 @@ class CompanyController extends Controller
 
         if ($image) {
 
-            if (file_exists(public_path() . $company->image)) {
-                unlink(substr($company->image, 1));
+            if (file_exists($company->image)) {
+                unlink($company->image);
             }
 
-            Image::make($image)->fit(100, 100)->save(public_path("/images/main/company.webp"));
-            $company->image = "/images/main/company.webp";
+            Image::make($image)->fit(100, 100)->save("images/main/company.webp");
+            $company->image = "images/main/company.webp";
         }
 
         $company->save();
@@ -60,13 +60,17 @@ class CompanyController extends Controller
             'email' => $company->email,
             'address' => $company->address,
             'image' => $company->image,
-            'mobile' => $company->mobile,
+            'phone' => $company->phone,
             'company_register' => $company->company_register,
 
         ];
-        $pdf = PDF::loadView('company', array('data' => $data));
+        // $pdf = PDF::loadView('main.company.pdf', array('data' => $data));
 
-        return $pdf->download('company.pdf');
+        // return $pdf->stream('main.company.pdf');
+
+        $pdf = PdfReport::loadView('main.company.pdf', $data);
+return $pdf->download('company.pdf');
+
 
     }
 

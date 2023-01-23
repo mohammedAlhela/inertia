@@ -27,7 +27,7 @@ class ValidateEmailRule implements Rule
     public function passes($attribute, $value)
     {
 
-        return DB::table('admins')->where('email', $value)->first();
+        return DB::table('users')->where('email', $value)->first();
 
     }
 

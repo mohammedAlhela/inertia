@@ -16,7 +16,7 @@
     @inertia
 
     <script>
-      window.User = {!! json_encode(optional(auth()->user())->only('id', 'username' , 'status', 'permissions' , 'role' )) !!}
+      window.User = {!! json_encode(optional(auth()->user())->only('id', 'email' , 'status', 'permissions' , 'role' )) !!}
   </script>
   </body>
 </html>

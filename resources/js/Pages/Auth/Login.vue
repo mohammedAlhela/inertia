@@ -6,15 +6,16 @@
             <title> Sahara class - Login page</title>
         </Head>
         <h2>Sign in</h2>
+
         <v-form @submit.prevent="login" ref="form">
             <v-row class="inputs-holder">
                 <v-col cols="12" class="py-1">
                     <span class="input-header">
-                        username :
+                        Email :
                     </span>
 
-                    <v-text-field required :rules="formErrors.username" solo dense v-model="
-                        form.username
+                    <v-text-field type = "email" required :rules="formErrors.email" solo dense v-model="
+                        form.email
                     " class="textfield" />
                 </v-col>
 
@@ -72,7 +73,7 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                username: "",
+                email: "",
                 password: "",
                 remember: false,
                 errors: {

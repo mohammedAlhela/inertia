@@ -31,7 +31,8 @@ class PasswordResetRequest extends FormRequest
 
             "password" => ["required", "confirmed", "min:8",
 
-            ]
+        ],
+        "password_confirmation" => ['required'],
 
         ];
     }

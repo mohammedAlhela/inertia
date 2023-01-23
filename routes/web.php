@@ -60,7 +60,7 @@ Route::post('company/{company}' , [CompanyController::class , 'update']);
 Route::get('company/export/pdf' , [CompanyController::class , 'exportPdf']);
 
 Route::get('', function () {
-    return inertia('App/Home');
+    return inertia('App/Main/Home');
 })->middleware(['auth']);
 // ++++++++++ main
 
@@ -76,17 +76,19 @@ Route::get('admin/permissions/{admin}' , [AdminController::class , 'ShowPermissi
 Route::post('admin/permissions/{admin}' , [AdminController::class , 'UpdatePermissions']);
 Route::get('admin/credentials/{admin}' , [AdminController::class , 'ShowCredentials']);
 Route::post('admin/credentials/{admin}' , [AdminController::class , 'UpdateCredentials']);
-Route::get('admins/block/{admins}' , [AdminController::class , 'block']);
-Route::get('admins/unblock/{admins}' , [AdminController::class , 'unblock']);
+Route::get('admins/block/{admins}/{key}' , [AdminController::class , 'block']);
 Route::get('admins/export/excel/{admins}' , [AdminController::class , 'exportExcel']);
 Route::get('admins/export/pdf/{admins}' , [AdminController::class , 'exportPdf']);
-Route::post('admins/sendEmailMessage/{admins}' , [AdminController::class , 'emailMessage']);
+Route::post('admins/emailMessage/{admins}' , [AdminController::class , 'emailMessage']);
 Route::post('admins/send' , [AdminController::class , 'send']);
-
+Route::get('test' , [AdminController::class , 'test']);
 // send notification message
 // Invito to login using email message 
 // Invito to login using email message 
 // ++++++++++ admins
+
+
+
 
 
 Route::any('{query}',

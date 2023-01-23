@@ -4,7 +4,7 @@ namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCredentialsRequest extends FormRequest
+class CredentialsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,12 +32,11 @@ class UpdateCredentialsRequest extends FormRequest
 
         return [
 
-            'username' => ['unique:users,username,' . $id, 'required', 'min:3', 'string', 'max:255'],
+            'email' => ['unique:users,email,' . $id, 'required', 'email', 'string', 'max:255'],
 
-            "password" => [$passwordRule, "min:8", 'confirmed',
+            "password" => [$passwordRule , "min:8", 'confirmed', ],
 
-            ],
-
+            "password_confirmation" => ['required'],
         ];
     }
 

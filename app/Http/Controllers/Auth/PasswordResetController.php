@@ -1,20 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-use App\Http\Requests\Auth\PasswordResetRequest;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\PasswordResetRequest;
 use App\Http\Requests\Auth\ValidateEmailRequest;
-use App\Mail\Auth\PasswordResetMail;
+use App\Models\User;
+use DB;
+use Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\Admin;
-use App\Models\User;
 use Mail;
-use Helper;
-use DB;
 
 class PasswordResetController extends Controller
 {
@@ -42,18 +40,30 @@ class PasswordResetController extends Controller
     public function store(ValidateEmailRequest $request)
     {
 
-        $user = Admin::with('user')->where('email', $request->email)->first()->user();
+
+        $user = User::where('email', $request->email)->first();
 
         $user->token = Str::random(60);
 
-        $user->email = $request->email;
+        $data = array(
+            'token' =>  $user->token ,
+            'email' =>  $user->email,
+            'company' => Helper::getCompany()
+        );
 
-        Mail::to($user)->send(new PasswordResetMail($user));
+        
+        Mail::send('auth.passwordReset', array ('data' => $data), function ($mail) use ( $user) {
+            $mail->to($user->email)
+                ->subject('User reset password');
+
+        });
+
+
 
         DB::table('password_resets')->insert([
             'email' => $user->email,
             'token' => $user->token,
-            'created_at' => now()
+            'created_at' => now(),
         ]);
 
     }
@@ -63,9 +73,9 @@ class PasswordResetController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $token , $email)
+    public function update(Request $request, $token, $email)
     {
-        return inertia('Auth/PasswordReset', ['token' => $token , 'email' => $email]);
+        return inertia('Auth/PasswordReset', ['token' => $token, 'email' => $email]);
     }
 
     /**
@@ -77,17 +87,13 @@ class PasswordResetController extends Controller
     {
         DB::table('password_resets')->where('email', $request->email)->where('token', $request->token)->delete();
 
-        $user_id = Admin::with('user')->where('email', $request->email)->first()->user->id;
-
-        $user = User::find($user_id);
+        $user = User::where('email', $request->email)->first();
 
         $user->password = Hash::make($request->password);
 
         $user->save();
 
-        $request->username  = $user->username;
-
-        Helper::login($request);
+        Helper::login($user);
     }
 
 }

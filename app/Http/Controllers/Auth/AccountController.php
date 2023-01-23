@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\AccountCredentialsRequest;
+use App\Http\Requests\Auth\CredentialsRequest;
 use App\Http\Requests\Auth\AccountRequest;
 use App\Models\Admin;
 use App\Models\User;
@@ -22,9 +22,29 @@ class AccountController extends Controller
 
     public function index()
     {
-        return inertia('App/Auth/Account', [
-            'username' => auth()->user()->username,
-            'user' => Admin::where('user_id', auth()->user()->id)->first(),
+
+        $role = auth()->user()->role;
+        if($role == 'admin' ||  $role == 'super-admin') { 
+            $user  =   Admin::where('user_id', auth()->user()->id)->first();
+        }
+
+        // elseif () { 
+
+        // }
+
+        // elseif () { 
+
+        // }
+
+
+        // else { 
+
+        // }
+
+
+        return inertia('App/Main/Account', [
+            'email' => auth()->user()->email,
+            'user' => $user,
         ]);
 
     }
@@ -68,12 +88,12 @@ class AccountController extends Controller
 
     }
 
-    public function updateCredentials(AccountCredentialsRequest $request)
+    public function updateCredentials(CredentialsRequest $request)
     {
 
         $user = auth()->user();
 
-        $user->username = $request->username;
+        $user->email = $request->email;
 
         $user->temp_credentials = 0;
 
