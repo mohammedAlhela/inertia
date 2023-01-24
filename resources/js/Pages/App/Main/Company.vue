@@ -3,13 +3,8 @@
     <HeaderPanels :headerData="headerData" />
     <div class="main-holder">
 
-      <div class="main-content">
-
-
-
-
-
-        <v-form @submit.prevent="update"  ref="form">
+      <div class="company-page">
+        <v-form @submit.prevent="update" ref="form">
           <v-row class="inputs-holder">
 
             <div class="upload-image-container">
@@ -38,7 +33,7 @@
               </div>
             </div>
 
-            <v-col cols="4" class="py-1">
+            <v-col cols ="6" md = "4" class="py-1">
               <span class="input-header">
                 Email
               </span>
@@ -49,8 +44,8 @@
               " class="textfield" />
             </v-col>
 
-          
-            <v-col cols="4" class="py-1">
+
+            <v-col cols ="6" md = "4" class="py-1">
               <span class="input-header">
                 Name
               </span>
@@ -61,10 +56,7 @@
               " class="textfield" />
             </v-col>
 
-
-
-
-            <v-col cols="4" class="py-1">
+            <v-col cols ="6" md = "4" class="py-1">
               <span class="input-header">
                 Contact Phone
               </span>
@@ -76,7 +68,7 @@
             </v-col>
 
 
-            <v-col cols="4" class="py-1">
+            <v-col cols ="6" md = "4" class="py-1">
               <span class="input-header">
                 Company register
               </span>
@@ -87,9 +79,9 @@
             </v-col>
 
 
-            <v-col cols="4" class="py-1">
+            <v-col cols ="6" md = "4" class="py-1">
               <span class="input-header">
-               Country phone code
+                Country phone code
               </span>
               <v-text-field required :rules="formErrors.country_phone_code" solo dense v-model="
                 form.country_phone_code
@@ -97,38 +89,38 @@
             </v-col>
 
 
-            <v-col cols="4" class="py-1">
+            <v-col cols ="6" md = "4" class="py-1">
               <span class="input-header">
-              Country
+                Country
               </span>
-              <v-autocomplete required  solo dense v-model="
+              <v-autocomplete required solo dense v-model="
                 form.country
-              " :items = "countries"  class="textfield" />
+              " :items="countries" class="textfield" />
             </v-col>
 
 
-            <v-col cols="4" class="py-1">
+            <v-col cols ="6" md = "4" class="py-1">
               <span class="input-header">
-           Timezone
+                Timezone
               </span>
-              <v-autocomplete required  solo dense v-model="
+              <v-autocomplete required solo dense v-model="
                 form.timezone
-                
-              " :items = "timezones"  class="textfield" />
+              
+              " :items="timezones" class="textfield" />
             </v-col>
 
 
-            <v-col cols="4" class="py-1">
+            <v-col cols ="6" md = "4" class="py-1">
               <span class="input-header">
-              Currency
+                Currency
               </span>
-              <v-autocomplete required  solo dense v-model="
+              <v-autocomplete required solo dense v-model="
                 form.currencies
-                
-              " :items = "currencies" class="textfield" />
+              
+              " :items="currencies" class="textfield" />
             </v-col>
 
-            <v-col cols="4" class="py-1">
+            <v-col cols ="6" md = "4" class="py-1">
               <span class="input-header">
                 Address
               </span>
@@ -140,7 +132,7 @@
           </v-row>
           <div class="buttons">
             <v-btn :loading="form.processing" type="submit">Update</v-btn>
-           <a class="text-link"  href = "/company/export/pdf">  <v-btn class = "print-pdf" >Print PDF</v-btn></a> 
+            <a class="text-link" href="/company/export/pdf"> <v-btn class="print-pdf">Print PDF</v-btn></a>
           </div>
         </v-form>
 
@@ -217,7 +209,7 @@ export default {
   data() {
     return {
       headerData: {
-        pageTitle : "Sahara School -- Manage Company Data",
+        pageTitle: "Sahara School -- Manage Company Data",
         title: "Company Data",
         add: {
           src: "",
@@ -261,51 +253,51 @@ export default {
         preview: "",
       },
       timezones: [                         //edited
-            "-12:00=-720=Eniwelok, Kwajalein",
-            "-11:00=-660=Midway Island, Samoa",
-            "-10:30=-630=Cook Islands",
-            "-10:00=-600=Hawaii; Western Aleutian Islands=was Alaska/Hawaii timezone",
-            "-09:30=-570=Marquesas Islands",
-            "-09:00=-540=Alaska; Eastern Aleutian Islands=was Yukon timezone",
-            "-08:30=-510=Pitcairn Island",
-            "-08:00=-480=Pacific Time (US & Canada); Yukon; Tijuana",
-            "-07:00=-420=Mountain Time (US & Canada)",
-            "-06:00=-360=Central Time (US & Canada); Mexico City, Tegucigalpa",
-            "-05:00=-300=Eastern Time (US & Canada); Bogota; Lima; Quito",
-            "-04:30=-270=Caracas",
-            "-04:00=-240=Atlantic Time (Canada); Caracas, La Paz; Santiago",
-            "-03:45=-225=Guyana, South America",
-            "-03:30=-210=Newfoundland; Suriname, South America",
-            "-03:00=-180=Greenland; Brasilia; Buernos Aires; Puerto Rico",
-            "-02:00=-120=Mid-Atlantic",
-            "-01:00=-60=Azores, Cape Verde Is.",
-            "00:00=0=Greenwich Mean Time",
-            "01:00=60=Amsterdam; Berlin; Bern; Rome; Stockholm; Vienna",
-            "02:00=120=Athens; Istanbul; Minsk; Jerusalem",
-            "03:00=180=Baghdad; Kuwait; Moscow",
-            "03:30=210=Tehran, Iran",
-            "04:00=240=Abu Dhabi; Muscat",
-            "04:30=270=Kabul, Afghanistan",
-            "05:00=300=Ekaterinburg",
-            "05:30=330=India; Bombay; Calcutta; New Delhi; Sri Lanka",
-            "05:45=345=Kathmandu, Nepal",
-            "06:00=360=Astana; Dhaka",
-            "06:30=390=Cocos Islands; Yangon; Myanmar",
-            "07:00=420=Bangkok; Hanoi",
-            "08:00=480=Perth; Singapore; China",
-            "08:45=525=South Australia",
-            "09:00=540=Osaka; Tokyo; Seoul",
-            "09:30=570=Northern Australia",
-            "10:00=600=Brisbane; Canberra; Sydney; Guam",
-            "11:00=660=Magadan; Solomon Is.; New Caledonia",
-            "11:30=690=New Zealand?; Norfold Island, Australia",
-            "12:00=720=Auckland; Wellington; Fiji; Marshall Is.; Tuvalu",
-            "12:45=765=Chatham Island, New Zealand",
-            "13:00=780=Nukulalofa; Phoenix Islands=1 hour EAST of the dateline",
-            "14:00=840=Line Islands; Christmas Islands=2 hours EAST of the dateline"
-        ],
-        currencies: ["dirham", "dollar", "robie"],
-        countries: ["UAE", "SaudiArebia", "syria", "india"],
+        "-12:00=-720=Eniwelok, Kwajalein",
+        "-11:00=-660=Midway Island, Samoa",
+        "-10:30=-630=Cook Islands",
+        "-10:00=-600=Hawaii; Western Aleutian Islands=was Alaska/Hawaii timezone",
+        "-09:30=-570=Marquesas Islands",
+        "-09:00=-540=Alaska; Eastern Aleutian Islands=was Yukon timezone",
+        "-08:30=-510=Pitcairn Island",
+        "-08:00=-480=Pacific Time (US & Canada); Yukon; Tijuana",
+        "-07:00=-420=Mountain Time (US & Canada)",
+        "-06:00=-360=Central Time (US & Canada); Mexico City, Tegucigalpa",
+        "-05:00=-300=Eastern Time (US & Canada); Bogota; Lima; Quito",
+        "-04:30=-270=Caracas",
+        "-04:00=-240=Atlantic Time (Canada); Caracas, La Paz; Santiago",
+        "-03:45=-225=Guyana, South America",
+        "-03:30=-210=Newfoundland; Suriname, South America",
+        "-03:00=-180=Greenland; Brasilia; Buernos Aires; Puerto Rico",
+        "-02:00=-120=Mid-Atlantic",
+        "-01:00=-60=Azores, Cape Verde Is.",
+        "00:00=0=Greenwich Mean Time",
+        "01:00=60=Amsterdam; Berlin; Bern; Rome; Stockholm; Vienna",
+        "02:00=120=Athens; Istanbul; Minsk; Jerusalem",
+        "03:00=180=Baghdad; Kuwait; Moscow",
+        "03:30=210=Tehran, Iran",
+        "04:00=240=Abu Dhabi; Muscat",
+        "04:30=270=Kabul, Afghanistan",
+        "05:00=300=Ekaterinburg",
+        "05:30=330=India; Bombay; Calcutta; New Delhi; Sri Lanka",
+        "05:45=345=Kathmandu, Nepal",
+        "06:00=360=Astana; Dhaka",
+        "06:30=390=Cocos Islands; Yangon; Myanmar",
+        "07:00=420=Bangkok; Hanoi",
+        "08:00=480=Perth; Singapore; China",
+        "08:45=525=South Australia",
+        "09:00=540=Osaka; Tokyo; Seoul",
+        "09:30=570=Northern Australia",
+        "10:00=600=Brisbane; Canberra; Sydney; Guam",
+        "11:00=660=Magadan; Solomon Is.; New Caledonia",
+        "11:30=690=New Zealand?; Norfold Island, Australia",
+        "12:00=720=Auckland; Wellington; Fiji; Marshall Is.; Tuvalu",
+        "12:45=765=Chatham Island, New Zealand",
+        "13:00=780=Nukulalofa; Phoenix Islands=1 hour EAST of the dateline",
+        "14:00=840=Line Islands; Christmas Islands=2 hours EAST of the dateline"
+      ],
+      currencies: ["dirham", "dollar", "robie"],
+      countries: ["UAE", "SaudiArebia", "syria", "india"],
 
     };
   },

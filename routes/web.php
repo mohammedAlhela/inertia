@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\Main\CompanyController;
 use App\Http\Controllers\Users\AdminController;
+use App\Http\Controllers\Main\AcademicYearController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,16 +77,41 @@ Route::get('admin/permissions/{admin}' , [AdminController::class , 'ShowPermissi
 Route::post('admin/permissions/{admin}' , [AdminController::class , 'UpdatePermissions']);
 Route::get('admin/credentials/{admin}' , [AdminController::class , 'ShowCredentials']);
 Route::post('admin/credentials/{admin}' , [AdminController::class , 'UpdateCredentials']);
-Route::get('admins/block/{admins}/{key}' , [AdminController::class , 'block']);
+Route::get('admins/block/{admins}' , [AdminController::class , 'block']);
+Route::get('admins/unBlock/{admins}' , [AdminController::class , 'unBlock']);
 Route::get('admins/export/excel/{admins}' , [AdminController::class , 'exportExcel']);
 Route::get('admins/export/pdf/{admins}' , [AdminController::class , 'exportPdf']);
 Route::post('admins/emailMessage/{admins}' , [AdminController::class , 'emailMessage']);
-Route::post('admins/send' , [AdminController::class , 'send']);
-Route::get('test' , [AdminController::class , 'test']);
 // send notification message
 // Invito to login using email message 
 // Invito to login using email message 
 // ++++++++++ admins
+
+
+
+// ++++++++++ academic years
+Route::get('academicYears' , [AcademicYearController::class , 'index']);
+Route::get('academicYear/create' , [AcademicYearController::class , 'create']);
+Route::post('academicYear/store' , [AcademicYearController::class , 'store']);
+Route::get('academicYear/edit/{academicYear}' , [AcademicYearController::class , 'edit']);
+Route::post('academicYear/update/{academicYear}' , [AcademicYearController::class , 'update']);
+Route::delete('academicYears/{academicYears}' , [AcademicYearController::class , 'delete']);
+Route::get('academicYears/export/excel/{academicYears}' , [AcademicYearController::class , 'exportExcel']);
+Route::get('academicYears/export/pdf/{academicYears}' , [AcademicYearController::class , 'exportPdf']);
+// ++++++++++ academic years
+
+
+// ++++++++++ academic terms
+Route::get('academicTerms' , [AcademicTermController::class , 'index']);
+Route::get('academicTerm/create' , [AcademicTermController::class , 'create']);
+Route::post('academicTerm/store' , [AcademicTermController::class , 'store']);
+Route::get('academicTerm/edit/{academicTerm}' , [AcademicTermController::class , 'edit']);
+Route::post('academicTerm/update/{academicTerm}' , [AcademicTermController::class , 'update']);
+Route::delete('academicTerms/{academicTerms}' , [AcademicTermController::class , 'delete']);
+Route::get('academicTerms/export/excel/{academicTerms}' , [AcademicTermController::class , 'exportExcel']);
+Route::get('academicTerms/export/pdf/{academicTerms}' , [AcademicTermController::class , 'exportPdf']);
+// ++++++++++ academic terms
+
 
 
 

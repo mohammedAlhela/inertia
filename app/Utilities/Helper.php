@@ -1,29 +1,31 @@
 <?php
 namespace App\Utilities;
 
-use Illuminate\Support\Facades\Gate;
-use App\Providers\RouteServiceProvider;
-use Image;
 use App\Models\Company;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Image;
+
 class Helper
 {
 
     public static function uploadImage($data)
     {
-        if ($data["image"] ) {
+        if ($data["image"]) {
             // delete old image
-            if ($data["record"]->id && $data["record"]->image && file_exists($data["record"]->image)) {
-                unlink($data["record"]->image);
+            if ($data["record"]->id && $data["record"]->image && file_exists(public_path() . $data["record"]->image)) {
+                unlink(substr($data["record"]->image, 1));
             }
             // delete old image
 
             $imageName = time() . '.webp';
-            Image::make($data["image"])->fit($data["width"], $data["height"])->save($data["dirPath"] . $imageName);
+            Image::make($data["image"])->fit($data["width"], $data["height"])->save(public_path($data["dirPath"]) . $imageName);
             $data["record"]->image = $data["dirPath"] . $imageName;
         }
 
         $data["record"]->save();
+
     }
 
     public static function getArrayFromString($stringData)
@@ -37,9 +39,7 @@ class Helper
 
     public static function getPermissions()
     {
-        return $permissions = ['admin-show' , 'admin-delete' , 'admin-update' , 'admin-create'
-
-        
+        return $permissions = ['admin-show', 'admin-delete', 'admin-update', 'admin-create',
 
         ];
     }
@@ -60,7 +60,6 @@ class Helper
 
     }
 
-
     public static function login($request)
     {
 
@@ -74,10 +73,8 @@ class Helper
     public static function getCompany()
     {
 
-return Company::find(1);
+        return Company::find(1);
 
     }
-
-
 
 }

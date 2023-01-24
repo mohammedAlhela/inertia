@@ -1,17 +1,15 @@
 @extends('miscellaneous')
 @section('content')
-    {{-- {{ date('Y-m-d H:i:s') }} --}}
     <div class="roles-crud-pdf">
-
 
         <div class="container">
 
 
-            {{-- <div class="row header">
+            <div class="row header">
 
                 <div class="col-6">
                     <div class="count">
-                        <span> Admins records : </span> {{ count($admins) }}
+                        <span> Admins records : </span> {{ count($data['admins']) }}
                     </div>
                 </div>
 
@@ -21,11 +19,6 @@
                     </div>
 
                 </div>
-
-
-
-
-
 
             </div>
             <div class="row">
@@ -44,7 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($admins as $admin)
+                            @foreach ($data['admins'] as $admin)
                                 <tr>
                                     <td><strong>{{ $admin->id }}</strong></td>
                                     <td>{{ $admin->first_name }}</td>
@@ -59,7 +52,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
 @endsection

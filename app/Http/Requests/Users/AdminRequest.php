@@ -29,10 +29,10 @@ class AdminRequest extends FormRequest
         $emailRule = $id ? 'nullable' : 'required';
 
         return [
-            'email' => [$emailRule, 'unique:users,email', 'email', 'string', 'max:255'],
+            'email' => [$emailRule, 'unique:users,email' , 'email', 'string', 'max:255'],
             'first_name' => ['required', 'min:3', 'string', 'max:255'],
             'last_name' => ['required', 'min:3', 'string', 'max:255'],
-            'username' => ['required', 'min:3', 'string', 'max:255'],
+            'username' => [ 'unique:admins,username,' . $id  ,'required', 'min:3', 'string', 'max:255'],
             'phone' => ['required', 'string', 'min:10', 'max:11'],
             'image' => ['nullable', 'image', 'max:500'],
             'address' => ['nullable', 'max:500'],

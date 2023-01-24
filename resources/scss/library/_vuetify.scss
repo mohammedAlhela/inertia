@@ -24,3 +24,46 @@
     box-shadow: none !important;
     border: 1px solid $border-color;
 }
+
+
+
+.v-messages__message { 
+    color :  $light-red-color !important;
+}
+
+
+.v-data-table { 
+    color: $black-color !important;
+    border-top: 1px solid #dfdfdf;
+    border-radius: 0px !important;
+
+    .v-input__slot { 
+        border: none !important;
+    }
+
+    .profile-image { 
+       border-radius: 5px;
+       width: 50px;
+    }
+
+    .v-input--checkbox { 
+        margin-top: 0px !important;
+        padding-top: 0px !important;
+    }
+
+    .v-icon { 
+        font-size: 20px !important;
+    }
+}
+
+.v-data-table>.v-data-table__wrapper>table>tbody>tr>th, .v-data-table>.v-data-table__wrapper>table>tfoot>tr>th, .v-data-table>.v-data-table__wrapper>table>thead>tr>th {
+    color: $black-color !important;
+    font-size: .8rem !important;
+
+  
+}
+
+
+.v-chip.v-size--small { 
+    border-radius : none !important
+}

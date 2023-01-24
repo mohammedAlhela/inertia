@@ -99,5 +99,10 @@ export default {
                 }
             });
         },
+
+        genders() {
+         return ['male' , 'female']
+       
+        },
     },
 };

@@ -36,7 +36,7 @@ class CredentialsRequest extends FormRequest
 
             "password" => [$passwordRule , "min:8", 'confirmed', ],
 
-            "password_confirmation" => ['required'],
+            "password_confirmation" => [$passwordRule]
         ];
     }
 

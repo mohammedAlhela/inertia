@@ -1,0 +1,7 @@
+<template>
+    <section>
+        <h1>
+            Create
+        </h1>
+    </section>
+</template>

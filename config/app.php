@@ -174,9 +174,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        // niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
-        // Barryvdh\DomPDF\ServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
 
     ],
@@ -235,9 +232,6 @@ return [
         'Image' => 'Intervention\Image\Facades\Image',
         'Helper' => App\Utilities\Helper::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        // 'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class ,
-        // 'PDF' => Barryvdh\DomPDF\Facade::class,
-
         'PdfReport' => Barryvdh\Snappy\Facades\SnappyPdf::class,
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 

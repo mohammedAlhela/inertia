@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Auth;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class CredentialsRequest extends FormRequest
@@ -33,12 +34,10 @@ class CredentialsRequest extends FormRequest
 
             "old_password" => [$passwordRule, 'current_password'],
 
-            "password" => [$passwordRule, "min:8", 'confirmed'
+            "password" => [$passwordRule, "min:8", 'confirmed',
 
             ],
-            "password_confirmation" => ['required']
-
-        
+            "password_confirmation" => [$passwordRule],
 
         ];
     }

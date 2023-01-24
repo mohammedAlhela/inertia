@@ -93,7 +93,7 @@ class PasswordResetController extends Controller
 
         $user->save();
 
-        Helper::login($user);
+        Helper::login($request);
     }
 
 }

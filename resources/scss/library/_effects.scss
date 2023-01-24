@@ -1,15 +1,22 @@
-.text-link { 
-    color : $black-color !important;
+.text-link {
+    color: $black-color !important;
     text-decoration: none !important;
 }
 
-.link { 
-    color : $black-color !important;  
+.link {
+    color: $black-color !important;
 }
 
-.pointer { 
+.pointer {
     cursor: pointer;
 }
-.clear { 
+.clear {
     clear: both;
+}
+
+.active_link {
+    color: $main-color;
+    .v-icon {
+        color: $main-color !important;
+    }
 }

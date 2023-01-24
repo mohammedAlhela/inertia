@@ -2822,12 +2822,12 @@ textarea.form-control-lg {
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .application-container .main-holder .paner-section div.btn:hover, .btn.show {
+.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .application-container .main-holder .left-page-card div.btn:hover, .application-container .main-holder .account-panesl-page div.btn:hover, .btn.show {
   color: var(--bs-btn-active-color);
   background-color: var(--bs-btn-active-bg);
   border-color: var(--bs-btn-active-border-color);
 }
-.btn-check:checked + .btn:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .btn:first-child:active:focus-visible, .btn.active:focus-visible, .application-container .main-holder .paner-section div.btn:focus-visible:hover, .btn.show:focus-visible {
+.btn-check:checked + .btn:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .btn:first-child:active:focus-visible, .btn.active:focus-visible, .application-container .main-holder .left-page-card div.btn:focus-visible:hover, .application-container .main-holder .account-panesl-page div.btn:focus-visible:hover, .btn.show:focus-visible {
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
 .btn:disabled, .btn.disabled, fieldset:disabled .btn {
@@ -3454,7 +3454,7 @@ textarea.form-control-lg {
   color: var(--bs-dropdown-link-hover-color);
   background-color: var(--bs-dropdown-link-hover-bg);
 }
-.dropdown-item.active, .application-container .main-holder .paner-section div.dropdown-item:hover, .dropdown-item:active {
+.dropdown-item.active, .application-container .main-holder .left-page-card div.dropdown-item:hover, .application-container .main-holder .account-panesl-page div.dropdown-item:hover, .dropdown-item:active {
   color: var(--bs-dropdown-link-active-color);
   text-decoration: none;
   background-color: var(--bs-dropdown-link-active-bg);
@@ -3516,14 +3516,16 @@ textarea.form-control-lg {
 .btn-group > .btn:focus,
 .btn-group > .btn:active,
 .btn-group > .btn.active,
-.application-container .main-holder .paner-section .btn-group > div.btn:hover,
+.application-container .main-holder .left-page-card .btn-group > div.btn:hover,
+.application-container .main-holder .account-panesl-page .btn-group > div.btn:hover,
 .btn-group-vertical > .btn-check:checked + .btn,
 .btn-group-vertical > .btn-check:focus + .btn,
 .btn-group-vertical > .btn:hover,
 .btn-group-vertical > .btn:focus,
 .btn-group-vertical > .btn:active,
 .btn-group-vertical > .btn.active,
-.application-container .main-holder .paner-section .btn-group-vertical > div.btn:hover {
+.application-container .main-holder .left-page-card .btn-group-vertical > div.btn:hover,
+.application-container .main-holder .account-panesl-page .btn-group-vertical > div.btn:hover {
   z-index: 1;
 }
 
@@ -3664,7 +3666,7 @@ textarea.form-control-lg {
   background-color: transparent;
   border-color: transparent;
 }
-.nav-tabs .nav-link.active, .nav-tabs .application-container .main-holder .paner-section div.nav-link:hover, .application-container .main-holder .paner-section .nav-tabs div.nav-link:hover,
+.nav-tabs .nav-link.active, .nav-tabs .application-container .main-holder .left-page-card div.nav-link:hover, .nav-tabs .application-container .main-holder .account-panesl-page div.nav-link:hover, .application-container .main-holder .left-page-card .nav-tabs div.nav-link:hover, .application-container .main-holder .account-panesl-page .nav-tabs div.nav-link:hover,
 .nav-tabs .nav-item.show .nav-link {
   color: var(--bs-nav-tabs-link-active-color);
   background-color: var(--bs-nav-tabs-link-active-bg);
@@ -3691,7 +3693,7 @@ textarea.form-control-lg {
   background-color: transparent;
   border-color: transparent;
 }
-.nav-pills .nav-link.active, .nav-pills .application-container .main-holder .paner-section div.nav-link:hover, .application-container .main-holder .paner-section .nav-pills div.nav-link:hover,
+.nav-pills .nav-link.active, .nav-pills .application-container .main-holder .left-page-card div.nav-link:hover, .nav-pills .application-container .main-holder .account-panesl-page div.nav-link:hover, .application-container .main-holder .left-page-card .nav-pills div.nav-link:hover, .application-container .main-holder .account-panesl-page .nav-pills div.nav-link:hover,
 .nav-pills .show > .nav-link {
   color: var(--bs-nav-pills-link-active-color);
   background-color: var(--bs-nav-pills-link-active-bg);
@@ -3718,7 +3720,7 @@ textarea.form-control-lg {
 .tab-content > .tab-pane {
   display: none;
 }
-.tab-content > .active, .application-container .main-holder .paner-section .tab-content > div:hover {
+.tab-content > .active, .application-container .main-holder .left-page-card .tab-content > div:hover, .application-container .main-holder .account-panesl-page .tab-content > div:hover {
   display: block;
 }
 
@@ -3790,8 +3792,10 @@ textarea.form-control-lg {
 }
 .navbar-nav .show > .nav-link,
 .navbar-nav .nav-link.active,
-.navbar-nav .application-container .main-holder .paner-section div.nav-link:hover,
-.application-container .main-holder .paner-section .navbar-nav div.nav-link:hover {
+.navbar-nav .application-container .main-holder .left-page-card div.nav-link:hover,
+.navbar-nav .application-container .main-holder .account-panesl-page div.nav-link:hover,
+.application-container .main-holder .left-page-card .navbar-nav div.nav-link:hover,
+.application-container .main-holder .account-panesl-page .navbar-nav div.nav-link:hover {
   color: var(--bs-navbar-active-color);
 }
 .navbar-nav .dropdown-menu {
@@ -4249,7 +4253,7 @@ textarea.form-control-lg {
   margin-left: calc(-0.5 * var(--bs-card-cap-padding-x));
   border-bottom: 0;
 }
-.card-header-tabs .nav-link.active, .card-header-tabs .application-container .main-holder .paner-section div.nav-link:hover, .application-container .main-holder .paner-section .card-header-tabs div.nav-link:hover {
+.card-header-tabs .nav-link.active, .card-header-tabs .application-container .main-holder .left-page-card div.nav-link:hover, .card-header-tabs .application-container .main-holder .account-panesl-page div.nav-link:hover, .application-container .main-holder .left-page-card .card-header-tabs div.nav-link:hover, .application-container .main-holder .account-panesl-page .card-header-tabs div.nav-link:hover {
   background-color: var(--bs-card-bg);
   border-bottom-color: var(--bs-card-bg);
 }
@@ -4492,7 +4496,7 @@ textarea.form-control-lg {
   color: var(--bs-breadcrumb-divider-color);
   content: var(--bs-breadcrumb-divider, "/") /* rtl: var(--bs-breadcrumb-divider, "/") */;
 }
-.breadcrumb-item.active, .application-container .main-holder .paner-section div.breadcrumb-item:hover {
+.breadcrumb-item.active, .application-container .main-holder .left-page-card div.breadcrumb-item:hover, .application-container .main-holder .account-panesl-page div.breadcrumb-item:hover {
   color: var(--bs-breadcrumb-item-active-color);
 }
 
@@ -4551,7 +4555,7 @@ textarea.form-control-lg {
   outline: 0;
   box-shadow: var(--bs-pagination-focus-box-shadow);
 }
-.page-link.active, .application-container .main-holder .paner-section div.page-link:hover, .active > .page-link, .application-container .main-holder .paner-section div:hover > .page-link {
+.page-link.active, .application-container .main-holder .left-page-card div.page-link:hover, .application-container .main-holder .account-panesl-page div.page-link:hover, .active > .page-link, .application-container .main-holder .left-page-card div:hover > .page-link, .application-container .main-holder .account-panesl-page div:hover > .page-link {
   z-index: 3;
   color: var(--bs-pagination-active-color);
   background-color: var(--bs-pagination-active-bg);
@@ -4851,7 +4855,7 @@ textarea.form-control-lg {
   pointer-events: none;
   background-color: var(--bs-list-group-disabled-bg);
 }
-.list-group-item.active, .application-container .main-holder .paner-section div.list-group-item:hover {
+.list-group-item.active, .application-container .main-holder .left-page-card div.list-group-item:hover, .application-container .main-holder .account-panesl-page div.list-group-item:hover {
   z-index: 2;
   color: var(--bs-list-group-active-color);
   background-color: var(--bs-list-group-active-bg);
@@ -4860,7 +4864,7 @@ textarea.form-control-lg {
 .list-group-item + .list-group-item {
   border-top-width: 0;
 }
-.list-group-item + .list-group-item.active, .application-container .main-holder .paner-section .list-group-item + div.list-group-item:hover {
+.list-group-item + .list-group-item.active, .application-container .main-holder .left-page-card .list-group-item + div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-item + div.list-group-item:hover {
   margin-top: calc(-1 * var(--bs-list-group-border-width));
   border-top-width: var(--bs-list-group-border-width);
 }
@@ -4876,14 +4880,14 @@ textarea.form-control-lg {
   border-top-right-radius: var(--bs-list-group-border-radius);
   border-bottom-left-radius: 0;
 }
-.list-group-horizontal > .list-group-item.active, .application-container .main-holder .paner-section .list-group-horizontal > div.list-group-item:hover {
+.list-group-horizontal > .list-group-item.active, .application-container .main-holder .left-page-card .list-group-horizontal > div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-horizontal > div.list-group-item:hover {
   margin-top: 0;
 }
 .list-group-horizontal > .list-group-item + .list-group-item {
   border-top-width: var(--bs-list-group-border-width);
   border-left-width: 0;
 }
-.list-group-horizontal > .list-group-item + .list-group-item.active, .application-container .main-holder .paner-section .list-group-horizontal > .list-group-item + div.list-group-item:hover {
+.list-group-horizontal > .list-group-item + .list-group-item.active, .application-container .main-holder .left-page-card .list-group-horizontal > .list-group-item + div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-horizontal > .list-group-item + div.list-group-item:hover {
   margin-left: calc(-1 * var(--bs-list-group-border-width));
   border-left-width: var(--bs-list-group-border-width);
 }
@@ -4900,14 +4904,14 @@ textarea.form-control-lg {
     border-top-right-radius: var(--bs-list-group-border-radius);
     border-bottom-left-radius: 0;
   }
-  .list-group-horizontal-sm > .list-group-item.active, .application-container .main-holder .paner-section .list-group-horizontal-sm > div.list-group-item:hover {
+  .list-group-horizontal-sm > .list-group-item.active, .application-container .main-holder .left-page-card .list-group-horizontal-sm > div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-horizontal-sm > div.list-group-item:hover {
     margin-top: 0;
   }
   .list-group-horizontal-sm > .list-group-item + .list-group-item {
     border-top-width: var(--bs-list-group-border-width);
     border-left-width: 0;
   }
-  .list-group-horizontal-sm > .list-group-item + .list-group-item.active, .application-container .main-holder .paner-section .list-group-horizontal-sm > .list-group-item + div.list-group-item:hover {
+  .list-group-horizontal-sm > .list-group-item + .list-group-item.active, .application-container .main-holder .left-page-card .list-group-horizontal-sm > .list-group-item + div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-horizontal-sm > .list-group-item + div.list-group-item:hover {
     margin-left: calc(-1 * var(--bs-list-group-border-width));
     border-left-width: var(--bs-list-group-border-width);
   }
@@ -4924,14 +4928,14 @@ textarea.form-control-lg {
     border-top-right-radius: var(--bs-list-group-border-radius);
     border-bottom-left-radius: 0;
   }
-  .list-group-horizontal-md > .list-group-item.active, .application-container .main-holder .paner-section .list-group-horizontal-md > div.list-group-item:hover {
+  .list-group-horizontal-md > .list-group-item.active, .application-container .main-holder .left-page-card .list-group-horizontal-md > div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-horizontal-md > div.list-group-item:hover {
     margin-top: 0;
   }
   .list-group-horizontal-md > .list-group-item + .list-group-item {
     border-top-width: var(--bs-list-group-border-width);
     border-left-width: 0;
   }
-  .list-group-horizontal-md > .list-group-item + .list-group-item.active, .application-container .main-holder .paner-section .list-group-horizontal-md > .list-group-item + div.list-group-item:hover {
+  .list-group-horizontal-md > .list-group-item + .list-group-item.active, .application-container .main-holder .left-page-card .list-group-horizontal-md > .list-group-item + div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-horizontal-md > .list-group-item + div.list-group-item:hover {
     margin-left: calc(-1 * var(--bs-list-group-border-width));
     border-left-width: var(--bs-list-group-border-width);
   }
@@ -4948,14 +4952,14 @@ textarea.form-control-lg {
     border-top-right-radius: var(--bs-list-group-border-radius);
     border-bottom-left-radius: 0;
   }
-  .list-group-horizontal-lg > .list-group-item.active, .application-container .main-holder .paner-section .list-group-horizontal-lg > div.list-group-item:hover {
+  .list-group-horizontal-lg > .list-group-item.active, .application-container .main-holder .left-page-card .list-group-horizontal-lg > div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-horizontal-lg > div.list-group-item:hover {
     margin-top: 0;
   }
   .list-group-horizontal-lg > .list-group-item + .list-group-item {
     border-top-width: var(--bs-list-group-border-width);
     border-left-width: 0;
   }
-  .list-group-horizontal-lg > .list-group-item + .list-group-item.active, .application-container .main-holder .paner-section .list-group-horizontal-lg > .list-group-item + div.list-group-item:hover {
+  .list-group-horizontal-lg > .list-group-item + .list-group-item.active, .application-container .main-holder .left-page-card .list-group-horizontal-lg > .list-group-item + div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-horizontal-lg > .list-group-item + div.list-group-item:hover {
     margin-left: calc(-1 * var(--bs-list-group-border-width));
     border-left-width: var(--bs-list-group-border-width);
   }
@@ -4972,14 +4976,14 @@ textarea.form-control-lg {
     border-top-right-radius: var(--bs-list-group-border-radius);
     border-bottom-left-radius: 0;
   }
-  .list-group-horizontal-xl > .list-group-item.active, .application-container .main-holder .paner-section .list-group-horizontal-xl > div.list-group-item:hover {
+  .list-group-horizontal-xl > .list-group-item.active, .application-container .main-holder .left-page-card .list-group-horizontal-xl > div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-horizontal-xl > div.list-group-item:hover {
     margin-top: 0;
   }
   .list-group-horizontal-xl > .list-group-item + .list-group-item {
     border-top-width: var(--bs-list-group-border-width);
     border-left-width: 0;
   }
-  .list-group-horizontal-xl > .list-group-item + .list-group-item.active, .application-container .main-holder .paner-section .list-group-horizontal-xl > .list-group-item + div.list-group-item:hover {
+  .list-group-horizontal-xl > .list-group-item + .list-group-item.active, .application-container .main-holder .left-page-card .list-group-horizontal-xl > .list-group-item + div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-horizontal-xl > .list-group-item + div.list-group-item:hover {
     margin-left: calc(-1 * var(--bs-list-group-border-width));
     border-left-width: var(--bs-list-group-border-width);
   }
@@ -4996,14 +5000,14 @@ textarea.form-control-lg {
     border-top-right-radius: var(--bs-list-group-border-radius);
     border-bottom-left-radius: 0;
   }
-  .list-group-horizontal-xxl > .list-group-item.active, .application-container .main-holder .paner-section .list-group-horizontal-xxl > div.list-group-item:hover {
+  .list-group-horizontal-xxl > .list-group-item.active, .application-container .main-holder .left-page-card .list-group-horizontal-xxl > div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-horizontal-xxl > div.list-group-item:hover {
     margin-top: 0;
   }
   .list-group-horizontal-xxl > .list-group-item + .list-group-item {
     border-top-width: var(--bs-list-group-border-width);
     border-left-width: 0;
   }
-  .list-group-horizontal-xxl > .list-group-item + .list-group-item.active, .application-container .main-holder .paner-section .list-group-horizontal-xxl > .list-group-item + div.list-group-item:hover {
+  .list-group-horizontal-xxl > .list-group-item + .list-group-item.active, .application-container .main-holder .left-page-card .list-group-horizontal-xxl > .list-group-item + div.list-group-item:hover, .application-container .main-holder .account-panesl-page .list-group-horizontal-xxl > .list-group-item + div.list-group-item:hover {
     margin-left: calc(-1 * var(--bs-list-group-border-width));
     border-left-width: var(--bs-list-group-border-width);
   }
@@ -5026,7 +5030,7 @@ textarea.form-control-lg {
   color: #084298;
   background-color: #bacbe6;
 }
-.list-group-item-primary.list-group-item-action.active, .application-container .main-holder .paner-section div.list-group-item-primary.list-group-item-action:hover {
+.list-group-item-primary.list-group-item-action.active, .application-container .main-holder .left-page-card div.list-group-item-primary.list-group-item-action:hover, .application-container .main-holder .account-panesl-page div.list-group-item-primary.list-group-item-action:hover {
   color: #fff;
   background-color: #084298;
   border-color: #084298;
@@ -5040,7 +5044,7 @@ textarea.form-control-lg {
   color: #41464b;
   background-color: #cbccce;
 }
-.list-group-item-secondary.list-group-item-action.active, .application-container .main-holder .paner-section div.list-group-item-secondary.list-group-item-action:hover {
+.list-group-item-secondary.list-group-item-action.active, .application-container .main-holder .left-page-card div.list-group-item-secondary.list-group-item-action:hover, .application-container .main-holder .account-panesl-page div.list-group-item-secondary.list-group-item-action:hover {
   color: #fff;
   background-color: #41464b;
   border-color: #41464b;
@@ -5054,7 +5058,7 @@ textarea.form-control-lg {
   color: #0f5132;
   background-color: #bcd0c7;
 }
-.list-group-item-success.list-group-item-action.active, .application-container .main-holder .paner-section div.list-group-item-success.list-group-item-action:hover {
+.list-group-item-success.list-group-item-action.active, .application-container .main-holder .left-page-card div.list-group-item-success.list-group-item-action:hover, .application-container .main-holder .account-panesl-page div.list-group-item-success.list-group-item-action:hover {
   color: #fff;
   background-color: #0f5132;
   border-color: #0f5132;
@@ -5068,7 +5072,7 @@ textarea.form-control-lg {
   color: #055160;
   background-color: #badce3;
 }
-.list-group-item-info.list-group-item-action.active, .application-container .main-holder .paner-section div.list-group-item-info.list-group-item-action:hover {
+.list-group-item-info.list-group-item-action.active, .application-container .main-holder .left-page-card div.list-group-item-info.list-group-item-action:hover, .application-container .main-holder .account-panesl-page div.list-group-item-info.list-group-item-action:hover {
   color: #fff;
   background-color: #055160;
   border-color: #055160;
@@ -5082,7 +5086,7 @@ textarea.form-control-lg {
   color: #664d03;
   background-color: #e6dbb9;
 }
-.list-group-item-warning.list-group-item-action.active, .application-container .main-holder .paner-section div.list-group-item-warning.list-group-item-action:hover {
+.list-group-item-warning.list-group-item-action.active, .application-container .main-holder .left-page-card div.list-group-item-warning.list-group-item-action:hover, .application-container .main-holder .account-panesl-page div.list-group-item-warning.list-group-item-action:hover {
   color: #fff;
   background-color: #664d03;
   border-color: #664d03;
@@ -5096,7 +5100,7 @@ textarea.form-control-lg {
   color: #842029;
   background-color: #dfc2c4;
 }
-.list-group-item-danger.list-group-item-action.active, .application-container .main-holder .paner-section div.list-group-item-danger.list-group-item-action:hover {
+.list-group-item-danger.list-group-item-action.active, .application-container .main-holder .left-page-card div.list-group-item-danger.list-group-item-action:hover, .application-container .main-holder .account-panesl-page div.list-group-item-danger.list-group-item-action:hover {
   color: #fff;
   background-color: #842029;
   border-color: #842029;
@@ -5110,7 +5114,7 @@ textarea.form-control-lg {
   color: #636464;
   background-color: #e5e5e5;
 }
-.list-group-item-light.list-group-item-action.active, .application-container .main-holder .paner-section div.list-group-item-light.list-group-item-action:hover {
+.list-group-item-light.list-group-item-action.active, .application-container .main-holder .left-page-card div.list-group-item-light.list-group-item-action:hover, .application-container .main-holder .account-panesl-page div.list-group-item-light.list-group-item-action:hover {
   color: #fff;
   background-color: #636464;
   border-color: #636464;
@@ -5124,7 +5128,7 @@ textarea.form-control-lg {
   color: #141619;
   background-color: #bebebf;
 }
-.list-group-item-dark.list-group-item-action.active, .application-container .main-holder .paner-section div.list-group-item-dark.list-group-item-action:hover {
+.list-group-item-dark.list-group-item-action.active, .application-container .main-holder .left-page-card div.list-group-item-dark.list-group-item-action:hover, .application-container .main-holder .account-panesl-page div.list-group-item-dark.list-group-item-action:hover {
   color: #fff;
   background-color: #141619;
   border-color: #141619;
@@ -5817,7 +5821,7 @@ textarea.form-control-lg {
   }
 }
 
-.carousel-item.active, .application-container .main-holder .paner-section div.carousel-item:hover,
+.carousel-item.active, .application-container .main-holder .left-page-card div.carousel-item:hover, .application-container .main-holder .account-panesl-page div.carousel-item:hover,
 .carousel-item-next,
 .carousel-item-prev {
   display: block;
@@ -5825,13 +5829,15 @@ textarea.form-control-lg {
 
 .carousel-item-next:not(.carousel-item-start),
 .active.carousel-item-end,
-.application-container .main-holder .paner-section div.carousel-item-end:hover {
+.application-container .main-holder .left-page-card div.carousel-item-end:hover,
+.application-container .main-holder .account-panesl-page div.carousel-item-end:hover {
   transform: translateX(100%);
 }
 
 .carousel-item-prev:not(.carousel-item-end),
 .active.carousel-item-start,
-.application-container .main-holder .paner-section div.carousel-item-start:hover {
+.application-container .main-holder .left-page-card div.carousel-item-start:hover,
+.application-container .main-holder .account-panesl-page div.carousel-item-start:hover {
   transform: translateX(-100%);
 }
 
@@ -5840,25 +5846,29 @@ textarea.form-control-lg {
   transition-property: opacity;
   transform: none;
 }
-.carousel-fade .carousel-item.active, .carousel-fade .application-container .main-holder .paner-section div.carousel-item:hover, .application-container .main-holder .paner-section .carousel-fade div.carousel-item:hover,
+.carousel-fade .carousel-item.active, .carousel-fade .application-container .main-holder .left-page-card div.carousel-item:hover, .carousel-fade .application-container .main-holder .account-panesl-page div.carousel-item:hover, .application-container .main-holder .left-page-card .carousel-fade div.carousel-item:hover, .application-container .main-holder .account-panesl-page .carousel-fade div.carousel-item:hover,
 .carousel-fade .carousel-item-next.carousel-item-start,
 .carousel-fade .carousel-item-prev.carousel-item-end {
   z-index: 1;
   opacity: 1;
 }
-.carousel-fade .active.carousel-item-start, .carousel-fade .application-container .main-holder .paner-section div.carousel-item-start:hover, .application-container .main-holder .paner-section .carousel-fade div.carousel-item-start:hover,
+.carousel-fade .active.carousel-item-start, .carousel-fade .application-container .main-holder .left-page-card div.carousel-item-start:hover, .carousel-fade .application-container .main-holder .account-panesl-page div.carousel-item-start:hover, .application-container .main-holder .left-page-card .carousel-fade div.carousel-item-start:hover, .application-container .main-holder .account-panesl-page .carousel-fade div.carousel-item-start:hover,
 .carousel-fade .active.carousel-item-end,
-.carousel-fade .application-container .main-holder .paner-section div.carousel-item-end:hover,
-.application-container .main-holder .paner-section .carousel-fade div.carousel-item-end:hover {
+.carousel-fade .application-container .main-holder .left-page-card div.carousel-item-end:hover,
+.carousel-fade .application-container .main-holder .account-panesl-page div.carousel-item-end:hover,
+.application-container .main-holder .left-page-card .carousel-fade div.carousel-item-end:hover,
+.application-container .main-holder .account-panesl-page .carousel-fade div.carousel-item-end:hover {
   z-index: 0;
   opacity: 0;
   transition: opacity 0s 0.6s;
 }
 @media (prefers-reduced-motion: reduce) {
-  .carousel-fade .active.carousel-item-start, .carousel-fade .application-container .main-holder .paner-section div.carousel-item-start:hover, .application-container .main-holder .paner-section .carousel-fade div.carousel-item-start:hover,
+  .carousel-fade .active.carousel-item-start, .carousel-fade .application-container .main-holder .left-page-card div.carousel-item-start:hover, .carousel-fade .application-container .main-holder .account-panesl-page div.carousel-item-start:hover, .application-container .main-holder .left-page-card .carousel-fade div.carousel-item-start:hover, .application-container .main-holder .account-panesl-page .carousel-fade div.carousel-item-start:hover,
   .carousel-fade .active.carousel-item-end,
-  .carousel-fade .application-container .main-holder .paner-section div.carousel-item-end:hover,
-  .application-container .main-holder .paner-section .carousel-fade div.carousel-item-end:hover {
+  .carousel-fade .application-container .main-holder .left-page-card div.carousel-item-end:hover,
+  .carousel-fade .application-container .main-holder .account-panesl-page div.carousel-item-end:hover,
+  .application-container .main-holder .left-page-card .carousel-fade div.carousel-item-end:hover,
+  .application-container .main-holder .account-panesl-page .carousel-fade div.carousel-item-end:hover {
     transition: none;
   }
 }
@@ -5967,7 +5977,7 @@ textarea.form-control-lg {
     transition: none;
   }
 }
-.carousel-indicators .active, .carousel-indicators .application-container .main-holder .paner-section div:hover, .application-container .main-holder .paner-section .carousel-indicators div:hover {
+.carousel-indicators .active, .carousel-indicators .application-container .main-holder .left-page-card div:hover, .carousel-indicators .application-container .main-holder .account-panesl-page div:hover, .application-container .main-holder .left-page-card .carousel-indicators div:hover, .application-container .main-holder .account-panesl-page .carousel-indicators div:hover {
   opacity: 1;
 }
 
@@ -10829,13 +10839,13 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.text-link, .application-container .main-holder .paner-section div, .panels a, .v-list-item a, .header-link, .heading .brand, .heading .modules {
-  color: #545454 !important;
+.text-link, .panels a, .v-list-item a, .header-link, .heading .brand, .heading .modules {
+  color: #787878 !important;
   text-decoration: none !important;
 }
 
 .link {
-  color: #545454 !important;
+  color: #787878 !important;
 }
 
 .pointer {
@@ -10846,8 +10856,15 @@ textarea.form-control-lg {
   clear: both;
 }
 
+.active_link {
+  color: #7E57C2;
+}
+.active_link .v-icon {
+  color: #7E57C2 !important;
+}
+
 input, textarea {
-  color: #545454 !important;
+  color: #787878 !important;
   font-size: 14px !important;
 }
 
@@ -10863,6 +10880,28 @@ input, textarea {
 
 .v-textarea {
   height: unset;
+}
+
+.records-count {
+  font-size: 22px;
+}
+
+.selected-menu-header {
+  font-weight: 600;
+  color: #7e7e7e;
+  font-size: 12px !important;
+  padding-left: 20px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.v-list-item__title {
+  font-size: 13px !important;
+  color: #7e7e7e;
+}
+.v-list-item__title .v-icon {
+  font-size: 20px !important;
+  color: #7e7e7e !important;
 }
 
 .header-link, .heading .brand, .heading .modules {
@@ -10884,7 +10923,7 @@ input, textarea {
 
 .important-field-icon {
   font-size: 7px !important;
-  color: #fd6d6d !important;
+  color: #f36767 !important;
 }
 
 .label-text, .upload-image-container .description, .upload-image-container .image-paragraph {
@@ -10906,7 +10945,40 @@ input, textarea {
 
 .v-input__slot {
   box-shadow: none !important;
-  border: 1px solid #e7e7e7;
+  border: 1px solid #dddddd;
+}
+
+.v-messages__message {
+  color: #f36767 !important;
+}
+
+.v-data-table {
+  color: #787878 !important;
+  border-top: 1px solid #dfdfdf;
+  border-radius: 0px !important;
+}
+.v-data-table .v-input__slot {
+  border: none !important;
+}
+.v-data-table .profile-image {
+  border-radius: 5px;
+  width: 50px;
+}
+.v-data-table .v-input--checkbox {
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+}
+.v-data-table .v-icon {
+  font-size: 20px !important;
+}
+
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > th, .v-data-table > .v-data-table__wrapper > table > tfoot > tr > th, .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+  color: #787878 !important;
+  font-size: 0.8rem !important;
+}
+
+.v-chip.v-size--small {
+  border-radius: none !important;
 }
 
 form .inputs-holder {
@@ -10918,7 +10990,7 @@ form .inputs-holder .v-input--checkbox {
 }
 form .inputs-holder .v-input--checkbox .v-label {
   font-size: 14px !important;
-  color: #545454 !important;
+  color: #787878 !important;
 }
 form .buttons {
   background: #f8f8fb;
@@ -10928,9 +11000,12 @@ form div.buttons > button:first-child {
   background-color: #7E57C2 !important;
   color: white !important;
 }
+form div.buttons a {
+  margin-left: 10px;
+}
 
 .print-pdf {
-  background-color: #fd6d6d !important;
+  background-color: #f36767 !important;
   color: white !important;
   margin-left: 10px;
 }
@@ -10939,8 +11014,20 @@ form div.buttons > button:first-child {
   width: 300px;
 }
 
+.selected-menu {
+  text-align: right;
+}
+.selected-menu button {
+  margin-top: -20px;
+}
+.selected-menu .v-icon {
+  color: gray !important;
+  margin-right: 5px !important;
+  font-size: 16px !important;
+}
+
 .delete-confirm {
-  background-color: #000;
+  background-color: #131314;
   color: whitesmoke;
   border-radius: 20px 4px 20px 4px;
   min-height: 50px;
@@ -10993,10 +11080,10 @@ form div.buttons > button:first-child {
 .success-message, .error-message {
   display: inline-block;
   position: fixed;
-  top: 56px;
+  top: 0px;
   right: -200px;
   z-index: 999;
-  background: #7ec77e;
+  background: #7bcf7f;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
@@ -11007,7 +11094,7 @@ form div.buttons > button:first-child {
 }
 
 .error-message {
-  background: #fd6d6d;
+  background: #f36767;
 }
 
 .show_message {
@@ -11031,7 +11118,7 @@ form div.buttons > button:first-child {
   display: none;
 }
 .upload-image-container .custom-file-upload {
-  border: 1px solid #e7e7e7;
+  border: 1px solid #dddddd;
   padding: 3px 10px;
   border-radius: 5px;
   margin-right: 10px;
@@ -11073,7 +11160,7 @@ form div.buttons > button:first-child {
   position: relative;
   left: -10px;
   background-color: white;
-  color: #545454 !important;
+  color: #787878 !important;
   font-size: 14px;
   border-radius: 5px;
   overflow: hidden;
@@ -11171,7 +11258,7 @@ form div.buttons > button:first-child {
 .expiration {
   padding: 10px;
   color: white;
-  background: #fd6d6d;
+  background: #f36767;
   font-size: 14px;
   padding-left: 20px;
 }
@@ -11196,47 +11283,92 @@ form div.buttons > button:first-child {
 .panels a {
   color: white !important;
 }
+.panels button {
+  float: right;
+  margin-top: 5px;
+  background-color: #8e68cf !important;
+  color: white !important;
+  margin-right: 30px;
+}
 
 .application-container .main-holder {
   position: relative;
-  left: 20px;
   top: -40px;
   min-height: 620px;
+  width: calc(100% - 60px);
 }
-.application-container .main-holder .main-content, .application-container .main-holder .page-container, .application-container .main-holder .paner-section {
+@media (max-width: 991px) {
+  .application-container .main-holder {
+    left: 20px;
+    width: calc(100% - 40px);
+  }
+}
+.application-container .main-holder .right-page-card, .application-container .main-holder .account-page, .application-container .main-holder .full-page-card, .application-container .main-holder .admins-update-page, .application-container .main-holder .admins-create-page, .application-container .main-holder .admins-page, .application-container .main-holder .company-page {
   border-radius: 5px;
   background: white;
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
   float: left;
-  width: calc(100% - 320px);
-  max-width: 1400px;
   margin-left: 20px;
+  width: calc(100% - 320px);
+  max-width: 1200px;
 }
-.application-container .main-holder .paner-section {
+@media (max-width: 1000px) {
+  .application-container .main-holder .right-page-card, .application-container .main-holder .account-page, .application-container .main-holder .full-page-card, .application-container .main-holder .admins-update-page, .application-container .main-holder .admins-create-page, .application-container .main-holder .admins-page, .application-container .main-holder .company-page {
+    float: none;
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 30px;
+  }
+}
+.application-container .main-holder .left-page-card, .application-container .main-holder .account-panesl-page {
   padding: 20px;
-  float: left;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
   width: 300px;
+  float: left;
 }
-.application-container .main-holder .paner-section .active, .application-container .main-holder .paner-section div:hover {
-  color: #7E57C2 !important;
+@media (max-width: 1000px) {
+  .application-container .main-holder .left-page-card, .application-container .main-holder .account-panesl-page {
+    float: none;
+  }
 }
-.application-container .main-holder .paner-section .active .v-icon, .application-container .main-holder .paner-section div:hover .v-icon {
-  color: #7E57C2 !important;
-}
-.application-container .main-holder .paner-section div {
+.application-container .main-holder .left-page-card div, .application-container .main-holder .account-panesl-page div {
   cursor: pointer;
   display: block;
   margin-bottom: 20px;
   font-size: 14px;
   font-weight: 600;
 }
-.application-container .main-holder .paner-section div .v-icon {
-  font-size: 20px !important;
-  color: #545454 !important;
+.application-container .main-holder .left-page-card div .v-icon, .application-container .main-holder .account-panesl-page div .v-icon {
+  font-size: 20px;
+  color: #787878;
   margin-right: 5px;
 }
-.application-container .main-holder .page-container {
+.application-container .main-holder .full-page-card, .application-container .main-holder .admins-update-page, .application-container .main-holder .admins-create-page, .application-container .main-holder .admins-page, .application-container .main-holder .company-page {
+  max-width: 1200px;
   width: 100%;
+  float: none;
+}
+.application-container .main-holder .admins-page {
+  max-width: 1600px;
+  padding: 40px;
+}
+.application-container .main-holder .admins-page .header {
+  align-items: center;
+}
+.application-container .main-holder .admins-page .header .v-input {
+  display: inline-block;
+  margin-left: 20px;
+  width: 300px;
+}
+.application-container .main-holder .admins-create-page {
+  padding: 40px;
+}
+.application-container .main-holder .admins-update-page {
+  padding: 40px;
+}
+.application-container .admins-page-panels-container .title {
   max-width: 1600px;
 }
 

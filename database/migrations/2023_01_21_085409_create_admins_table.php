@@ -21,7 +21,7 @@ class CreateAdminsTable extends Migration
             $table->string('last_name');
             $table->string('phone');
             $table->string('gender')->nullable();
-            $table->string('birth_date')->nullable();
+            $table->date('birth_date')->nullable();
             $table->string('image')->nullable();
             $table->string('address')->nullable();
             $table->timestamps();

@@ -43,6 +43,8 @@ new Vue({
           themes: {
             light: {
               primary: '#7E57C2',
+              error : '#f36767',
+              success : '#7bcf7f'
   
             },
           },

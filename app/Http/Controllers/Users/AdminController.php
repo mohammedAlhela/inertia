@@ -16,16 +16,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Mail;
-use PDF;
+use PdfReport;
 
 class AdminController extends Controller
 {
 
     public function index()
     {
+        $admins = Admin::with('user')->get();
 
+        foreach ($admins as $admin) {
+
+            $admin->select = false;
+        }
         return inertia('App/Users/Admins/Index', [
-            'admins' => Admin::all(),
+            'admins' => $admins,
         ]);
 
     }
@@ -57,7 +62,7 @@ class AdminController extends Controller
             'company' => Helper::getCompany(),
         );
 
-        Mail::send('auth.userCreated', array ('data' => $data), function ($mail) use ( $user) {
+        Mail::send('users.userCreated', array('data' => $data), function ($mail) use ($user) {
             $mail->to($user->email)
                 ->subject('New user created');
 
@@ -70,7 +75,7 @@ class AdminController extends Controller
         $data = array(
             "record" => $admin,
             "image" => $image,
-            "dirPath" => "images/admins/",
+            "dirPath" => "/images/admins/",
             "width" => 250,
             "height" => 250,
 
@@ -93,14 +98,14 @@ class AdminController extends Controller
 
         $image = request()->file("image");
 
-        $admin = Admin::update($request->except('image', 'email', 'created_at', 'updated_at'))->where('id', $id);
+        $admin = Admin::where('id', $id)->update($request->except('image', 'email', 'created_at', 'updated_at'));
 
         $admin = Admin::find($id);
 
         $data = array(
             "record" => $admin,
             "image" => $image,
-            "dirPath" => "images/admins/",
+            "dirPath" => "/images/admins/",
             "width" => 250,
             "height" => 250,
 
@@ -116,25 +121,37 @@ class AdminController extends Controller
         $admins = Admin::with('user')->whereIn('id', $ids)->get();
 
         foreach ($admins as $admin) {
-            if ($admin->image && file_exists($admin->image)) {
+            if ($admin->image && file_exists(public_path() . $admin->image)) {
 
-                unlink($admin->image);
+                unlink(substr($admin->image, 1));
 
             }
-            $admin->delete();
             $admin->user->delete();
+            $admin->delete();
+
         }
 
     }
 
-    public function block($ids, $key)
+    public function block($ids)
     {
 
         $ids = Helper::getArrayFromString($ids);
 
         $usersIds = Admin::with('user')->whereIn('id', $ids)->pluck('user_id')->toArray();
 
-        User::whereIn('id', $usersIds)->update(['status' => $key == 'block' ? false : true]);
+        User::whereIn('id', $usersIds)->update(['status' => false]);
+
+    }
+
+    public function unBlock($ids)
+    {
+
+        $ids = Helper::getArrayFromString($ids);
+
+        $usersIds = Admin::with('user')->whereIn('id', $ids)->pluck('user_id')->toArray();
+
+        User::whereIn('id', $usersIds)->update(['status' => true]);
 
     }
 
@@ -232,7 +249,7 @@ class AdminController extends Controller
             array_push($paths, 'send/' . $file->getClientOriginalName());
         }
 
-        Mail::send('users.emailMessage', array('data' => $data), function ($mail) use ($data, $emails, $paths) {
+        Mail::send('users.emailMessage', array('data' => Helper::getAttachmentData($admins)), function ($mail) use ($data, $emails, $paths) {
             $mail->to($emails)
                 ->subject($data['subject']);
 
@@ -254,9 +271,14 @@ class AdminController extends Controller
 
         $admins = Admin::with('user')->whereIn('id', $ids)->get();
 
-        $pdf = PDF::loadView('users.admins.pdf', $admins);
+        $data = array(
+            'admins' => $admins,
+            'company' => Helper::getCompany(),
+        );
 
+        $pdf = PdfReport::loadView('users.admins.pdf', array('data' => $data));
         return $pdf->download('admins.pdf');
+
     }
 
     public function exportExcel($ids)

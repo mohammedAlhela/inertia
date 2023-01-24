@@ -1,46 +1,59 @@
 .application-container {
     .main-holder {
         position: relative;
-        left: 20px;
+    
         top: -40px;
         min-height: 620px;
-        // small pages and paner pages  
+      
 
-        .main-content {
+        width: calc(100% - 60px);
+
+        @media (max-width: 991px) {
+            left: 20px;
+            width: calc(100% - 40px);
+        }
+
+        .right-page-card {
             border-radius: 5px;
-
             background: white;
             box-shadow: 0 3px 1px -2px rgb(0 0 0 / 10%),
                 0 2px 2px 0 rgb(0 0 0 / 10%), 0 1px 5px 0 rgb(0 0 0 / 10%);
+
             float: left;
-            width: calc(100% - 320px);
-            max-width: 1400px;
             margin-left: 20px;
+            width: calc(100% - 320px);
+            max-width: 1200px;
+
+            @media (max-width: 1000px) {
+                float: none;
+                width: 100%;
+                margin-left: 0px;
+                margin-top: 30px;
+            }
         }
 
-        .paner-section {
+        .left-page-card {
             padding: 20px;
-            @extend .main-content;
-            float: left;
-            width: 300px;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 3px 1px -2px rgb(0 0 0 / 10%),
+                0 2px 2px 0 rgb(0 0 0 / 10%), 0 1px 5px 0 rgb(0 0 0 / 10%);
 
-            .active {
-                color: $main-color !important;
-                .v-icon {
-                    color: $main-color !important;
-                }
+            width: 300px;
+            float: left;
+            @media (max-width: 1000px) {
+                float: none;
             }
 
             div {
                 cursor: pointer;
                 display: block;
-                @extend .text-link;
                 margin-bottom: 20px;
                 font-size: 14px;
                 font-weight: 600;
                 .v-icon {
-                    font-size: 20px !important;
-                    color: $black-color !important;
+                    font-size: 20px;
+                    color: $black-color;
                     margin-right: 5px;
                 }
 
@@ -50,15 +63,61 @@
             }
         }
 
-        // small pages and paner pages  
-
-        .page-container { 
-            @extend .main-content;
+        .full-page-card {
+            @extend .right-page-card;
+            max-width: 1200px;
             width: 100%;
-            max-width: 1600px;
-
+            float: none;
         }
 
-        
+        // pages
+        .company-page {
+            @extend .full-page-card;
+        }
+
+        .account-page {
+            @extend .right-page-card;
+        }
+
+        .account-panesl-page {
+            @extend .left-page-card;
+        }
+
+        .admins-page {
+            @extend .full-page-card;
+            max-width: 1600px;
+            padding: 40px;
+
+            .header {
+                align-items: center;
+                .v-input {
+                    display: inline-block;
+                    margin-left: 20px;
+                    width: 300px;
+                }
+
+              
+            }
+        }
+
+        .admins-create-page {
+            @extend .full-page-card;
+            padding: 40px;
+        }
+
+        .admins-update-page {
+            @extend .full-page-card;
+            padding: 40px;
+        }
+
+        // pages
+    }
+
+    // panels of pages
+    .admins-page-panels-container {
+        .title {
+            max-width: 1600px;
+         
+        }
     }
 }

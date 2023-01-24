@@ -5,8 +5,7 @@
             <title>Sahara class - Password reset</title>
         </Head>
         <h2>Password reset</h2>
-        {{ form.errors }}
-        <v-form @submit.prevent="updatePassword" >
+        <v-form @submit.prevent="updatePassword" ref = "form">
             <v-row class="inputs-holder">
                 <v-col cols="12" class="py-1">
                     <span class="input-header">
@@ -39,7 +38,7 @@
                         Password Confirmation :
                     </span>
 
-                    <v-text-field :type="passwordConfirmationType ? 'text' : 'password'"
+                    <v-text-field :rules="formErrors.password_confirmation"  :type="passwordConfirmationType ? 'text' : 'password'"
                         :append-icon="passwordConfirmationType ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="passwordConfirmationType = !passwordConfirmationType" required solo dense
                         v-model="
@@ -64,6 +63,7 @@ export default {
         updatePassword() {
             this.form.token = this.token
             this.form.email = this.email
+            this.$refs.form.validate()
             this.form.post("/password-reset");
         },
 

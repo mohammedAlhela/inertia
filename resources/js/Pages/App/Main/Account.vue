@@ -2,23 +2,22 @@
     <section>
         <HeaderPanels :headerData="headerData" />
         <div class="main-holder">
-            <div class="paner-section">
-                <div @click="toggleForm('account')">
+            <div class="account-panesl-page">
+                <div @click="toggleForm('account')" :class = "{active_link:accountPanel}">
                     <v-icon>mdi-pencil</v-icon> Update Profile
                 </div>
-                <div @click="toggleForm('password')">
+                <div @click="toggleForm('password')" :class = "{active_link:!accountPanel}">
                     <v-icon>mdi-lock</v-icon> Update Credentials
                 </div>
 
             </div>
-            <div class="main-content">
+            <div class="account-page">
                 <v-form @submit.prevent="update" v-if="accountPanel" ref="accountForm">
                     <v-row class="inputs-holder">
 
-
                         <div class="upload-image-container">
                             <div class="description">
-                                Recomended dimensions are 100 x 100
+                                Recomended dimensions are 250 x 250
                             </div>
 
                             <img :src="getImage" />
@@ -42,28 +41,41 @@
                             </div>
                         </div>
 
+
                         <v-col cols="6" class="py-1">
                             <span class="input-header">
-                                Email
+                                First name
                             </span>
                             <v-icon class="important-field-icon"> mdi-star </v-icon>
 
-                            <v-text-field required :rules="accountErrors.email" solo dense v-model="
-                                form.email
-                            " class="textfield" />
-                        </v-col>
-                        <v-col cols="6" class="py-1">
-                            <span class="input-header">
-                                Name
-                            </span>
-                            <v-icon class="important-field-icon"> mdi-star </v-icon>
-
-                            <v-text-field required :rules="accountErrors.name" solo dense v-model="
-                                form.name
+                            <v-text-field required :rules="accountErrors.first_name" solo dense v-model="
+                                form.first_name
                             " class="textfield" />
                         </v-col>
 
 
+                        <v-col cols="6" class="py-1">
+                            <span class="input-header">
+                                Last name
+                            </span>
+                            <v-icon class="important-field-icon"> mdi-star </v-icon>
+
+                            <v-text-field required :rules="accountErrors.last_name" solo dense v-model="
+                                form.last_name
+                            " class="textfield" />
+                        </v-col>
+
+
+                        <v-col cols="6" class="py-1">
+                            <span class="input-header">
+                                Username
+                            </span>
+                            <v-icon class="important-field-icon"> mdi-star </v-icon>
+
+                            <v-text-field required :rules="accountErrors.username" solo dense v-model="
+                                form.username
+                            " class="textfield" />
+                        </v-col>
 
 
                         <v-col cols="6" class="py-1">
@@ -76,6 +88,35 @@
                                 form.phone
                             " class="textfield" />
                         </v-col>
+
+
+                        <v-col cols="6" class="py-1">
+                            <span class="input-header">
+                                Gender
+                            </span>
+
+
+                            <v-select :items="helper.methods.genders()" required solo dense v-model="
+                                form.gender
+                            " class="textfield" />
+                        </v-col>
+
+
+
+
+                        <v-col cols="6" class="py-1">
+                            <span class="input-header">
+                                Data of birth
+                            </span>
+
+
+                            <v-text-field type="date" required solo dense v-model="
+                                form.birth_date
+                            " class="textfield" />
+                        </v-col>
+
+
+
 
 
                         <v-col cols="6" class="py-1">
@@ -94,19 +135,17 @@
                 </v-form>
 
 
-                 <v-form @submit.prevent="updateCredentials" v-if="credentialsPanel" ref="credentialsForm">
+                <v-form @submit.prevent="updateCredentials" v-if="credentialsPanel" ref="credentialsForm">
                     <v-row class="inputs-holder">
-
 
                         <v-col cols="12" class="py-1">
                             <span class="input-header">
-                              Username
+                                email
                             </span>
                             <v-icon class="important-field-icon"> mdi-star </v-icon>
-                            <v-text-field :rules="credentialsErrors.username"
-                            required solo dense v-model="
-                                    username
-                                " class="textfield" />
+                            <v-text-field :rules="credentialsErrors.email" required solo dense v-model="
+                                credentials.email
+                            " class="textfield" type="email" />
                         </v-col>
 
                         <v-col cols="12" class="py-1">
@@ -116,60 +155,62 @@
                         </v-col>
 
                         <v-col cols="12" class="py-5">
-                            <v-checkbox
-                                label="Change password"
-                                v-model="credentials.updatePassword" color="deep-purple lighten-1" hide-details />
+                            <v-checkbox label="Change password" v-model="credentials.updatePassword"
+                                color="deep-purple lighten-1" hide-details @click="resetCredentialsValidation()" />
                         </v-col>
 
-                        <div v-if = " credentials.updatePassword">
+                        <div v-if="credentials.updatePassword">
 
-                       
-                        <v-col cols="12" class="py-1" >
-                            <span class="input-header">
-                                Old Password
-                            </span>
-                            <v-icon class="important-field-icon"> mdi-star </v-icon>
-                            <v-text-field :rules="credentialsErrors.old_password"
-                                :type="oldPasswordType ? 'text' : 'password'"
-                                :append-icon="oldPasswordType ? 'mdi-eye' : 'mdi-eye-off'"
-                                @click:append="oldPasswordType = !oldPasswordType" required solo dense v-model="
-                                    credentials.old_password
-                                " class="textfield" />
-                        </v-col>
 
-                        <v-col cols="12" class="py-1">
-                            <span class="input-header">
-                                New Password
-                            </span>
-                            <v-icon class="important-field-icon"> mdi-star </v-icon>
-                            <v-text-field :rules="credentialsErrors.password" :type="passwordType ? 'text' : 'password'"
-                                :append-icon="passwordType ? 'mdi-eye' : 'mdi-eye-off'"
-                                @click:append="passwordType = !passwordType" required solo dense v-model="
-                                    credentials.password
-                                " class="textfield" />
-                        </v-col>
+                            <v-col cols="12" class="py-1">
+                                <span class="input-header">
+                                    Old Password
+                                </span>
+                                <v-icon class="important-field-icon"> mdi-star </v-icon>
+                                <v-text-field :rules="credentialsErrors.old_password"
+                                    :type="oldPasswordType ? 'text' : 'password'"
+                                    :append-icon="oldPasswordType ? 'mdi-eye' : 'mdi-eye-off'"
+                                    @click:append="oldPasswordType = !oldPasswordType" required solo dense v-model="
+                                        credentials.old_password
+                                    " class="textfield" />
+                            </v-col>
 
-                        <v-col cols="12" class="py-1">
-                            <span class="input-header">
-                                New Password Confirmation
-                            </span>
-                            <v-icon class="important-field-icon"> mdi-star </v-icon>
-                            <v-text-field :type="passwordConfirmationType ? 'text' : 'password'"
-                                :append-icon="passwordConfirmationType ? 'mdi-eye' : 'mdi-eye-off'"
-                                @click:append="passwordConfirmationType = !passwordConfirmationType" required solo dense
-                                v-model="
-                                    credentials.password_confirmation
-                                " class="textfield" />
-                        </v-col>
+                            <v-col cols="12" class="py-1">
+                                <span class="input-header">
+                                    New Password
+                                </span>
+                                <v-icon class="important-field-icon"> mdi-star </v-icon>
+                                <v-text-field :rules="credentialsErrors.password"
+                                    :type="passwordType ? 'text' : 'password'"
+                                    :append-icon="passwordType ? 'mdi-eye' : 'mdi-eye-off'"
+                                    @click:append="passwordType = !passwordType" required solo dense v-model="
+                                        credentials.password
+                                    " class="textfield" />
+                            </v-col>
 
-                    </div>
-                
+                            <v-col cols="12" class="py-1">
+                                <span class="input-header">
+                                    New Password Confirmation
+                                </span>
+                                <v-icon class="important-field-icon">
+                                    mdi-star </v-icon>
+                                <v-text-field :rules="credentialsErrors.password_confirmation"
+                                    :type="passwordConfirmationType ? 'text' : 'password'"
+                                    :append-icon="passwordConfirmationType ? 'mdi-eye' : 'mdi-eye-off'"
+                                    @click:append="passwordConfirmationType = !passwordConfirmationType" required solo
+                                    dense v-model="
+                                        credentials.password_confirmation
+                                    " class="textfield" />
+                            </v-col>
+
+                        </div>
+
 
                     </v-row>
                     <div class="buttons">
                         <v-btn :loading="credentials.processing" type="submit">Update </v-btn>
                     </div>
-                </v-form> 
+                </v-form>
 
 
             </div>
@@ -183,11 +224,12 @@
 export default {
     props: {
         user: Object,
-        username: String,
+        email: String,
     },
 
     mounted() {
         this.helper.methods.handleServerData(this.form, this.user)
+        this.credentials.email = this.email
     },
 
     computed: {
@@ -204,7 +246,7 @@ export default {
             return (
                 this.image.preview ||
                 this.user.image ||
-                "/images/admins/admin.webp"
+                "images/admins/admin.webp"
             );
         },
 
@@ -227,18 +269,27 @@ export default {
                 },
             });
 
-            alert(this.form.id)
         },
 
+
+        resetCredentialsValidation() {
+            if (this.credentials.updatePassword == true) {
+                this.credentials.reset('old_password', 'password', 'password_confirmation')
+            }
+        },
         updateCredentials() {
             this.$refs.credentialsForm.validate()
-            this.credentials.username = this.username;
+            this.credentials.user_id = this.user.user_id;
+
+
+            console.log(this.user.user_id)
             this.credentials.post("/account/credentials", {
                 onSuccess: () => {
                     this.helper.methods.fireMessage(
                         "Credentials updated", "success"
                     );
-                    Inertia.get("/account");
+
+                    this.credentials.reset('old_password', 'password', 'password_confirmation')
                 },
             });
         },
@@ -304,12 +355,18 @@ export default {
             form: this.$inertia.form({
                 id: "",
                 user_id: "",
-                email: "",
-                name: "",
+                username: "",
+                first_name: "",
+                last_name: "",
+                gender: "",
+                birth_date: "",
                 image: "",
                 phone: "",
                 address: "",
-                roleKey: "admin"
+
+
+
+
             }),
 
             credentials: this.$inertia.form({
@@ -318,7 +375,7 @@ export default {
                 password_confirmation: "",
                 logoutFromSessions: "",
                 updatePassword: "",
-                username : "sdfsdfsdfsdf"
+                email: ""
             }),
 
             oldPasswordType: "password",
@@ -327,6 +384,8 @@ export default {
 
             accountPanel: true,
             credentialsPanel: false,
+
+
 
         };
     },

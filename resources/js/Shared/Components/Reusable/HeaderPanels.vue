@@ -28,6 +28,8 @@
                 <Link class="text-link" :href="headerData.add.src"> <v-btn v-if="headerData.add.visibility"> {{
                     headerData.add.paragraph
                 }} </v-btn> </Link>
+
+                <div class="clear"></div>
             </div>
         </div>
     </section>
