@@ -18,7 +18,7 @@ class AdminFactory extends Factory
     /**
      * Define the model's default state.
      *
-     * @return array 
+     * @return array
      */
     public function definition()
     {
@@ -26,9 +26,9 @@ class AdminFactory extends Factory
             'first_name' => $this->faker->unique()->name(),
             'last_name' => $this->faker->unique()->name(),
             'username' => $this->faker->unique()->name(),
-            'phone' =>(string) $this->faker->unique()->numerify('##########'), 
-        ]; 
+            'phone' => (string) $this->faker->unique()->numerify('##########'),
+            'gender' => $this->faker->randomElement(['male', 'female']),
+        ];
     }
-
 
 }

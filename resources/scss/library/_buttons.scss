@@ -3,3 +3,16 @@
     color: white !important;
     margin-left: 10px;
 }
+
+button { 
+    padding: 0px 12px !important;
+    text-transform: capitalize !important;  
+}
+
+
+.actions { 
+    button { 
+        padding: unset !important;
+    }
+     
+}

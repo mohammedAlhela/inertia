@@ -3,9 +3,7 @@
 namespace Database\Seeders;
 
 use DB;
-
 use Helper;
-
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
@@ -18,7 +16,7 @@ class PermissionSeeder extends Seeder
     public function run()
     {
 
-        foreach ( Helper::getPermissions() as $permission) {
+        foreach (Helper::getPermissions() as $permission) {
 
             DB::table('permissions')->insert([
                 'name' => $permission,

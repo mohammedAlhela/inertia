@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Mail;
 use PdfReport;
+use DB;
 
 class AdminController extends Controller
 {
@@ -157,9 +158,10 @@ class AdminController extends Controller
 
     public function ShowPermissions($id)
     {
-
+        $admin = Admin::find($id);
         return inertia('App/Users/Admins/Permissions', [
-            'permissions' => Admin::find($id)->user->permissions,
+            'permissionsNames' => $admin->user->permissionsNames(),
+            'admin' => $admin,
         ]);
 
     }
@@ -182,17 +184,20 @@ class AdminController extends Controller
     public function ShowCredentials($id)
     {
 
+        $admin = Admin::find($id);
         return inertia('App/Users/Admins/Credentials', [
-            'email' => Admin::find($id)->user->email,
+            'email' => $admin->user->email,
+            'admin' => $admin,
         ]);
 
     }
 
     public function UpdateCredentials(CredentialsRequest $request, $id)
     {
-        $user_id = Admin::find($id)->user->id;
 
-        $user = User::find($user_id);
+        $admin = Admin::find($id);
+
+        $user = User::find($request->user_id);
 
         $user->email = $request->email;
 
@@ -204,16 +209,16 @@ class AdminController extends Controller
 
         $user->save();
 
-        $user->username = Admin::find($id)->username;
+        $user->username = $admin->username;
 
         $data = array(
             'user' => $user,
             'company' => Helper::getCompany(),
         );
 
-        $request->logoutFromSessions ? DB::table('sessions')->where('user_id', $user->id)->where('ip_address', '!=', $request->ip())->delete() : 1 == 1;
+        $request->logoutFromSessions ? DB::table('sessions')->where('user_id', $user->id)->delete() : 1 == 1;
 
-        $request->sendUpdateNotification ? Mail::send('auth.credentialsUpdated', array('data' => $data), function ($mail) use ($user) {
+        $request->sendUpdateNotification ? Mail::send('users.credentialsUpdated', array('data' => $data), function ($mail) use ($user) {
             $mail->to($user->email)
                 ->subject('User Credentials Updated ');
 

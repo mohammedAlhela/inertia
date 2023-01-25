@@ -5,15 +5,17 @@
         <delete-confirm :deleteSnackbar="deleteSnackbar" @closing="closeDeleteSnackbar()" @deleteData="destroy()"
             :useDefault="admins" user="record" />
 
-            <delete-confirm :deleteSnackbar="blockDeleteSnackbar" @closing="blockDeleteSnackbar = false" @deleteData="deleteSelected()"
-            :useDefault="!admins" customParagraph  = "Are you sure you want to delete the selected records ?"  />
+        <delete-confirm :deleteSnackbar="blockDeleteSnackbar" @closing="blockDeleteSnackbar = false"
+            @deleteData="deleteSelected()" :useDefault="!admins"
+            customParagraph="Are you sure you want to delete the selected records ?" />
 
         <div class="main-holder">
             <div class="admins-page">
                 <div class="header row">
                     <div class="col-6">
                         <span class="records-count"> {{ this.filteredAdmins().length }} Admins </span>
-                        <v-text-field @click:clear="clearSearch()"  clearable solo dense v-model="search" type="text" @input="unSelectAll()" />
+                        <v-text-field @click:clear="clearSearch()" clearable solo dense v-model="search" type="text"
+                            @input="unSelectAll()" />
                     </div>
 
                     <div class="col-6 selected-menu">
@@ -21,7 +23,7 @@
                         <v-menu offset-y v-model="selectMenu" :disabled="!selectedIds.length">
                             <template v-slot:activator="{ on, attrs }">
 
-                                <v-btn v-bind="attrs" v-on="on">
+                                <v-btn v-bind="attrs" v-on="on" :disabled="!selectedIds.length">
                                     <v-icon> mdi-chevron-down-circle</v-icon> Selected {{ selectedIds.length }}
                                 </v-btn>
                             </template>
@@ -83,8 +85,8 @@
                         itemsPerPageText: ' rows',
                     }">
                     <template v-slot:header.select>
-                        <th class="py-2">
-                            <v-icon @click="blockSelect()" color="primary">
+                        <th class="py-2 ">
+                            <v-icon @click="blockSelect()" color="primary" class="header-select">
                                 {{
                                     selectedIds .length == filteredAdmins().length ? "mdi-close-box-multiple" :
                                         "mdi-checkbox-multiple-marked"
@@ -94,7 +96,7 @@
                     </template>
 
                     <template v-slot:item.select="{ item }">
-                        <td class="py-2">
+                        <td class="py-2 ">
                             <v-checkbox hide-details v-model="
                                 item.select
                             "></v-checkbox>
@@ -140,7 +142,7 @@
 
 
                     <template v-slot:item.actions="{ item }">
-                        <td>
+                        <td class="actions">
 
 
                             <v-tooltip top>
@@ -386,9 +388,9 @@ export default {
 
         },
 
-        clearSearch () { 
-         this.search = ""
-        }, 
+        clearSearch() {
+            this.search = ""
+        },
         // filter +++++
 
         // select +++++
@@ -472,7 +474,7 @@ export default {
                         preserveState: true
                     });
                 },
-            }); 
+            });
         },
 
 
@@ -501,13 +503,21 @@ export default {
 
 
                 },
-            }); 
+            });
         },
 
 
-        editItem (item) { 
+        editItem(item) {
             this.Inertia.get(`/admin/edit/${item.id}`)
-        }
+        },
+
+        managePermissions(item) {
+            this.Inertia.get(`/admin/permissions/${item.id}`)
+        },
+
+        manageCredentials(item) {
+            this.Inertia.get(`/admin/credentials/${item.id}`)
+        },
         // select +++++
 
 

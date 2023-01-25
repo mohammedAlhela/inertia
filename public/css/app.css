@@ -10969,10 +10969,22 @@ input, textarea {
   padding-top: 0px !important;
 }
 .v-data-table .v-icon {
+  cursor: pointer;
   font-size: 20px !important;
 }
+.v-data-table .v-icon::after {
+  background-color: white !important;
+}
+.v-data-table .header-select {
+  margin-left: -8px;
+}
+.v-data-table .v-data-table-header {
+  background: #f7f7f7 !important;
+}
 
-.v-data-table > .v-data-table__wrapper > table > tbody > tr > th, .v-data-table > .v-data-table__wrapper > table > tfoot > tr > th, .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > th,
+.v-data-table > .v-data-table__wrapper > table > tfoot > tr > th,
+.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
   color: #787878 !important;
   font-size: 0.8rem !important;
 }
@@ -11010,6 +11022,15 @@ form div.buttons a {
   margin-left: 10px;
 }
 
+button {
+  padding: 0px 12px !important;
+  text-transform: capitalize !important;
+}
+
+.actions button {
+  padding: unset !important;
+}
+
 .w-300 {
   width: 300px;
 }
@@ -11019,11 +11040,17 @@ form div.buttons a {
 }
 .selected-menu button {
   margin-top: -20px;
+  background: #5ad975 !important;
+  color: white !important;
 }
 .selected-menu .v-icon {
-  color: gray !important;
+  color: white !important;
   margin-right: 5px !important;
   font-size: 16px !important;
+}
+
+.selected-menu .disabled {
+  display: none;
 }
 
 .delete-confirm {
@@ -11083,7 +11110,7 @@ form div.buttons a {
   top: 0px;
   right: -200px;
   z-index: 999;
-  background: #7bcf7f;
+  background: #5ad975;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;

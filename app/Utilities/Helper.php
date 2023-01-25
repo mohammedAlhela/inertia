@@ -39,8 +39,8 @@ class Helper
 
     public static function getPermissions()
     {
-        return $permissions = ['admin-show', 'admin-delete', 'admin-update', 'admin-create',
-
+        return $permissions = ['admin-show', 'admin-delete', 'admin-update', 'admin-store',
+        'company-show', 'company-delete', 'company-update', 'company-store',
         ];
     }
 

@@ -15,11 +15,10 @@ class DatabaseSeeder extends Seeder
     {
 
         // $this->call([CompanySeeder::class]);
-        //  $this->call([SuperAdminSeeder::class]);
-        //  \App\Models\User::factory(10)->create();
-        //   $this->call([AdminSeeder::class]);
+          $this->call([SuperAdminSeeder::class]);
+          \App\Models\User::factory(10)->create();
+           $this->call([AdminSeeder::class]);
         //   $this->call([PermissionSeeder::class]);
-
         //    $this->call([AcademicYearSeeder::class]);
         //    $this->call([AcademicTermSeeder::class]);
 
