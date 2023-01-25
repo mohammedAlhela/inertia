@@ -12,61 +12,176 @@
         <div class="main-holder">
             <div class="admins-page">
                 <div class="header row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <span class="records-count"> {{ this.filteredAdmins().length }} Admins </span>
-                        <v-text-field @click:clear="clearSearch()" clearable solo dense v-model="search" type="text"
-                            @input="unSelectAll()" />
-                    </div>
 
-                    <div class="col-6 selected-menu">
 
-                        <v-menu offset-y v-model="selectMenu" :disabled="!selectedIds.length">
-                            <template v-slot:activator="{ on, attrs }">
+                        <v-tooltip top>
+                            <template v-slot:activator="{
+                                on,
+                                attrs,
+                            }">
+                                <span v-bind="attrs" v-on="on" v-if="!selectedIds.length">
+                                    <v-icon class="download-all-icon" @click="exportAllExcel()">
+                                        mdi-download
+                                    </v-icon>
 
-                                <v-btn v-bind="attrs" v-on="on" :disabled="!selectedIds.length">
-                                    <v-icon> mdi-chevron-down-circle</v-icon> Selected {{ selectedIds.length }}
-                                </v-btn>
+                                </span>
                             </template>
-                            <v-list>
+                            <span>
+                                Export data in excel file
+                            </span>
+                        </v-tooltip>
 
+                        <span class="selected-count" v-if="selectedIds.length">
 
-                                <v-list-item-title class="selected-menu-header"> Export data </v-list-item-title>
+                            {{ selectedIds.length }} Selected
+                        </span>
 
-
-                                <v-list-item @click="selectAction('excel')">
-                                    <v-list-item-title> <v-icon>mdi-download</v-icon> export Excel </v-list-item-title>
-                                </v-list-item>
-
-                                <v-list-item @click="selectAction('pdf')">
-                                    <v-list-item-title> <v-icon>mdi-download</v-icon> export pdf </v-list-item-title>
-                                </v-list-item>
-
-
-
-                                <v-list-item-title class="selected-menu-header"> Actions </v-list-item-title>
-
-                                <v-list-item @click="selectAction('block')">
-                                    <v-list-item-title> <v-icon>mdi-lock</v-icon> Block records </v-list-item-title>
-                                </v-list-item>
-
-
-                                <v-list-item @click="selectAction('unblock')">
-                                    <v-list-item-title> <v-icon>mdi-lock-open</v-icon> Unblock records
-                                    </v-list-item-title>
-                                </v-list-item>
-
-                                <v-list-item @click="blockDeleteSnackbar = true">
-                                    <v-list-item-title> <v-icon>mdi-delete</v-icon> Delete records </v-list-item-title>
-                                </v-list-item>
-
-                                <v-list-item @click="sendMessage()">
-                                    <v-list-item-title> <v-icon>mdi-message</v-icon> Send email message
-                                    </v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                        </v-menu>
 
                     </div>
+
+                    <div class="col-4 ">
+
+
+
+                        <div class="selected-menu">
+
+
+
+                            <v-menu offset-y v-model="selectMenu" :disabled="!selectedIds.length"
+                                v-if="selectedIds.length">
+                                <template v-slot:activator="{ on, attrs }">
+
+                                    <v-btn v-bind="attrs" v-on="on" :disabled="!selectedIds.length">
+                                        <v-icon> mdi-cogs</v-icon> Actions
+                                    </v-btn>
+                                </template>
+                                <v-list>
+
+
+                                    <v-list-item-title class="selected-menu-header"> Export data </v-list-item-title>
+
+
+                                    <v-list-item @click="selectAction('excel')">
+                                        <v-list-item-title> <v-icon>mdi-download</v-icon> export Excel
+                                        </v-list-item-title>
+                                    </v-list-item>
+
+                                    <v-list-item @click="selectAction('pdf')">
+                                        <v-list-item-title> <v-icon>mdi-download</v-icon> export pdf
+                                        </v-list-item-title>
+                                    </v-list-item>
+
+
+
+                                    <v-list-item-title class="selected-menu-header"> Actions </v-list-item-title>
+
+                                    <v-list-item @click="selectAction('block')">
+                                        <v-list-item-title> <v-icon>mdi-lock</v-icon> Block records </v-list-item-title>
+                                    </v-list-item>
+
+
+                                    <v-list-item @click="selectAction('unblock')">
+                                        <v-list-item-title> <v-icon>mdi-lock-open</v-icon> Unblock records
+                                        </v-list-item-title>
+                                    </v-list-item>
+
+                                    <v-list-item @click="blockDeleteSnackbar = true">
+                                        <v-list-item-title> <v-icon>mdi-delete</v-icon> Delete records
+                                        </v-list-item-title>
+                                    </v-list-item>
+
+                                    <v-list-item @click="sendMessage()">
+                                        <v-list-item-title> <v-icon>mdi-message</v-icon> Send email message
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                </v-list>
+                            </v-menu>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-4 ">
+
+
+
+                        <div class="selected-menu">
+
+
+
+                            <Link href="/admin/create" class="text-link"> <v-btn>
+                                <v-icon> mdi-plus</v-icon> Create
+                            </v-btn> </Link>
+
+                        </div>
+
+                    </div>
+
+
+                    <v-expand-transition>
+
+
+
+                        <div class=" filters">
+                            <v-form>
+                                <v-row class="">
+                                    <v-col cols="4">
+
+
+                                        <v-text-field clearable placeholder="First name" required solo dense v-model="
+                                            filter.first_name
+                                        " class="textfield" />
+                                    </v-col>
+
+
+                                    <v-col cols="4">
+
+
+                                        <v-text-field clearable placeholder="Last name" required solo dense v-model="
+                                            filter.last_name
+                                        " class="textfield" />
+                                    </v-col>
+
+
+                                    <v-col cols="4">
+
+
+
+                                        <v-text-field clearable placeholder="Username" required solo dense v-model="
+                                            filter.username
+                                        " class="textfield" />
+                                    </v-col>
+
+
+                                    <v-col cols="4">
+
+                                        <v-text-field clearable placeholder="Phone" required solo dense v-model="
+                                            filter.phone
+                                        " class="textfield" />
+                                    </v-col>
+
+
+                                    <v-col cols="4">
+
+
+                                        <v-select clearable placeholder="Gender" :items="helper.methods.genders()"
+                                            required solo dense v-model="
+                                                filter.gender
+                                            " class="textfield" />
+                                    </v-col>
+
+                                </v-row>
+                            </v-form>
+
+
+
+
+                        </div>
+                    </v-expand-transition>
+
 
 
                 </div>
@@ -75,8 +190,8 @@
 
 
 
-                <v-data-table light class="" :headers="headers" :items="filteredAdmins()" :items-per-page="25"
-                    item-key="item.id" :footer-props="{
+                <v-data-table :headers="headers" :items="filteredAdmins()" :items-per-page="10" item-key="item.id"
+                    :footer-props="{
                         showFirstLastPage: true,
                         firstIcon: 'mdi-arrow-left',
                         lastIcon: 'mdi-arrow-right',
@@ -108,7 +223,7 @@
 
                     <template v-slot:item.image="{ item }">
                         <td class="py-2">
-                            <img class="profile-image" :src="item.image || 'images/admins/admin.webp'" alt="" />
+                            <img class="profile-image" :src="item.image || '/images/main/user.webp'" alt="" />
                         </td>
                     </template>
 
@@ -134,9 +249,8 @@
 
                     <template v-slot:item.status="{ item }">
                         <td>
-                            <v-chip small :color="item.user.status ? 'success' : 'error'">
-                                {{ item.user.status ? "Active" : "Blocked" }}
-                            </v-chip>
+                            <span class="active-status-button" v-if="item.user.status"> Active </span>
+                            <span class="blocked-status-button" v-else> Blocked </span>
                         </td>
                     </template>
 
@@ -262,6 +376,26 @@ export default {
 
     computed: {
 
+        headerData() {
+            return {
+                pageTitle: "Sahara School -- Manage admins",
+                title: "Manage admins",
+
+                links: [
+
+
+                    {
+                        icon: "mdi-account-multiple",
+                        paragraph: "admins",
+                        src: "/admins",
+                    }
+
+                ]
+
+            }
+        },
+
+
         selectedIds() {
 
             let data = []
@@ -274,23 +408,22 @@ export default {
 
     },
     data: () => ({
-        search: "",
 
-        headerData: {
-            pageTitle: "Sahara School -- Manage admins",
-            title: "Manage admins",
-            add: {
-                src: "/admin/create",
-                paragraph: "Add admin",
-                visibility: true,
-            },
 
-            link: {
-                icon: "mdi-account-multiple",
-                paragraph: "Manage admins",
-                src: "/admins",
-            },
+        filter: {
+
+
+
+            username: "",
+            first_name: "",
+            last_name: "",
+            gender: "",
+
+            phone: "",
+
         },
+
+
 
         headers: [
             {
@@ -357,41 +490,88 @@ export default {
 
     }),
 
-    created() { },
-
-    mounted() { },
 
     methods: {
-        // filter +++++
-        filterParam(value) {
-            if (value) {
-                return value.toLowerCase().includes(this.search.toLowerCase());
-            }
-        },
+
+
 
         filteredAdmins() {
-            let filteredAdmins = this.admins.filter((admin) => {
-                return (
-                    this.filterParam(admin.first_name) ||
-                    this.filterParam(admin.last_name) ||
-                    this.filterParam(admin.username) ||
-                    this.filterParam(admin.phone) ||
-                    this.filterParam(admin.gender)
-                );
-            });
+            let conditions = [];
 
-            if (this.search) {
-                return filteredAdmins;
-            } else {
-                return this.admins;
+            if (this.filter.first_name) {
+                conditions.push(this.filterFirstName);
+            }
+            if (this.filter.last_name) {
+                conditions.push(this.filterLastName);
+            }
+
+            if (this.filter.username) {
+                conditions.push(this.filterUsername);
+            }
+
+            if (this.filter.phone) {
+                conditions.push(this.filterPhone);
+            }
+
+            if (this.filter.gender) {
+                conditions.push(this.filterGender);
+            }
+
+            if (conditions.length > 0) {
+                return this.admins.filter((admin) => {
+                    return conditions.every((condition) => {
+                        return condition(admin);
+                    });
+                });
+            }
+
+            return this.admins;
+        },
+
+
+        // filter +++++
+        filterFirstName(admin) {
+            if (admin.first_name) {
+                return admin.first_name.toLowerCase().includes(this.filter.first_name.toLowerCase());
             }
 
         },
 
-        clearSearch() {
-            this.search = ""
+        filterLastName(admin) {
+            if (admin.last_name) {
+                return admin.last_name.toLowerCase().includes(this.filter.last_name.toLowerCase());
+            }
+
         },
-        // filter +++++
+
+
+        filterUsername(admin) {
+            if (admin.username) {
+                return admin.username.toLowerCase().includes(this.filter.username.toLowerCase());
+            }
+
+        },
+
+
+
+        filterPhone(admin) {
+            if (admin.phone) {
+                return admin.phone.toLowerCase().includes(this.filter.phone.toLowerCase());
+            }
+
+        },
+
+
+        filterGender(admin) {
+            if (admin.gender) {
+                return admin.gender.toLowerCase().includes(this.filter.gender.toLowerCase());
+            }
+
+        },
+
+
+
+
 
         // select +++++
         blockSelect() {
@@ -455,6 +635,16 @@ export default {
             }
 
 
+        },
+
+
+        exportAllExcel() {
+
+            let ids = []
+            this.filteredAdmins().forEach((admin) => {
+                ids.push(admin.id)
+            })
+            location.href = `/admins/export/excel/${ids}`
         },
 
 

@@ -1,10 +1,9 @@
 .application-container {
     .main-holder {
         position: relative;
-    
+
         top: -40px;
         min-height: 620px;
-      
 
         width: calc(100% - 60px);
 
@@ -90,13 +89,18 @@
 
             .header {
                 align-items: center;
-                .v-input {
-                    display: inline-block;
-                    margin-left: 20px;
-                    width: 300px;
+                .filters {
+                    padding: 10px 0px 50px;
+                    .col-4 {
+                        padding-top: 0px !important;
+                        padding-bottom: 0px !important;
+                    }
                 }
 
-              
+                .mdi-filter {
+                    font-size: 18px !important;
+                    margin-top: -5px;
+                }
             }
         }
 
@@ -117,7 +121,6 @@
     .admins-page-panels-container {
         .title {
             max-width: 1600px;
-         
         }
     }
 }

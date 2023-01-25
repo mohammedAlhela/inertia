@@ -41,12 +41,12 @@ class CompanyController extends Controller
 
         if ($image) {
 
-            if (file_exists($company->image)) {
-                unlink($company->image);
+            if (file_exists(public_path() . $company->image)) {
+                unlink(substr($company->image, 1));
             }
 
-            Image::make($image)->fit(100, 100)->save("images/main/company.webp");
-            $company->image = "images/main/company.webp";
+            Image::make($image)->fit(100, 100)->save(public_path("images/main/company.webp"));
+            $company->image = "/images/main/company.webp";
         }
 
         $company->save();
@@ -69,8 +69,7 @@ class CompanyController extends Controller
         // return $pdf->stream('main.company.pdf');
 
         $pdf = PdfReport::loadView('main.company.pdf', $data);
-return $pdf->download('company.pdf');
-
+        return $pdf->download('company.pdf');
 
     }
 

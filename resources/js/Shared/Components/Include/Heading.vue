@@ -44,7 +44,7 @@
                                                     <v-icon> {{ item.head_icon }}</v-icon>
                                                     {{ item.head_paragraph }}
                                                     <div class="links">
-                                                        <Link class="text-link" :href="link.src"
+                                                        <Link @click = "showModules = false" class="text-link" :href="link.src"
                                                             v-for="link, key in item.pages" :key="key">
                                                         {{ link.name }}
                                                         </Link>
@@ -60,7 +60,7 @@
                                                     <v-icon> {{ item.head_icon }}</v-icon>
                                                     {{ item.head_paragraph }}
                                                     <div class="links">
-                                                        <Link class="text-link" :href="link.src"
+                                                        <Link @click = "showModules = false" class="text-link" :href="link.src"
                                                             v-for="link, key in item.pages" :key="key">
                                                         {{ link.name }}
                                                         </Link>
@@ -128,12 +128,24 @@
 
                 <v-card class="w-300">
                     <v-list>
+             
+
                         <v-list-item>
-                            <v-list-item-content>
-                                <v-list-item-title>{{ $page.props.auth.role }}</v-list-item-title>
-                                <v-list-item-subtitle>{{ $page.props.auth.username }}</v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
+            <v-list-item-avatar>
+              <img
+                :src="$page.props.auth.image"
+                alt="User iamge"
+              >
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ $page.props.auth.role }}</v-list-item-title>
+              <v-list-item-subtitle>{{ $page.props.auth.username }}</v-list-item-subtitle>
+            </v-list-item-content>
+
+          </v-list-item>
+
+
                     </v-list>
 
                     <v-divider></v-divider>
@@ -174,8 +186,6 @@ export default {
 
     data() {
         return {
-
-
             showModules: false,
             settings: true,
             // ++++++++++++++++++++ academics ++++++++++++++++++++++++

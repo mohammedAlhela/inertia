@@ -10,6 +10,7 @@ use App\Http\Requests\Users\EmailMessageRequest;
 use App\Models\Admin;
 use App\Models\Permission;
 use App\Models\User;
+use DB;
 use Excel;
 use Helper;
 use Illuminate\Http\Request;
@@ -17,7 +18,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Mail;
 use PdfReport;
-use DB;
 
 class AdminController extends Controller
 {

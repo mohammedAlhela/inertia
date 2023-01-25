@@ -1,6 +1,10 @@
 <template>
     <section>
-        <v-form @submit.prevent="update" ref="form">
+
+        <HeaderPanels :headerData="headerData" />
+        <div class="main-holder">
+            <div class="account-page">
+                <v-form @submit.prevent="update" ref="form">
             <v-row class="inputs-holder">
 
                 <v-col cols="12" class="py-1">
@@ -79,6 +83,11 @@
                 <Link href="/admins" class="text-link"> <v-btn>Discard</v-btn> </Link>
             </div>
         </v-form>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+  
 
     </section>
 </template>
@@ -95,7 +104,33 @@ export default {
     },
 
     computed: {
+        headerData() {
+            return {
+                pageTitle: "Sahara School -- Update admin credentials",
+                title: "Update admin credentials",
 
+                links: [
+
+
+                    {
+                        icon: "mdi-account-multiple",
+                        paragraph: "admins",
+                        src: "/admins",
+                    },
+
+                    {
+                        icon: "mdi-lock",
+                        paragraph: "Update admin credentials",
+                        src: `/admin/credentials/${this.admin.id}`,
+                    }
+
+
+
+
+                ]
+
+            }
+        },
 
         formErrors() {
             return this.helper.methods.formErrors(this.form.errors)

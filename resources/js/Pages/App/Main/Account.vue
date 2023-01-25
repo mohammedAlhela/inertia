@@ -3,10 +3,10 @@
         <HeaderPanels :headerData="headerData" />
         <div class="main-holder">
             <div class="account-panesl-page">
-                <div @click="toggleForm('account')" :class = "{active_link:accountPanel}">
+                <div @click="toggleForm('account')" :class="{ active_link: accountPanel }">
                     <v-icon>mdi-pencil</v-icon> Update Profile
                 </div>
-                <div @click="toggleForm('password')" :class = "{active_link:!accountPanel}">
+                <div @click="toggleForm('password')" :class="{ active_link: !accountPanel }">
                     <v-icon>mdi-lock</v-icon> Update Credentials
                 </div>
 
@@ -234,6 +234,26 @@ export default {
 
     computed: {
 
+
+        headerData() {
+            return {
+                pageTitle: "Sahara School -- Update Account",
+                title: "Update Account",
+
+                links: [
+
+
+                    {
+                        icon: "mdi-account",
+                        paragraph: "manage Account",
+                        src: "/account"
+                    }
+
+                ]
+
+            }
+        },
+
         accountErrors() {
             return this.helper.methods.formErrors(this.form.errors)
         },
@@ -246,7 +266,7 @@ export default {
             return (
                 this.image.preview ||
                 this.user.image ||
-                "images/admins/admin.webp"
+                "/images/main/user.webp"
             );
         },
 
@@ -324,22 +344,6 @@ export default {
 
     data() {
         return {
-            headerData: {
-                pageTitle: "Sahara School -- Manage Account",
-                title: "Manage Account",
-                add: {
-                    src: "",
-                    paragraph: "",
-                    visibility: false
-                },
-
-                link: {
-                    icon: "mdi-account",
-                    paragraph: "manage Account",
-                    src: "/account"
-                }
-
-            },
 
             image: {
                 file: "",

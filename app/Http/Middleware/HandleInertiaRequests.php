@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -36,8 +37,17 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+
+        if(auth()->user()) { 
+            $admin = Admin::where('user_id', auth()->user()->id)->first();
+            $user = auth()->user();
+            $user->username = $admin->username;
+            $user->image = $admin->image;
+        }
+  
         return array_merge(parent::share($request), [
-           'auth' => auth()->user()
+            'auth' =>  isset($user) ? $user : "guest",
+
         ]);
     }
 }

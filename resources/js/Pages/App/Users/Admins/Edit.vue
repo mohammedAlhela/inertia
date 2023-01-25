@@ -150,6 +150,37 @@ export default {
 
     computed: {
 
+        
+        headerData() {
+            return {
+                pageTitle: "Sahara School -- Update admin data",
+                title: "Update admin data",
+
+                links: [
+
+
+                    {
+                        icon: "mdi-account-multiple",
+                        paragraph: "admins",
+                        src: "/admins",
+                    },
+
+                    {
+                        icon: "mdi-account",
+                        paragraph: "Update admin data",
+                        src: `/admin/edit/${this.admin.id}`,
+                    }
+
+
+
+
+                ]
+
+            }
+        },
+
+
+
         formErrors() {
             return this.helper.methods.formErrors(this.form.errors)
         },
@@ -157,7 +188,7 @@ export default {
 
         getImage() {
             return (
-                this.image.preview || this.admin.image || "/images/admins/admin.webp"
+                this.image.preview || this.admin.image || "/images/main/user.webp"
 
 
             );
@@ -206,21 +237,7 @@ export default {
 
     data() {
         return {
-            headerData: {
-                pageTitle: "Sahara School -- Update admin data",
-                title: "Update admin data",
-                add: {
-                    src: "/admin/create",
-                    paragraph: "Update admin data",
-                    visibility: false,
-                },
 
-                link: {
-                    icon: "mdi-account",
-                    paragraph: "Update admin data",
-                    src: ``,
-                },
-            },
             image: {
                 file: "",
                 name: "",

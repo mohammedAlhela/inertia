@@ -1,7 +1,7 @@
 <template>
     <section>
 
-        <Head >
+        <Head>
             <title>{{ headerData.pageTitle }}</title>
         </Head>
         <div class="panels">
@@ -13,23 +13,20 @@
                 <span>Home </span> </Link>
 
                 =>
-                <Link :href="headerData.link.src">
-                <v-icon>{{ headerData.link.icon }}</v-icon>
-                <span>{{ headerData.link.paragraph }}</span> </Link>
+                <Link v-for="(item, index) in headerData.links" :key="index" :href="item.src">
+                <v-icon>{{ item.icon }}</v-icon>
+                <span>{{ item.paragraph }}</span> <span v-if="headerData.links.length - index != 1"> => </span></Link>
 
             </div>
 
             <div class="hr"></div>
 
             <div class="title">
-               {{ headerData.title }}
+                {{ headerData.title }}
 
 
-                <Link class="text-link" :href="headerData.add.src"> <v-btn v-if="headerData.add.visibility"> {{
-                    headerData.add.paragraph
-                }} </v-btn> </Link>
 
-                <div class="clear"></div>
+
             </div>
         </div>
     </section>

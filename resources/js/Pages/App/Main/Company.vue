@@ -33,7 +33,7 @@
               </div>
             </div>
 
-            <v-col cols ="6" md = "4" class="py-1">
+            <v-col cols="6" md="4" class="py-1">
               <span class="input-header">
                 Email
               </span>
@@ -45,7 +45,7 @@
             </v-col>
 
 
-            <v-col cols ="6" md = "4" class="py-1">
+            <v-col cols="6" md="4" class="py-1">
               <span class="input-header">
                 Name
               </span>
@@ -56,7 +56,7 @@
               " class="textfield" />
             </v-col>
 
-            <v-col cols ="6" md = "4" class="py-1">
+            <v-col cols="6" md="4" class="py-1">
               <span class="input-header">
                 Contact Phone
               </span>
@@ -68,7 +68,7 @@
             </v-col>
 
 
-            <v-col cols ="6" md = "4" class="py-1">
+            <v-col cols="6" md="4" class="py-1">
               <span class="input-header">
                 Company register
               </span>
@@ -79,7 +79,7 @@
             </v-col>
 
 
-            <v-col cols ="6" md = "4" class="py-1">
+            <v-col cols="6" md="4" class="py-1">
               <span class="input-header">
                 Country phone code
               </span>
@@ -89,7 +89,7 @@
             </v-col>
 
 
-            <v-col cols ="6" md = "4" class="py-1">
+            <v-col cols="6" md="4" class="py-1">
               <span class="input-header">
                 Country
               </span>
@@ -99,7 +99,7 @@
             </v-col>
 
 
-            <v-col cols ="6" md = "4" class="py-1">
+            <v-col cols="6" md="4" class="py-1">
               <span class="input-header">
                 Timezone
               </span>
@@ -110,7 +110,7 @@
             </v-col>
 
 
-            <v-col cols ="6" md = "4" class="py-1">
+            <v-col cols="6" md="4" class="py-1">
               <span class="input-header">
                 Currency
               </span>
@@ -120,7 +120,7 @@
               " :items="currencies" class="textfield" />
             </v-col>
 
-            <v-col cols ="6" md = "4" class="py-1">
+            <v-col cols="6" md="4" class="py-1">
               <span class="input-header">
                 Address
               </span>
@@ -156,6 +156,27 @@ export default {
   },
 
   computed: {
+
+    headerData() {
+      return {
+        pageTitle: "Sahara School -- Manage company data",
+        title: "Update company data",
+
+        links: [
+
+          {
+            icon: "mdi-pencil-box-multiple-outline",
+            paragraph: "Company",
+            src: "/company"
+          }
+        ]
+
+      }
+    },
+
+
+
+
     getImage() {
       return (
         this.image.preview || this.company.image
@@ -208,22 +229,6 @@ export default {
 
   data() {
     return {
-      headerData: {
-        pageTitle: "Sahara School -- Manage Company Data",
-        title: "Company Data",
-        add: {
-          src: "",
-          paragraph: "",
-          visibility: false
-        },
-
-        link: {
-          icon: "mdi-pencil-box-multiple-outline",
-          paragraph: "manage Company Data ",
-          src: "/company"
-        }
-
-      },
       form: this.$inertia.form({
         address: "",
         company_register: "",

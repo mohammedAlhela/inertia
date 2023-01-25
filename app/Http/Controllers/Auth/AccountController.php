@@ -79,7 +79,7 @@ class AccountController extends Controller
         $data = array(
             "record" => $user->first(),
             "image" => $image,
-            "dirPath" => "images/$path/",
+            "dirPath" => "/images/$path/",
             "width" => 250,
             "height" => 250,
 

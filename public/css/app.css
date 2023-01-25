@@ -10840,12 +10840,12 @@ textarea.form-control-lg {
   }
 }
 .text-link, .panels a, .v-list-item a, .header-link, .heading .brand, .heading .modules {
-  color: #787878 !important;
+  color: #565454 !important;
   text-decoration: none !important;
 }
 
 .link {
-  color: #787878 !important;
+  color: #565454 !important;
 }
 
 .pointer {
@@ -10864,7 +10864,7 @@ textarea.form-control-lg {
 }
 
 input, textarea {
-  color: #787878 !important;
+  color: #565454 !important;
   font-size: 14px !important;
 }
 
@@ -10930,6 +10930,18 @@ input, textarea {
   font-size: 12px;
 }
 
+.download-all-icon {
+  color: #7e7e7e !important;
+  border: 1px solid #e3e3e3;
+  padding: 4px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px !important;
+  /* margin: -15px 20px 0px 0px; */
+  margin-left: 10px;
+  margin-top: -5px;
+}
+
 .v-list-item {
   min-height: 35px !important;
   font-size: 14px !important;
@@ -10953,7 +10965,7 @@ input, textarea {
 }
 
 .v-data-table {
-  color: #787878 !important;
+  color: #565454 !important;
   border-top: 1px solid #dfdfdf;
   border-radius: 0px !important;
 }
@@ -10985,12 +10997,8 @@ input, textarea {
 .v-data-table > .v-data-table__wrapper > table > tbody > tr > th,
 .v-data-table > .v-data-table__wrapper > table > tfoot > tr > th,
 .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
-  color: #787878 !important;
+  color: #565454 !important;
   font-size: 0.8rem !important;
-}
-
-.v-chip.v-size--small {
-  border-radius: none !important;
 }
 
 form .inputs-holder {
@@ -11002,7 +11010,7 @@ form .inputs-holder .v-input--checkbox {
 }
 form .inputs-holder .v-input--checkbox .v-label {
   font-size: 14px !important;
-  color: #787878 !important;
+  color: #565454 !important;
 }
 form .buttons {
   background: #f8f8fb;
@@ -11029,6 +11037,19 @@ button {
 
 .actions button {
   padding: unset !important;
+}
+
+.active-status-button, .blocked-status-button {
+  padding: 5px 8px;
+  background: #5ad975;
+  font-weight: 600;
+  font-size: 11px;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.blocked-status-button {
+  background: #f36767;
 }
 
 .w-300 {
@@ -11187,7 +11208,7 @@ button {
   position: relative;
   left: -10px;
   background-color: white;
-  color: #787878 !important;
+  color: #565454 !important;
   font-size: 14px;
   border-radius: 5px;
   overflow: hidden;
@@ -11369,7 +11390,7 @@ button {
 }
 .application-container .main-holder .left-page-card div .v-icon, .application-container .main-holder .account-panesl-page div .v-icon {
   font-size: 20px;
-  color: #787878;
+  color: #565454;
   margin-right: 5px;
 }
 .application-container .main-holder .full-page-card, .application-container .main-holder .admins-update-page, .application-container .main-holder .admins-create-page, .application-container .main-holder .admins-page, .application-container .main-holder .company-page {
@@ -11384,10 +11405,16 @@ button {
 .application-container .main-holder .admins-page .header {
   align-items: center;
 }
-.application-container .main-holder .admins-page .header .v-input {
-  display: inline-block;
-  margin-left: 20px;
-  width: 300px;
+.application-container .main-holder .admins-page .header .filters {
+  padding: 10px 0px 50px;
+}
+.application-container .main-holder .admins-page .header .filters .col-4 {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+.application-container .main-holder .admins-page .header .mdi-filter {
+  font-size: 18px !important;
+  margin-top: -5px;
 }
 .application-container .main-holder .admins-create-page {
   padding: 40px;

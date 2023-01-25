@@ -1,12 +1,8 @@
 <template>
     <section>
-        <v-card>
-            <v-card-title class="aliceprimary-background main-header">
-                "Manage user Permissions"
-            </v-card-title>
-
-            <v-card-text>
-
+        <HeaderPanels :headerData="headerData" />
+        <div class="main-holder">
+            <div class="account-page">
                 <v-form @submit.prevent="update" ref="form">
                     <v-row class="fields-container">
                         <div class="row permission-header">
@@ -41,28 +37,28 @@
 
                             <div class="col-9 row">
                                 <div class="col-3">
-                                <v-checkbox class="" color="primary" hide-details v-model="item.show">
-                                </v-checkbox>
+                                    <v-checkbox class="" color="primary" hide-details v-model="item.show">
+                                    </v-checkbox>
+                                </div>
+
+                                <div class="col-3">
+                                    <v-checkbox class="" color="primary" hide-details v-model="item.store">
+                                    </v-checkbox>
+                                </div>
+
+                                <div class="col-3">
+                                    <v-checkbox class="" color="primary" hide-details v-model="item.update">
+                                    </v-checkbox>
+                                </div>
+
+
+                                <div class="col-3">
+                                    <v-checkbox class="" color="primary" hide-details v-model="item.delete">
+                                    </v-checkbox>
+                                </div>
+
                             </div>
 
-                            <div class="col-3">
-                                <v-checkbox class="" color="primary" hide-details v-model="item.store">
-                                </v-checkbox>
-                            </div>
-
-                            <div class="col-3">
-                                <v-checkbox class="" color="primary" hide-details v-model="item.update">
-                                </v-checkbox>
-                            </div>
-
-
-                            <div class="col-3">
-                                <v-checkbox class="" color="primary" hide-details v-model="item.delete">
-                                </v-checkbox>
-                            </div>
-
-                            </div>
-                    
 
                         </div>
 
@@ -72,9 +68,13 @@
                         <Link href="/admins" class="text-link"> <v-btn>Discard</v-btn> </Link>
                     </div>
                 </v-form>
+            </div>
+            <div class="clear"></div>
+        </div>
 
-            </v-card-text>
-        </v-card>
+
+
+
     </section>
 </template>
 
@@ -83,6 +83,9 @@
 
 
 export default {
+
+
+
 
     props: {
         admin: Object,
@@ -140,6 +143,38 @@ export default {
 
 
         };
+    },
+
+
+    computed: {
+
+        headerData() {
+            return {
+                pageTitle: "Sahara School -- Update admin permissions",
+                title: "Update admin permissions",
+
+                links: [
+
+
+                    {
+                        icon: "mdi-account-multiple",
+                        paragraph: "admins",
+                        src: "/admins",
+                    },
+
+                    {
+                        icon: "mdi-eye",
+                        paragraph: "Update admin permissions",
+                        src: `/admin/permissions/${this.admin.id}`,
+                    }
+
+
+
+
+                ]
+
+            }
+        },
     },
 
     methods: {

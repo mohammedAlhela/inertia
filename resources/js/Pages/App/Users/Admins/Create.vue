@@ -137,10 +137,6 @@
                         <Link href="/admins" class="text-link"> <v-btn>Discard</v-btn> </Link>
                     </div>
                 </v-form>
-
-
-
-
             </div>
             <div class="clear"></div>
         </div>
@@ -151,10 +147,41 @@
 
 export default {
 
-  
-    
+
+
 
     computed: {
+
+        headerData() {
+            return {
+                pageTitle: "Sahara School -- Create new admin",
+                title: "Create new admin",
+
+                links: [
+
+
+                    {
+                        icon: "mdi-account-multiple",
+                        paragraph: "admins",
+                        src: "/admins",
+                    },
+
+                    {
+                        icon: "mdi-account",
+                        paragraph: "Create new admin",
+                        src: "/admin/create",
+                    }
+
+
+
+
+                ]
+
+            }
+        },
+
+
+
 
         formErrors() {
             return this.helper.methods.formErrors(this.form.errors)
@@ -163,7 +190,7 @@ export default {
 
         getImage() {
             return (
-                this.image.preview || "/images/admins/admin.webp"
+                this.image.preview || "/images/main/user.webp"
 
 
             );
@@ -212,21 +239,7 @@ export default {
 
     data() {
         return {
-            headerData: {
-                pageTitle: "Sahara School -- Create new admin",
-                title: "Create new admin",
-                add: {
-                    src: "/admin/create",
-                    paragraph: "Add admin",
-                    visibility: false,
-                },
 
-                link: {
-                    icon: "mdi-account",
-                    paragraph: "Add new admin",
-                    src: "/admin/create",
-                },
-            },
             image: {
                 file: "",
                 name: "",
@@ -252,7 +265,7 @@ export default {
                 email: ""
 
 
-                
+
 
             }),
 
