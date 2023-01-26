@@ -2,9 +2,9 @@
     <section>
         <HeaderPanels :headerData="headerData" />
         <div class="main-holder">
-            <div class="account-page">
+            <div class="full-page-card">
                 <v-form @submit.prevent="update" ref="form">
-                    <v-row class="fields-container">
+                    <v-row class="inputs-holder">
                         <div class="row permission-header">
                             <div class="col-3">
                                 Modules
@@ -15,11 +15,11 @@
                                     Show
                                 </div>
                                 <div class="col-3">
-                                    store
+                                    Update
                                 </div>
 
                                 <div class="col-3">
-                                    update
+                                    Create
                                 </div>
 
                                 <div class="col-3">
@@ -35,14 +35,9 @@
                             </div>
 
 
-                            <div class="col-9 row">
+                            <div class="col-9 row d-flex align-items-center">
                                 <div class="col-3">
                                     <v-checkbox class="" color="primary" hide-details v-model="item.show">
-                                    </v-checkbox>
-                                </div>
-
-                                <div class="col-3">
-                                    <v-checkbox class="" color="primary" hide-details v-model="item.store">
                                     </v-checkbox>
                                 </div>
 
@@ -53,7 +48,14 @@
 
 
                                 <div class="col-3">
-                                    <v-checkbox class="" color="primary" hide-details v-model="item.delete">
+                                    <v-checkbox v-if = "item.module != 'company'" class="" color="primary" hide-details v-model="item.store">
+                                    </v-checkbox>
+                                </div>
+
+                              
+
+                                <div class="col-3">
+                                    <v-checkbox v-if = "item.module != 'company'" class="" color="primary" hide-details v-model="item.delete">
                                     </v-checkbox>
                                 </div>
 
@@ -61,6 +63,9 @@
 
 
                         </div>
+
+
+
 
                     </v-row>
                     <div class="buttons">
@@ -124,7 +129,7 @@ export default {
                     store: false,
                     update: false,
                     show: false,
-                    delete: false,
+                    delete: false
                 },
 
                 {
@@ -132,7 +137,7 @@ export default {
                     store: false,
                     update: false,
                     show: false,
-                    delete: false,
+                    delete: false
                 }
             ],
 

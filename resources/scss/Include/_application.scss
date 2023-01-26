@@ -1,10 +1,10 @@
 .application-container {
     .main-holder {
+        min-height: calc(100vh - 338px);
+
         position: relative;
-
         top: -40px;
-        min-height: 620px;
-
+        left: 30px;
         width: calc(100% - 60px);
 
         @media (max-width: 991px) {
@@ -19,8 +19,8 @@
                 0 2px 2px 0 rgb(0 0 0 / 10%), 0 1px 5px 0 rgb(0 0 0 / 10%);
 
             float: left;
-            margin-left: 20px;
-            width: calc(100% - 320px);
+
+            width: calc(100% - 270px);
             max-width: 1200px;
 
             @media (max-width: 1000px) {
@@ -38,7 +38,8 @@
             box-shadow: 0 3px 1px -2px rgb(0 0 0 / 10%),
                 0 2px 2px 0 rgb(0 0 0 / 10%), 0 1px 5px 0 rgb(0 0 0 / 10%);
 
-            width: 300px;
+            width: 250px;
+            margin-right: 20px;
             float: left;
             @media (max-width: 1000px) {
                 float: none;
@@ -50,77 +51,40 @@
                 margin-bottom: 20px;
                 font-size: 14px;
                 font-weight: 600;
+                color: $black-color;
                 .v-icon {
-                    font-size: 20px;
-                    color: $black-color;
                     margin-right: 5px;
                 }
 
                 &:hover {
-                    @extend .active;
+                    @extend .active_link;
                 }
             }
         }
 
         .full-page-card {
             @extend .right-page-card;
-            max-width: 1200px;
+
             width: 100%;
             float: none;
         }
 
         // pages
-        .company-page {
-            @extend .full-page-card;
-        }
-
-        .account-page {
-            @extend .right-page-card;
-        }
-
-        .account-panesl-page {
-            @extend .left-page-card;
-        }
 
         .admins-page {
             @extend .full-page-card;
             max-width: 1600px;
-            padding: 40px;
-
-            .header {
-                align-items: center;
-                .filters {
-                    padding: 10px 0px 50px;
-                    .col-4 {
-                        padding-top: 0px !important;
-                        padding-bottom: 0px !important;
-                    }
-                }
-
-                .mdi-filter {
-                    font-size: 18px !important;
-                    margin-top: -5px;
-                }
-            }
+            padding: 30px 40px;
         }
 
-        .admins-create-page {
-            @extend .full-page-card;
-            padding: 40px;
-        }
 
-        .admins-update-page {
-            @extend .full-page-card;
-            padding: 40px;
+        // no padding pages add padding 
+        .page-padding { 
+            padding: 30px 40px; 
         }
+   
 
-        // pages
     }
 
-    // panels of pages
-    .admins-page-panels-container {
-        .title {
-            max-width: 1600px;
-        }
-    }
+
 }

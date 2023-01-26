@@ -1,33 +1,8 @@
-.print-pdf { 
-    background-color: $light-red-color !important;
-    color: white !important;
-    margin-left: 10px;
-}
 
 button { 
-    padding: 0px 12px !important;
     text-transform: capitalize !important;  
 }
 
-
-.actions { 
-    button { 
-        padding: unset !important;
-    }
-     
-}
-
-.active-status-button { 
-    padding: 5px 8px;
-    background: $green-color;
-    font-weight: 600;
-    font-size: 11px;
-    color: white;
-    letter-spacing: .5px;
-}
-
-.blocked-status-button { 
-     @extend .active-status-button;
-    background: $light-red-color;
-
+.action-border-button { 
+    
 }

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
-use App\Http\Exports\Main\AcademicYearExport;
+use App\Exports\Main\AcademicYearExport;
 use App\Http\Requests\Main\AcademicYearRequest;
 use App\Models\AcademicYear;
+use App\Models\AcademicTerm;
 use Excel;
 use Helper;
 use Illuminate\Http\Request;
@@ -22,8 +23,16 @@ class AcademicYearController extends Controller
     public function index()
     {
 
+        $records = AcademicYear::with('academicTerms')->get();
+
+        foreach ($records as $record) {
+
+            $records->select = false;
+        }
+
+
         return inertia('App/Main/AcademicYears/Index', [
-            'academicYears' => AcademicYear::all(),
+            'academicYears' => $records
         ]);
 
     }
@@ -52,7 +61,7 @@ class AcademicYearController extends Controller
     public function update(AcademicYearRequest $request, $id)
     {
 
-        AcademicYear::update($request->except('created_at', 'updated_at'))->where('id', $id);
+        AcademicYear::where('id', $id)->update($request->except('created_at', 'updated_at'));
     }
 
     public function delete($ids)
@@ -63,7 +72,7 @@ class AcademicYearController extends Controller
         $academicYears = AcademicYear::with('academicTerms')->whereIn('id', $ids)->get();
 
         foreach ($academicYears as $academicYear) {
-            $academicYear->academicTerms->delete();
+            AcademicTerm::where('academic_year_id' ,$academicYear->id)->delete();
             $academicYear->delete();
         }
 

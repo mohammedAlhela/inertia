@@ -55,7 +55,7 @@ export default {
 
         getPermissionsNames() {
             let permissions = [];
-            window.User.permissions.forEach((permission) => {
+            window.user.permissions.forEach((permission) => {
                 permissions.push(permission.name);
             });
 
@@ -63,12 +63,15 @@ export default {
         },
 
         can(ability) {
-            if (this.getPermissionsNames.length) {
-                return this.getPermissionsNames.indexOf(ability) !== -1;
-            } else {
-                return true;
-            }
+            let permissions = [];
+            window.user.permissions.forEach((permission) => {
+                permissions.push(permission.name);
+            });
+            return permissions.indexOf(ability) !== -1;
         },
+
+
+
 
         formErrors(errors) {
             let keys = Object.keys(errors);

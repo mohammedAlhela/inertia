@@ -3,32 +3,37 @@
     <HeaderPanels :headerData="headerData" />
     <div class="main-holder">
 
-      <div class="company-page">
+      <div class="full-page-card">
         <v-form @submit.prevent="update" ref="form">
           <v-row class="inputs-holder">
 
             <div class="upload-image-container">
-              <div class="description">
+              <div class="label">
                 Recomended dimensions are 100 x 100
               </div>
 
-              <img :src="getImage" />
 
-              <div class="upload-holder">
-                <div class="file-holder">
-                  <label for="company_image" class="custom-file-upload">
-                    <v-icon> mdi-pencil </v-icon>
-                  </label>
-                  <input accept="image/*" id="company_image" type="file" @input="form.image = $event.target.files[0]"
-                    @change="imageSelected" />
-                </div>
+              <div class="file-uploader">
 
-                <span class="image-paragraph" v-html="getImageParagraph">
-                </span>
 
-                <div class="clear" @click="clearImage()" v-if="image.preview">
-                  <v-btn icon color="#445e5e">
-                    <v-icon>mdi-cached</v-icon> </v-btn><span> clear</span>
+                <img :src="getImage" />
+
+                <div class="upload-holder" v-if = "helper.methods.can('company-update')">
+                  <div class="file-holder">
+                    <label for="company_image" class="custom-file-upload">
+                      <v-icon> mdi-pencil </v-icon>
+                    </label>
+                    <input accept="image/*" id="company_image" type="file" @input="form.image = $event.target.files[0]"
+                      @change="imageSelected" />
+                  </div>
+
+                  <span class="label" v-html="getImageParagraph">
+                  </span>
+
+                  <div class="clear-button" @click="clearImage()" v-if="image.preview">
+                    <v-btn text color="#645e5e">
+                      <v-icon>mdi-cached</v-icon> <span class="label"> clear</span> </v-btn>
+                  </div>
                 </div>
               </div>
             </div>
@@ -39,7 +44,7 @@
               </span>
               <v-icon class="important-field-icon"> mdi-star </v-icon>
 
-              <v-text-field required :rules="formErrors.email" solo dense v-model="
+              <v-text-field :disabled = "!helper.methods.can('company-update')"  required :rules="formErrors.email" solo dense v-model="
                 form.email
               " class="textfield" />
             </v-col>
@@ -51,7 +56,7 @@
               </span>
               <v-icon class="important-field-icon"> mdi-star </v-icon>
 
-              <v-text-field required :rules="formErrors.name" solo dense v-model="
+              <v-text-field  :disabled = "!helper.methods.can('company-update')" required :rules="formErrors.name" solo dense v-model="
                 form.name
               " class="textfield" />
             </v-col>
@@ -62,7 +67,7 @@
               </span>
               <v-icon class="important-field-icon"> mdi-star </v-icon>
 
-              <v-text-field required :rules="formErrors.phone" solo dense v-model="
+              <v-text-field  :disabled = "!helper.methods.can('company-update')" required :rules="formErrors.phone" solo dense v-model="
                 form.phone
               " class="textfield" />
             </v-col>
@@ -73,7 +78,7 @@
                 Company register
               </span>
 
-              <v-text-field required :rules="formErrors.company_register" solo dense v-model="
+              <v-text-field  :disabled = "!helper.methods.can('company-update')" required :rules="formErrors.company_register" solo dense v-model="
                 form.company_register
               " class="textfield" />
             </v-col>
@@ -83,7 +88,7 @@
               <span class="input-header">
                 Country phone code
               </span>
-              <v-text-field required :rules="formErrors.country_phone_code" solo dense v-model="
+              <v-text-field :disabled = "!helper.methods.can('company-update')"  required :rules="formErrors.country_phone_code" solo dense v-model="
                 form.country_phone_code
               " class="textfield" />
             </v-col>
@@ -93,7 +98,7 @@
               <span class="input-header">
                 Country
               </span>
-              <v-autocomplete required solo dense v-model="
+              <v-autocomplete :disabled = "!helper.methods.can('company-update')" required solo dense v-model="
                 form.country
               " :items="countries" class="textfield" />
             </v-col>
@@ -103,7 +108,7 @@
               <span class="input-header">
                 Timezone
               </span>
-              <v-autocomplete required solo dense v-model="
+              <v-autocomplete :disabled = "!helper.methods.can('company-update')"  required solo dense v-model="
                 form.timezone
               
               " :items="timezones" class="textfield" />
@@ -114,7 +119,7 @@
               <span class="input-header">
                 Currency
               </span>
-              <v-autocomplete required solo dense v-model="
+              <v-autocomplete  :disabled = "!helper.methods.can('company-update')" required solo dense v-model="
                 form.currencies
               
               " :items="currencies" class="textfield" />
@@ -125,14 +130,14 @@
                 Address
               </span>
 
-              <v-textarea required :rules="formErrors.address" solo dense v-model="
+              <v-textarea  :disabled = "!helper.methods.can('company-update')" required :rules="formErrors.address" solo dense v-model="
                 form.address
               " class="textfield" />
             </v-col>
           </v-row>
           <div class="buttons">
-            <v-btn :loading="form.processing" type="submit">Update</v-btn>
-            <a class="text-link" href="/company/export/pdf"> <v-btn class="print-pdf">Print PDF</v-btn></a>
+            <v-btn :loading="form.processing" type="submit" v-if = "helper.methods.can('company-update')">Update</v-btn>
+            <a class="text-link" href="/company/export/pdf"> <v-btn class="" color="error">Print PDF</v-btn></a>
           </div>
         </v-form>
 

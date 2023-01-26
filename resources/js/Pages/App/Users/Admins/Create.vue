@@ -2,34 +2,41 @@
     <section>
         <HeaderPanels :headerData="headerData" />
         <div class="main-holder">
-            <div class="account-page">
+            <div class="full-page-card">
                 <v-form @submit.prevent="store" ref="form">
                     <v-row class="inputs-holder">
 
                         <div class="upload-image-container">
-                            <div class="description">
+                            <div class="label">
                                 Recomended dimensions are 250 x 250
                             </div>
 
-                            <img :src="getImage" />
 
-                            <div class="upload-holder">
-                                <div class="file-holder">
-                                    <label for="admin_create_image" class="custom-file-upload">
-                                        <v-icon> mdi-pencil </v-icon>
-                                    </label>
-                                    <input accept="image/*" id="admin_create_image" type="file"
-                                        @input="form.image = $event.target.files[0]" @change="imageSelected" />
+                            <div class="file-uploader">
+
+                                <img :src="getImage" />
+
+                                <div class="upload-holder">
+                                    <div class="file-holder">
+                                        <label for="admin_create_image" class="custom-file-upload">
+                                            <v-icon> mdi-pencil </v-icon>
+                                        </label>
+                                        <input accept="image/*" id="admin_create_image" type="file"
+                                            @input="form.image = $event.target.files[0]" @change="imageSelected" />
+                                    </div>
+
+                                    <span class="label" v-html="getImageParagraph">
+                                    </span>
+
+                                    <div class="clear" @click="clearImage()" v-if="image.preview">
+                                        <v-btn icon color="#645e5e">
+                                            <v-icon>mdi-cached</v-icon> </v-btn><span> clear</span>
+                                    </div>
                                 </div>
 
-                                <span class="image-paragraph" v-html="getImageParagraph">
-                                </span>
-
-                                <div class="clear" @click="clearImage()" v-if="image.preview">
-                                    <v-btn icon color="#645e5e">
-                                        <v-icon>mdi-cached</v-icon> </v-btn><span> clear</span>
-                                </div>
                             </div>
+
+
                         </div>
 
 
@@ -133,7 +140,7 @@
                         </v-col>
                     </v-row>
                     <div class="buttons">
-                        <v-btn :loading="form.processing" type="submit">Add new</v-btn>
+                        <v-btn :loading="form.processing" type="submit">Create</v-btn>
                         <Link href="/admins" class="text-link"> <v-btn>Discard</v-btn> </Link>
                     </div>
                 </v-form>

@@ -23,8 +23,6 @@ Vue.prototype.helper = helper
 Vue.prototype.Inertia = Inertia
 
 
-
-
 Vue.component("Link", Link);
 Vue.component("Head", Head);
 Vue.component("DeleteConfirm", DeleteConfirm);

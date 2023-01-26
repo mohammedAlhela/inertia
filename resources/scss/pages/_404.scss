@@ -2,6 +2,8 @@
     padding: 40px;
     text-align: center;
 
+    min-height: calc(100vh - 181px);
+
     .image-container {
         background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
         height: 400px;

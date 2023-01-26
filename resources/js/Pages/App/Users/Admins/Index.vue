@@ -1,6 +1,6 @@
 <template>
     <section>
-        <HeaderPanels :headerData="headerData" class="admins-page-panels-container" />
+        <HeaderPanels :headerData="headerData"  />
 
         <delete-confirm :deleteSnackbar="deleteSnackbar" @closing="closeDeleteSnackbar()" @deleteData="destroy()"
             :useDefault="admins" user="record" />
@@ -11,56 +11,58 @@
 
         <div class="main-holder">
             <div class="admins-page">
-                <div class="header row">
-                    <div class="col-4">
-                        <span class="records-count"> {{ this.filteredAdmins().length }} Admins </span>
+                <div class=" table-header">
+
+                    <div class="table-actions row">
+                        <div class="col-4">
+                            <span class="header mr-2"> {{ this.filteredAdmins().length }} Admins </span>
 
 
-                        <v-tooltip top>
-                            <template v-slot:activator="{
-                                on,
-                                attrs,
-                            }">
-                                <span v-bind="attrs" v-on="on" v-if="!selectedIds.length">
-                                    <v-icon class="download-all-icon" @click="exportAllExcel()">
-                                        mdi-download
-                                    </v-icon>
+                            <v-tooltip top>
+                                <template v-slot:activator="{
+                                    on,
+                                    attrs,
+                                }">
+                                    <span v-bind="attrs" v-on="on" v-if="!selectedIds.length">
+                                        <v-icon class="icon-button-action" @click="exportAllExcel()">
+                                            mdi-download
+                                        </v-icon>
 
+                                    </span>
+                                </template>
+                                <span>
+                                    Export data in excel file
                                 </span>
-                            </template>
-                            <span>
-                                Export data in excel file
+                            </v-tooltip>
+
+                            <span class="selected-count" v-if="selectedIds.length">
+
+                                {{ selectedIds.length }} Selected
                             </span>
-                        </v-tooltip>
-
-                        <span class="selected-count" v-if="selectedIds.length">
-
-                            {{ selectedIds.length }} Selected
-                        </span>
 
 
-                    </div>
+                        </div>
 
-                    <div class="col-4 ">
+                        <div class="col-4 ">
 
 
 
-                        <div class="selected-menu">
 
 
 
-                            <v-menu offset-y v-model="selectMenu" :disabled="!selectedIds.length"
-                                v-if="selectedIds.length">
+                            <v-menu offset-y v-if="selectedIds.length">
                                 <template v-slot:activator="{ on, attrs }">
 
-                                    <v-btn v-bind="attrs" v-on="on" :disabled="!selectedIds.length">
-                                        <v-icon> mdi-cogs</v-icon> Actions
-                                    </v-btn>
+
+                                    <span class="icon-text-button-action" v-bind="attrs" v-on="on"> <v-icon>
+                                            mdi-cogs</v-icon> Actions </span>
+
                                 </template>
                                 <v-list>
 
 
-                                    <v-list-item-title class="selected-menu-header"> Export data </v-list-item-title>
+                                    <v-list-item-title class="selected-menu-header"> Export data
+                                    </v-list-item-title>
 
 
                                     <v-list-item @click="selectAction('excel')">
@@ -77,110 +79,119 @@
 
                                     <v-list-item-title class="selected-menu-header"> Actions </v-list-item-title>
 
-                                    <v-list-item @click="selectAction('block')">
-                                        <v-list-item-title> <v-icon>mdi-lock</v-icon> Block records </v-list-item-title>
+                                    <v-list-item v-if="helper.methods.can('admin-update')"
+                                        @click="selectAction('block')">
+                                        <v-list-item-title> <v-icon>mdi-lock</v-icon> Block records
+                                        </v-list-item-title>
                                     </v-list-item>
 
 
-                                    <v-list-item @click="selectAction('unblock')">
+                                    <v-list-item v-if="helper.methods.can('admin-update')"
+                                        @click="selectAction('unblock')">
                                         <v-list-item-title> <v-icon>mdi-lock-open</v-icon> Unblock records
                                         </v-list-item-title>
                                     </v-list-item>
 
-                                    <v-list-item @click="blockDeleteSnackbar = true">
+                                    <v-list-item v-if="helper.methods.can('admin-delete')"
+                                        @click="blockDeleteSnackbar = true">
                                         <v-list-item-title> <v-icon>mdi-delete</v-icon> Delete records
                                         </v-list-item-title>
                                     </v-list-item>
 
-                                    <v-list-item @click="sendMessage()">
+                                    <v-list-item v-if="helper.methods.can('admin-update')" @click="sendMessage()">
                                         <v-list-item-title> <v-icon>mdi-message</v-icon> Send email message
                                         </v-list-item-title>
                                     </v-list-item>
                                 </v-list>
                             </v-menu>
+
+
                         </div>
 
-                    </div>
+
+
+                        <div class="col-4  create-button-holder ">
 
 
 
-                    <div class="col-4 ">
 
 
 
-                        <div class="selected-menu">
-
-
-
-                            <Link href="/admin/create" class="text-link"> <v-btn>
+                            <Link v-if="helper.methods.can('admin-store')" href="/admin/create" class="text-link">
+                            <v-btn>
                                 <v-icon> mdi-plus</v-icon> Create
                             </v-btn> </Link>
 
+
                         </div>
+
 
                     </div>
 
 
-                    <v-expand-transition>
 
 
 
-                        <div class=" filters">
-                            <v-form>
-                                <v-row class="">
-                                    <v-col cols="4">
+                    <div class=" filters">
+                        <v-form>
+                            <v-row class="">
+                                <v-col cols="4">
 
 
-                                        <v-text-field clearable placeholder="First name" required solo dense v-model="
+                                    <v-text-field hide-details clearable placeholder="First name" required solo dense
+                                        v-model="
                                             filter.first_name
                                         " class="textfield" />
-                                    </v-col>
+                                </v-col>
 
 
-                                    <v-col cols="4">
+                                <v-col cols="4">
 
 
-                                        <v-text-field clearable placeholder="Last name" required solo dense v-model="
+                                    <v-text-field hide-details clearable placeholder="Last name" required solo dense
+                                        v-model="
                                             filter.last_name
                                         " class="textfield" />
-                                    </v-col>
+                                </v-col>
 
 
-                                    <v-col cols="4">
+                                <v-col cols="4">
 
 
 
-                                        <v-text-field clearable placeholder="Username" required solo dense v-model="
+                                    <v-text-field hide-details clearable placeholder="Username" required solo dense
+                                        v-model="
                                             filter.username
                                         " class="textfield" />
-                                    </v-col>
+                                </v-col>
 
 
-                                    <v-col cols="4">
+                                <v-col cols="4">
 
-                                        <v-text-field clearable placeholder="Phone" required solo dense v-model="
+                                    <v-text-field hide-details clearable placeholder="Phone" required solo dense
+                                        v-model="
                                             filter.phone
                                         " class="textfield" />
-                                    </v-col>
+                                </v-col>
 
 
-                                    <v-col cols="4">
+                                <v-col cols="4">
 
 
-                                        <v-select clearable placeholder="Gender" :items="helper.methods.genders()"
-                                            required solo dense v-model="
-                                                filter.gender
-                                            " class="textfield" />
-                                    </v-col>
+                                    <v-select hide-details clearable placeholder="Gender"
+                                        :items="helper.methods.genders()" required solo dense v-model="
+                                            filter.gender
+                                        " class="textfield" />
+                                </v-col>
 
-                                </v-row>
-                            </v-form>
-
-
+                            </v-row>
+                        </v-form>
 
 
-                        </div>
-                    </v-expand-transition>
+
+
+                    </div>
+
 
 
 
@@ -200,14 +211,14 @@
                         itemsPerPageText: ' rows',
                     }">
                     <template v-slot:header.select>
-                        <th class="py-2 ">
-                            <v-icon @click="blockSelect()" color="primary" class="header-select">
-                                {{
-                                    selectedIds .length == filteredAdmins().length ? "mdi-close-box-multiple" :
-                                        "mdi-checkbox-multiple-marked"
-                                }}
-                            </v-icon>
-                        </th>
+
+                        <v-icon @click="blockSelect()" color="primary">
+                            {{
+                                selectedIds .length == filteredAdmins().length ? "mdi-close-box-multiple" :
+                                    "mdi-checkbox-multiple-marked"
+                            }}
+                        </v-icon>
+
                     </template>
 
                     <template v-slot:item.select="{ item }">
@@ -249,8 +260,8 @@
 
                     <template v-slot:item.status="{ item }">
                         <td>
-                            <span class="active-status-button" v-if="item.user.status"> Active </span>
-                            <span class="blocked-status-button" v-else> Blocked </span>
+                            <span class="active-label" v-if="item.user.status"> Active </span>
+                            <span class="blocked-label" v-else> Blocked </span>
                         </td>
                     </template>
 
@@ -264,7 +275,7 @@
                                     on,
                                     attrs,
                                 }">
-                                    <span v-bind="attrs" v-on="on">
+                                    <span v-if = "helper.methods.can('admin-update')"  v-bind="attrs" v-on="on">
                                         <v-icon @click="
                                         
                                             manageCredentials(item)
@@ -287,7 +298,7 @@
                                     on,
                                     attrs,
                                 }">
-                                    <span v-bind="attrs" v-on="on">
+                                    <span v-if = "helper.methods.can('admin-update')"  v-bind="attrs" v-on="on">
                                         <v-icon @click="
                                         
                                             managePermissions(item)
@@ -311,7 +322,7 @@
                                     on,
                                     attrs,
                                 }">
-                                    <span v-bind="attrs" v-on="on">
+                                    <span v-if = "helper.methods.can('admin-update')"  v-bind="attrs" v-on="on">
                                         <v-icon @click="
                                         
                                             editItem(item)
@@ -335,7 +346,7 @@
                                     on,
                                     attrs,
                                 }">
-                                    <span v-bind="attrs" v-on="on">
+                                    <span v-if = "helper.methods.can('admin-delete')"  v-bind="attrs" v-on="on">
                                         <v-icon @click="
 
     showDeleteSnackbar(item)
@@ -481,7 +492,7 @@ export default {
             },
         ],
 
-        selectMenu: false,
+
 
         deleteSnackbar: false,
         deleteIndex: -1,

@@ -29,7 +29,7 @@ class AcademicYearsResource extends JsonResource
             'Name' => $this->name,
             'Start date' => $this->start_date,
             'End date' => $this->end_date,
-            'Academic terms' => $this->academicTerms->pluck('name')->toArray()
+            'Academic terms' =>  implode(" ,",$this->academicTerms->pluck('name')->toArray())
         ];
     }
 }

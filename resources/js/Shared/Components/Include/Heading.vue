@@ -30,6 +30,7 @@
                             <v-tab>
 
                                 Administration
+                             
                             </v-tab>
 
 
@@ -40,12 +41,12 @@
                                             <v-col cols="6">
                                                 <div v-for="item, index in modules.academic_left_section" :key="index"
                                                     class="holder">
-
+                                              
                                                     <v-icon> {{ item.head_icon }}</v-icon>
                                                     {{ item.head_paragraph }}
                                                     <div class="links">
-                                                        <Link @click = "showModules = false" class="text-link" :href="link.src"
-                                                            v-for="link, key in item.pages" :key="key">
+                                                        <Link v-if = "helper.methods.can(link.permission)" @click="showModules = false" class="text-link"
+                                                            :href="link.src" v-for="link, key in item.pages" :key="key">
                                                         {{ link.name }}
                                                         </Link>
                                                     </div>
@@ -60,8 +61,8 @@
                                                     <v-icon> {{ item.head_icon }}</v-icon>
                                                     {{ item.head_paragraph }}
                                                     <div class="links">
-                                                        <Link @click = "showModules = false" class="text-link" :href="link.src"
-                                                            v-for="link, key in item.pages" :key="key">
+                                                        <Link v-if = "helper.methods.can(link.permission)"  @click="showModules = false" class="text-link"
+                                                            :href="link.src" v-for="link, key in item.pages" :key="key">
                                                         {{ link.name }}
                                                         </Link>
                                                     </div>
@@ -111,15 +112,15 @@
                     </v-btn>
                 </template>
                 <v-list>
-                    <Link href='/billing' class="text-link"> <v-list-item> Billing </v-list-item></Link>
-                    <Link href='/company' class="text-link"> <v-list-item> Company Data</v-list-item> </Link>
+                    <Link v-if = "helper.methods.can('billing-show')"  href='/billing' class="text-link"> <v-list-item> Billing </v-list-item></Link>
+                    <Link v-if = "helper.methods.can('company-show')"  href='/company' class="text-link"> <v-list-item> Company Data</v-list-item> </Link>
 
 
                 </v-list>
             </v-menu>
 
 
-            <v-menu open-on-hover offset-y>
+            <v-menu offset-y  open-on-hover class="profile-menu">
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn icon v-bind="attrs" v-on="on">
                         <v-icon> mdi-account</v-icon>
@@ -127,23 +128,20 @@
                 </template>
 
                 <v-card class="w-300">
-                    <v-list>
-             
+                    <v-list class="profile-menu">
 
-                        <v-list-item>
-            <v-list-item-avatar>
-              <img
-                :src="$page.props.auth.image"
-                alt="User iamge"
-              >
-            </v-list-item-avatar>
 
-            <v-list-item-content>
-              <v-list-item-title>{{ $page.props.auth.role }}</v-list-item-title>
-              <v-list-item-subtitle>{{ $page.props.auth.username }}</v-list-item-subtitle>
-            </v-list-item-content>
+                        <v-list-item class="no-background-hover">
+                            <v-list-item-avatar>
+                                <img :src="$page.props.auth.image" alt="User iamge">
+                            </v-list-item-avatar>
 
-          </v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title>{{ $page.props.auth.role }}</v-list-item-title>
+                                <v-list-item-subtitle>{{ $page.props.auth.username }}</v-list-item-subtitle>
+                            </v-list-item-content>
+
+                        </v-list-item>
 
 
                     </v-list>
@@ -153,8 +151,13 @@
                     <v-list>
 
                         <Link href='/account' class="text-link"> <v-list-item> Personal Setting </v-list-item></Link>
-                        <Link method="post" class="text-link" href='/logout' as="button"> <v-list-item> Logout
-                        </v-list-item></Link>
+
+
+                        <Link method="post" class="text-link logout-link" href='/logout' as="button"> <v-list-item>
+                            Logout </v-list-item></Link>
+
+
+
                     </v-list>
 
 
@@ -197,10 +200,10 @@ export default {
                         head_icon: "mdi-teach",
                         head_paragraph: "Teachers/Admins",
                         pages: [
-                            { name: "Manage Admins", src: "/admins" },
+                            { name: "Manage Admins", src: "/admins" , permission : "admin-show" },
                             {
                                 name: "Manage Teachers",
-                                src: "/teachers"
+                                src: "/teachers", permission : "teacher-show"
                             },
                             {
                                 name: "Subjects Allocation",
@@ -240,6 +243,18 @@ export default {
 
 
                 academic_right_section: [
+
+                {
+                        head_icon: "mdi-calendar-range",
+                        head_paragraph: "Academic years and terms",
+                        pages: [
+                            { name: "Academic years", src: "/academicYears"  , permission : "academicYear-show" },
+                            { name: "Academic terms", src: "/academicTerms"   , permission : "academicTerm-show"},
+
+                        ]
+                    },
+
+
                     {
                         head_icon: "mdi-human-male-boy",
                         head_paragraph: "Parents",
@@ -248,6 +263,10 @@ export default {
 
                         ]
                     },
+
+         
+
+
 
 
                     {
@@ -274,6 +293,8 @@ export default {
                 ],
                 // ++++++++++++++++++++ academics ++++++++++++++++++++++++
             },
+
+
 
 
         }

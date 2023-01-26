@@ -4,7 +4,7 @@
 
 
         <div class="image-container">
-        <h1>404</h1>
+      
     </div>
 
         <div class="contant">
@@ -14,7 +14,7 @@
 
             <p>the page you are looking for not avaible!</p>
 
-            <Link href="/" class="text-link">Go to Home</Link>
+            <Link href="/" class="link">Back to Home</Link>
         </div>
 
     </section>

@@ -2,7 +2,7 @@
     <section>
         <HeaderPanels :headerData="headerData" />
         <div class="main-holder">
-            <div class="account-panesl-page">
+            <div class="left-page-card">
                 <div @click="toggleForm('account')" :class="{ active_link: accountPanel }">
                     <v-icon>mdi-pencil</v-icon> Update Profile
                 </div>
@@ -11,15 +11,19 @@
                 </div>
 
             </div>
-            <div class="account-page">
+            <div class="right-page-card">
                 <v-form @submit.prevent="update" v-if="accountPanel" ref="accountForm">
                     <v-row class="inputs-holder">
 
                         <div class="upload-image-container">
-                            <div class="description">
+                            <div class="label">
                                 Recomended dimensions are 250 x 250
                             </div>
 
+
+                            <div class="file-uploader">
+
+                           
                             <img :src="getImage" />
 
                             <div class="upload-holder">
@@ -31,14 +35,18 @@
                                         @input="form.image = $event.target.files[0]" @change="imageSelected" />
                                 </div>
 
-                                <span class="image-paragraph" v-html="getImageParagraph">
+                                <span class="label" v-html="getImageParagraph">
                                 </span>
 
-                                <div class="clear" @click="clearImage()" v-if="image.preview">
-                                    <v-btn icon color="#645e5e">
-                                        <v-icon>mdi-cached</v-icon> </v-btn><span> clear</span>
+                                <div class="clear-button" @click="clearImage()" v-if="image.preview">
+                                    <v-btn text color="#645e5e">
+                                        <v-icon>mdi-cached</v-icon> <span class = "label"> clear</span> </v-btn>
                                 </div>
                             </div>
+
+                        </div>
+
+                            <div class="clear"></div>
                         </div>
 
 

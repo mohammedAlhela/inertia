@@ -8,6 +8,7 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use Image;
 use PdfReport;
+use Helper;
 
 class CompanyController extends Controller
 {
@@ -25,6 +26,11 @@ class CompanyController extends Controller
      */
     public function index()
     {
+
+        $authArray = array('company', 'show');
+
+        Helper::authorizeModel($authArray);
+
         return inertia('App/Main/Company', [
             'company' => Company::find(1),
         ]);
@@ -32,6 +38,12 @@ class CompanyController extends Controller
 
     public function update(CompanyRequest $request, $id)
     {
+
+        
+        $authArray = array('company', 'update');
+
+        Helper::authorizeModel($authArray);
+
 
         $image = request()->file("image");
 
@@ -54,6 +66,12 @@ class CompanyController extends Controller
     }
     public function exportPdf()
     {
+
+        $authArray = array('company', 'show');
+
+        Helper::authorizeModel($authArray);
+
+
         $company = Company::find(1);
         $data = [
             'name' => $company->name,
@@ -64,9 +82,6 @@ class CompanyController extends Controller
             'company_register' => $company->company_register,
 
         ];
-        // $pdf = PDF::loadView('main.company.pdf', array('data' => $data));
-
-        // return $pdf->stream('main.company.pdf');
 
         $pdf = PdfReport::loadView('main.company.pdf', $data);
         return $pdf->download('company.pdf');

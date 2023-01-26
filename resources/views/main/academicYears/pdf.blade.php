@@ -10,7 +10,7 @@
 
                 <div class="col-6">
                     <div class="count">
-                        <span> Academic years records : </span> {{ count($academicYears) }}
+                        <span> Academic years records : </span> {{ count( $data['academicYears']) }}
                     </div>
                 </div>
 
@@ -35,7 +35,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($academicYears as $academicYear)
+                            @foreach ($data['academicYears'] as $academicYear)
                                 <tr>
                                     <td><strong>{{ $academicYear->id }}</strong></td>
                                     <td>{{ $academicYear->name }}</td>
@@ -51,7 +51,7 @@
                                         @endforeach
 
 
-                                        {{ $academicYear->academicTerms }}
+       
 
 
 

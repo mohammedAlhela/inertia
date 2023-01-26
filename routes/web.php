@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\Main\CompanyController;
 use App\Http\Controllers\Users\AdminController;
 use App\Http\Controllers\Main\AcademicYearController;
+use App\Http\Controllers\Main\AcademicTermController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,7 +63,7 @@ Route::get('company/export/pdf' , [CompanyController::class , 'exportPdf']);
 
 Route::get('', function () {
     return inertia('App/Main/Home');
-})->middleware(['auth']);
+})->middleware('auth');
 // ++++++++++ main
 
 

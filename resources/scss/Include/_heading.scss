@@ -2,7 +2,7 @@
     padding: 10px 20px;
     align-items: center;
     .brand {
-        @extend .header-link;
+        @extend .navigation-link;
         img {
             width: 30px;
             margin-right: 15px;
@@ -14,7 +14,7 @@
         margin-left: 30px;
         position: relative;
         cursor: pointer;
-        @extend .brand;
+        @extend .navigation-link;
 
         .modules-popup {
             z-index: 2;
@@ -29,17 +29,21 @@
                     width: 300px !important;
                     background-color: $super-light-indigo-color !important;
                     .v-tab {
+                        font-size: 13px;
+                        font-weight: 600;
+                        color: $black-color;
+
+                        text-transform: capitalize;
+
                         display: flex;
                         justify-content: left;
-                        font-size: 12px !important;
+
                         height: 35px !important;
                         border-radius: 5px;
                         padding: 10px !important;
-                        text-transform: capitalize !important;
                     }
 
                     .v-tab--active {
-                        font-weight: 600;
                         color: white;
                         background: $main-color;
                     }
@@ -57,7 +61,9 @@
                         .links {
                             font-weight: 500;
                             padding-left: 10px;
+                            padding-top: 5px;
                             a {
+                                font-size: 13px;
                                 color: $black-gray-color !important;
                                 display: block;
                                 &:hover {
@@ -73,7 +79,14 @@
 
     .actions {
         text-align: right;
+        .v-icon { 
+            font-size: 22px !important;
+        }
     }
+
+    // the logout bug button 
+
+ 
 }
 
 .expiration {
@@ -85,36 +98,30 @@
 }
 
 .panels {
-    color : white !important;
+    color: white ;
     padding: 20px 5px 5px 20px;
     background-color: $main-color;
     height: 170px;
     font-size: 13px;
 
-    .v-icon { 
-        color : white !important;  
+    .v-icon {
+        color: white !important;
         margin-top: -3px;
-        font-size : 18px !important; 
+        font-size: 18px !important;
     }
 
-
-    .hr { 
-        height: .5px;
-    background: #ababab;
-    margin: 10px 0px;
+    .hr {
+        height: 0.5px;
+        background: #ababab;
+        margin: 10px 0px;
     }
 
-    a { 
+    a {
         @extend .text-link;
-        color : white !important;
+        color: white !important;
     }
+}
+.logout-link { 
+    width: 100% !important;
 
-    button { 
-        float: right;
-                margin-top: 5px;
-                background-color: $light-main-color !important;
-                color: white !important;
-                margin-right: 30px;
-    }
-
-  }
+ }

@@ -10,7 +10,7 @@
 
                 <div class="col-6">
                     <div class="count">
-                        <span> Academic terms records : </span> {{ count($academicTerms) }}
+                        <span> Academic terms records : </span> {{ count($data['academicTerms']) }}
                     </div>
                 </div>
 
@@ -36,7 +36,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($academicTerms as $academicTerm)
+                            @foreach ($data['academicTerms'] as $academicTerm)
                                 <tr>
                                     <td><strong>{{ $academicTerm->id }}</strong></td>
                                     

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Main;
 
+use App\Exports\Main\AcademicTermExport;
 use App\Http\Controllers\Controller;
-use App\Http\Exports\Main\AcademicTermExport;
 use App\Http\Requests\Main\AcademicTermRequest;
 use App\Models\AcademicTerm;
+use App\Models\AcademicYear;
 use Excel;
 use Helper;
 use Illuminate\Http\Request;
@@ -22,15 +23,24 @@ class AcademicTermController extends Controller
     public function index()
     {
 
+        $records = AcademicTerm::with('academicYear')->get();
+
+        foreach ($records as $record) {
+
+            $records->select = false;
+        }
+
         return inertia('App/Main/AcademicTerms/Index', [
-            'academicTerms' => AcademicTerm::all(),
+            'academicTerms' => $records,
         ]);
 
     }
 
     public function create()
     {
-        return inertia('App/Main/Academicterms/Create');
+        return inertia('App/Main/Academicterms/Create' , [
+            'academicYears' => AcademicYear::all()
+        ]);
     }
 
     public function store(AcademicTermRequest $request)
@@ -52,7 +62,7 @@ class AcademicTermController extends Controller
     public function update(AcademicTermRequest $request, $id)
     {
 
-        AcademicTerm::update($request->except('created_at', 'updated_at'))->where('id', $id);
+        AcademicTerm::where('id', $id)->update($request->except('created_at', 'updated_at'));
     }
 
     public function delete($ids)

@@ -24,6 +24,11 @@ class AdminController extends Controller
 
     public function index()
     {
+
+        $authArray = array('admin', 'show');
+
+        Helper::authorizeModel($authArray);
+
         $admins = Admin::with('user')->get();
 
         foreach ($admins as $admin) {
@@ -38,11 +43,20 @@ class AdminController extends Controller
 
     public function create()
     {
+
+        $authArray = array('admin', 'store');
+
+        Helper::authorizeModel($authArray);
+
         return inertia('App/Users/Admins/Create');
     }
 
     public function store(AdminRequest $request)
     {
+
+        $authArray = array('admin', 'store');
+
+        Helper::authorizeModel($authArray);
 
         $password = Str::random(8);
 
@@ -88,6 +102,11 @@ class AdminController extends Controller
     public function edit($id)
     {
 
+        $authArray = array('admin', 'update');
+
+        Helper::authorizeModel($authArray);
+
+
         return inertia('App/Users/Admins/Edit', [
             'admin' => Admin::find($id),
         ]);
@@ -97,6 +116,10 @@ class AdminController extends Controller
     public function update(AdminRequest $request, $id)
     {
 
+        $authArray = array('admin', 'update');
+
+        Helper::authorizeModel($authArray);
+        
         $image = request()->file("image");
 
         $admin = Admin::where('id', $id)->update($request->except('image', 'email', 'created_at', 'updated_at'));
@@ -116,6 +139,11 @@ class AdminController extends Controller
 
     public function delete($ids)
     {
+
+        $authArray = array('admin', 'delete');
+
+        Helper::authorizeModel($authArray);
+
 
         $ids = Helper::getArrayFromString($ids);
 
@@ -137,6 +165,11 @@ class AdminController extends Controller
     public function block($ids)
     {
 
+        $authArray = array('admin', 'update');
+
+        Helper::authorizeModel($authArray);
+
+
         $ids = Helper::getArrayFromString($ids);
 
         $usersIds = Admin::with('user')->whereIn('id', $ids)->pluck('user_id')->toArray();
@@ -148,6 +181,11 @@ class AdminController extends Controller
     public function unBlock($ids)
     {
 
+        $authArray = array('admin', 'update');
+
+        Helper::authorizeModel($authArray);
+
+
         $ids = Helper::getArrayFromString($ids);
 
         $usersIds = Admin::with('user')->whereIn('id', $ids)->pluck('user_id')->toArray();
@@ -158,6 +196,11 @@ class AdminController extends Controller
 
     public function ShowPermissions($id)
     {
+
+        $authArray = array('admin', 'update');
+
+        Helper::authorizeModel($authArray);
+
         $admin = Admin::find($id);
         return inertia('App/Users/Admins/Permissions', [
             'permissionsNames' => $admin->user->permissionsNames(),
@@ -168,6 +211,11 @@ class AdminController extends Controller
 
     public function UpdatePermissions(Request $request, $id)
     {
+
+        $authArray = array('admin', 'update');
+
+        Helper::authorizeModel($authArray);
+
 
         $user_id = Admin::find($id)->user->id;
 
@@ -184,6 +232,11 @@ class AdminController extends Controller
     public function ShowCredentials($id)
     {
 
+
+        $authArray = array('admin', 'update');
+
+        Helper::authorizeModel($authArray);
+
         $admin = Admin::find($id);
         return inertia('App/Users/Admins/Credentials', [
             'email' => $admin->user->email,
@@ -194,6 +247,11 @@ class AdminController extends Controller
 
     public function UpdateCredentials(CredentialsRequest $request, $id)
     {
+
+        $authArray = array('admin', 'update');
+
+        Helper::authorizeModel($authArray);
+
 
         $admin = Admin::find($id);
 
@@ -228,6 +286,11 @@ class AdminController extends Controller
 
     public function emailMessage(EmailMessageRequest $request, $ids)
     {
+
+        $authArray = array('admin', 'update');
+
+        Helper::authorizeModel($authArray);
+
 
         $data = array(
             'subject' => $request->subject,
@@ -272,6 +335,12 @@ class AdminController extends Controller
 
     public function exportPdf(Request $request, $ids)
     {
+
+
+        $authArray = array('admin', 'show');
+
+        Helper::authorizeModel($authArray);
+
         $ids = Helper::getArrayFromString($ids);
 
         $admins = Admin::with('user')->whereIn('id', $ids)->get();
@@ -288,6 +357,10 @@ class AdminController extends Controller
 
     public function exportExcel($ids)
     {
+
+        $authArray = array('admin', 'show');
+
+        Helper::authorizeModel($authArray);
         $ids = Helper::getArrayFromString($ids);
 
         return Excel::download(new AdminExport($ids), 'admins.xlsx');

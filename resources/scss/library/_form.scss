@@ -13,6 +13,10 @@ form {
     .buttons {
         background: $super-light-indigo-color;
         padding: 20px 30px;
+
+        a { 
+            margin-left: 15px;
+        }
     }
 
     div.buttons > button:first-child { 
@@ -20,7 +24,6 @@ form {
         color: white !important;
     }
 
-    div.buttons a { 
-       margin-left: 10px;
-    }
+ 
+
 }

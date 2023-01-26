@@ -27,7 +27,7 @@
   position: fixed !important;
   .confirm-button {
     @include snackbar-button;
-    color: $red !important;
+    color: $red-color !important;
     margin-left: 30px;
   }
 

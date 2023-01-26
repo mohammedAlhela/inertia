@@ -1,4 +1,4 @@
-.success-message { 
+.success-message {
     display: inline-block;
     position: fixed;
     top: 0px;
@@ -9,22 +9,17 @@
     padding: 10px 20px;
     border-radius: 5px;
     font-size: 14px;
-    transition: .4s all;
-     visibility: hidden;
-     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    transition: 0.4s all;
+    visibility: hidden;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-
-.error-message { 
-   @extend .success-message;
-   background: $light-red-color;
-
+.error-message {
+    @extend .success-message;
+    background: $light-red-color;
 }
 
-
-
-.show_message { 
+.show_message {
     right: 0px;
     visibility: visible;
-  
 }
