@@ -10904,6 +10904,12 @@ textarea, .v-select__selection {
   color: #7E57C2 !important;
 }
 
+.last-seen {
+  display: block;
+  font-size: 12px;
+  color: #7E57C2;
+}
+
 .v-input--checkbox .v-input__slot {
   box-shadow: none !important;
   border: none !important;
@@ -10963,7 +10969,7 @@ textarea, .v-select__selection {
 }
 .v-data-table .v-icon {
   cursor: pointer;
-  font-size: 20px !important;
+  font-size: 18px !important;
 }
 .v-data-table .v-icon::after {
   background-color: white !important;
@@ -11097,6 +11103,9 @@ button {
   padding: 7px 10px;
   letter-spacing: 0.5px;
   border-radius: 3px;
+}
+.table-header .table-actions .selected-count {
+  margin-right: 20px;
 }
 .table-header .table-actions .create-button-holder {
   text-align: right;

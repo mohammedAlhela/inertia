@@ -5,7 +5,7 @@
         <delete-confirm :deleteSnackbar="deleteSnackbar" @closing="closeDeleteSnackbar()" @deleteData="destroy()"
             :useDefault="academicYears" user="Academic year" />
 
-            <delete-confirm :deleteSnackbar="blockDeleteSnackbar" @closing="blockDeleteSnackbar = false"
+        <delete-confirm :deleteSnackbar="blockDeleteSnackbar" @closing="blockDeleteSnackbar = false"
             @deleteData="deleteSelected()" :useDefault="!academicYears"
             customParagraph="Are you sure you want to delete the selected records ?" />
 
@@ -13,9 +13,8 @@
         <div class="main-holder">
             <div class="full-page-card page-padding">
                 <div class=" table-header">
-
                     <div class="table-actions row">
-                        <div class="col-4">
+                        <div class="col-6">
                             <span class="header mr-2"> {{ this.filteredAcademicYears().length }} Academic years </span>
 
 
@@ -40,16 +39,6 @@
 
                                 {{ selectedIds.length }} Selected
                             </span>
-
-
-                        </div>
-
-                        <div class="col-4 ">
-
-
-
-
-
 
                             <v-menu offset-y v-if="selectedIds.length">
                                 <template v-slot:activator="{ on, attrs }">
@@ -90,12 +79,11 @@
                                 </v-list>
                             </v-menu>
 
-
                         </div>
 
 
 
-                        <div class="col-4  create-button-holder ">
+                        <div class="col-6  create-button-holder ">
 
 
 
@@ -164,6 +152,9 @@
 
                 </div>
 
+
+
+
                 <v-data-table :headers="headers" :items="filteredAcademicYears()" :items-per-page="10"
                     item-key="item.id" :footer-props="{
                         showFirstLastPage: true,
@@ -175,9 +166,9 @@
                     }">
                     <template v-slot:header.select>
 
-                        <v-icon @click="blockSelect()" color="primary">
+                        <v-icon v-if="filteredAcademicYears().length" @click="blockSelect()" color="primary">
                             {{
-                                selectedIds .length == filteredAcademicYears().length ? "mdi-close-box-multiple" :
+                                selectedIds.length == filteredAcademicYears().length ? "mdi-close-box-multiple" :
                                     "mdi-checkbox-multiple-marked"
                             }}
                         </v-icon>
@@ -198,11 +189,12 @@
 
                     <template v-slot:item.academicTerms="{ item }">
                         <td class="py-2 ">
-                         
-                        <span @click = "manageAcademicTerms(record.id)" class = "record-relation-label" v-for = "(record , index ) in item.academic_terms" :key = "index">
-                         {{ record.name }}
-                        </span>
-                    
+
+                            <span @click="manageAcademicTerm(record.id)" class="record-relation-label"
+                                v-for="(record, index ) in item.academic_terms" :key="index">
+                                {{ record.name }}
+                            </span>
+
                         </td>
                     </template>
 
@@ -339,7 +331,12 @@ export default {
         }
 
     },
+
+
+
+
     data: () => ({
+
 
 
         filter: {
@@ -347,7 +344,6 @@ export default {
             start_date: "",
             end_date: "",
         },
-
 
 
         headers: [
@@ -394,7 +390,7 @@ export default {
         ],
 
 
-        blockDeleteSnackbar : false ,
+        blockDeleteSnackbar: false,
         deleteSnackbar: false,
         deleteIndex: -1,
 
@@ -404,8 +400,9 @@ export default {
 
 
     methods: {
+        clearSelect() {
 
-
+        },
 
         filteredAcademicYears() {
             let conditions = [];
@@ -462,7 +459,7 @@ export default {
         // select +++++
         blockSelect() {
 
-            if (this.selectedIds.length == 0 || this.selectedIds.length < this.filteredAcademicYears.length) {
+            if (this.selectedIds.length != this.filteredAcademicYears().length) {
                 this.selectAll()
             }
 
@@ -482,7 +479,7 @@ export default {
 
         selectAll() {
             this.filteredAcademicYears().forEach((item) => {
-                item.select = true
+                item.select = 1
 
             })
 
@@ -567,7 +564,7 @@ export default {
         },
 
 
-        
+
 
         // select +++++
 

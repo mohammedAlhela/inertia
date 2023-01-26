@@ -6,6 +6,17 @@
                 <v-form @submit.prevent="update" ref="form">
                     <v-row class="inputs-holder">
 
+                        <v-col cols="6" class="py-1">
+                            <span class="input-header">
+                                Academic year
+                            </span>
+                            <v-icon class="important-field-icon"> mdi-star </v-icon>
+
+
+                            <v-autocomplete required :rules="formErrors.academic_year_id" :items="academicYears" solo
+                                dense item-text="name" item-value="id" class="textfield"
+                                v-model="form.academic_year_id"  />
+                            </v-col>
 
                         <v-col cols="6" class="py-1">
                             <span class="input-header">
@@ -45,8 +56,8 @@
 
                     </v-row>
                     <div class="buttons">
-                        <v-btn :loading="form.processing" type="submit">Update </v-btn>
-                        <Link href="/academicYears" class="text-link"> <v-btn>Discard</v-btn> </Link>
+                        <v-btn :loading="form.processing" type="submit">Create </v-btn>
+                        <Link href="/academicTerms" class="text-link"> <v-btn>Discard</v-btn> </Link>
                     </div>
                 </v-form>
 
@@ -61,35 +72,39 @@
 <script>
 
 export default {
+
+
+
+
     props: {
-        academicYear: Object
+        academicTerm: Object,
+        academicYears: Array
     },
     mounted() {
-        this.helper.methods.handleServerData(this.form, this.academicYear)
+        this.helper.methods.handleServerData(this.form, this.academicTerm)
     },
-
 
     computed: {
 
 
         headerData() {
             return {
-                pageTitle: "Sahara School -- Update academic year data",
-                title: "Update academic year data",
+                pageTitle: "Sahara School -- Update academic term data",
+                title: "Update academic term data",
 
                 links: [
 
 
                     {
                         icon: "mdi-file-multiple",
-                        paragraph: "Academic years",
-                        src: "/academicYears",
+                        paragraph: "Academic terms",
+                        src: "/academicTerms",
                     },
 
                     {
                         icon: "mdi-file",
-                        paragraph: "Update academic year data",
-                        src: `/academicYear/edit/${this.academicYear.id}`,
+                        paragraph: "Update academic term data",
+                        src: `/academicTerm/edit/${this.academicTerm.id}`,
                     }
 
 
@@ -111,21 +126,17 @@ export default {
     methods: {
         update() {
             this.$refs.form.validate()
-            this.form.post(`/academicYear/update/${this.academicYear.id}`, {
+            this.form.post(`/academicTerm/update/${this.academicTerm.id}`, {
                 forceFormData: true,
                 onSuccess: () => {
                     this.helper.methods.fireMessage(
-                        "Record data updated", "success"
+                        " Record data added", "success"
                     );
-                    this.Inertia.get("/academicYears");
+                    this.Inertia.get("/academicTerms");
                 },
             });
 
         },
-
-
-
-
     },
 
     data() {
@@ -133,6 +144,7 @@ export default {
 
             form: this.$inertia.form({
                 id: "",
+                academic_year_id: "",
                 name: "",
                 end_date: "",
                 start_date: "",

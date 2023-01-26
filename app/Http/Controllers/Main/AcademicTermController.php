@@ -27,18 +27,20 @@ class AcademicTermController extends Controller
 
         foreach ($records as $record) {
 
-            $records->select = false;
+            $record->select = false;
         }
 
         return inertia('App/Main/AcademicTerms/Index', [
             'academicTerms' => $records,
+            'academicYears' => AcademicYear::all()
+            
         ]);
 
     }
 
     public function create()
     {
-        return inertia('App/Main/Academicterms/Create' , [
+        return inertia('App/Main/AcademicTerms/Create' , [
             'academicYears' => AcademicYear::all()
         ]);
     }
@@ -55,6 +57,7 @@ class AcademicTermController extends Controller
 
         return inertia('App/Main/AcademicTerms/Edit', [
             'academicTerm' => AcademicTerm::find($id),
+            'academicYears' => AcademicYear::all()
         ]);
 
     }

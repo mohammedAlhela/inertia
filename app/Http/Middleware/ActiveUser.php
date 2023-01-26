@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+// use Carbon\Carbon;
 
 class ActiveUser
 {
@@ -18,7 +20,13 @@ class ActiveUser
     public function handle(Request $request, Closure $next)
     {
 
+
+
+    
         if (Auth::check() && !Auth::user()->status) {
+
+            
+            User::where('id', Auth::user()->id)->update(['last_seen' => (new \DateTime())->format("Y-m-d H:i:s")]);
 
             return inertia('Auth/Blocked' , [
                 'message' => 'You are blocked by the admin please contact him' , 

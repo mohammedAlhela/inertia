@@ -60,3 +60,9 @@ textarea , .v-select__selection {
         color: $main-color !important ;
     }
 }
+
+.last-seen { 
+    display: block;
+    font-size: 12px;
+    color: $main-color;
+}

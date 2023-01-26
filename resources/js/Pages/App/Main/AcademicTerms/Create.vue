@@ -6,6 +6,17 @@
                 <v-form @submit.prevent="store" ref="form">
                     <v-row class="inputs-holder">
 
+                        <v-col cols="6" class="py-1">
+                            <span class="input-header">
+                                Academic year
+                            </span>
+                            <v-icon class="important-field-icon"> mdi-star </v-icon>
+
+
+                            <v-autocomplete required :rules="formErrors.academic_year_id" :items="academicYears" solo
+                                dense item-text="name" item-value="id" class="textfield"
+                                v-model="form.academic_year_id" />
+                        </v-col>
 
                         <v-col cols="6" class="py-1">
                             <span class="input-header">
@@ -46,7 +57,7 @@
                     </v-row>
                     <div class="buttons">
                         <v-btn :loading="form.processing" type="submit">Create </v-btn>
-                        <Link href="/academicYears" class="text-link"> <v-btn>Discard</v-btn> </Link>
+                        <Link href="/academicTerms" class="text-link"> <v-btn>Discard</v-btn> </Link>
                     </div>
                 </v-form>
 
@@ -62,7 +73,9 @@
 
 export default {
 
- 
+    props: {
+        academicYears: Array
+    },
 
 
     computed: {
@@ -70,22 +83,22 @@ export default {
 
         headerData() {
             return {
-                pageTitle: "Sahara School -- Create new academic year",
-                title: "Create new academic year",
+                pageTitle: "Sahara School -- Create new academic term",
+                title: "Create new academic term",
 
                 links: [
 
 
                     {
                         icon: "mdi-file-multiple",
-                        paragraph: "Academic years",
-                        src: "/academicYears",
+                        paragraph: "Academic terms",
+                        src: "/academicTerms",
                     },
 
                     {
                         icon: "mdi-file",
-                        paragraph: "Create new academic year",
-                        src: `/academicYear/create`,
+                        paragraph: "Create new academic term",
+                        src: `/academicTerm/create`,
                     }
 
 
@@ -107,13 +120,13 @@ export default {
     methods: {
         store() {
             this.$refs.form.validate()
-            this.form.post(`/academicYear/store`, {
+            this.form.post(`/academicTerm/store`, {
                 forceFormData: true,
                 onSuccess: () => {
                     this.helper.methods.fireMessage(
                         "New record added", "success"
                     );
-                    this.Inertia.get("/academicYears");
+                    this.Inertia.get("/academicTerms");
                 },
             });
 
@@ -124,6 +137,7 @@ export default {
         return {
 
             form: this.$inertia.form({
+                academic_year_id: "",
                 name: "",
                 end_date: "",
                 start_date: "",

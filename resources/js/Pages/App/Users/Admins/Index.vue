@@ -1,6 +1,6 @@
 <template>
     <section>
-        <HeaderPanels :headerData="headerData"  />
+        <HeaderPanels :headerData="headerData" />
 
         <delete-confirm :deleteSnackbar="deleteSnackbar" @closing="closeDeleteSnackbar()" @deleteData="destroy()"
             :useDefault="admins" user="record" />
@@ -14,7 +14,7 @@
                 <div class=" table-header">
 
                     <div class="table-actions row">
-                        <div class="col-4">
+                        <div class="col-6">
                             <span class="header mr-2"> {{ this.filteredAdmins().length }} Admins </span>
 
 
@@ -39,16 +39,6 @@
 
                                 {{ selectedIds.length }} Selected
                             </span>
-
-
-                        </div>
-
-                        <div class="col-4 ">
-
-
-
-
-
 
                             <v-menu offset-y v-if="selectedIds.length">
                                 <template v-slot:activator="{ on, attrs }">
@@ -98,7 +88,7 @@
                                         </v-list-item-title>
                                     </v-list-item>
 
-                                    <v-list-item v-if="helper.methods.can('admin-update')" @click="sendMessage()">
+                                    <v-list-item v-if="helper.methods.can('admin-update')" @click="sendEmailMessage()">
                                         <v-list-item-title> <v-icon>mdi-message</v-icon> Send email message
                                         </v-list-item-title>
                                     </v-list-item>
@@ -106,11 +96,14 @@
                             </v-menu>
 
 
+
                         </div>
 
 
 
-                        <div class="col-4  create-button-holder ">
+
+
+                        <div class="col-6  create-button-holder ">
 
 
 
@@ -214,7 +207,7 @@
 
                         <v-icon @click="blockSelect()" color="primary">
                             {{
-                                selectedIds .length == filteredAdmins().length ? "mdi-close-box-multiple" :
+                                selectedIds.length == filteredAdmins().length ? "mdi-close-box-multiple" :
                                     "mdi-checkbox-multiple-marked"
                             }}
                         </v-icon>
@@ -252,7 +245,25 @@
                                 {{ `${item.username}` }}
                             </span>
 
-                            <span> {{ "2022/20/11" }} </span>
+
+                            <v-tooltip top>
+                                <template v-slot:activator="{
+                                    on,
+                                    attrs,
+                                }">
+                          
+
+                                    
+                            <span v-bind="attrs" v-on="on"  class = "last-seen"> {{ item.user.last_seen }} </span>
+
+                                </template>
+                                <span>
+                                   User last seen
+                                </span>
+                            </v-tooltip>
+
+
+
                         </td>
                     </template>
 
@@ -275,7 +286,7 @@
                                     on,
                                     attrs,
                                 }">
-                                    <span v-if = "helper.methods.can('admin-update')"  v-bind="attrs" v-on="on">
+                                    <span v-if="helper.methods.can('admin-update')" v-bind="attrs" v-on="on">
                                         <v-icon @click="
                                         
                                             manageCredentials(item)
@@ -298,7 +309,7 @@
                                     on,
                                     attrs,
                                 }">
-                                    <span v-if = "helper.methods.can('admin-update')"  v-bind="attrs" v-on="on">
+                                    <span v-if="helper.methods.can('admin-update')" v-bind="attrs" v-on="on">
                                         <v-icon @click="
                                         
                                             managePermissions(item)
@@ -322,7 +333,7 @@
                                     on,
                                     attrs,
                                 }">
-                                    <span v-if = "helper.methods.can('admin-update')"  v-bind="attrs" v-on="on">
+                                    <span v-if="helper.methods.can('admin-update')" v-bind="attrs" v-on="on">
                                         <v-icon @click="
                                         
                                             editItem(item)
@@ -346,7 +357,7 @@
                                     on,
                                     attrs,
                                 }">
-                                    <span v-if = "helper.methods.can('admin-delete')"  v-bind="attrs" v-on="on">
+                                    <span v-if="helper.methods.can('admin-delete')" v-bind="attrs" v-on="on">
                                         <v-icon @click="
 
     showDeleteSnackbar(item)
@@ -362,9 +373,6 @@
                                     Delete record
                                 </span>
                             </v-tooltip>
-
-
-
 
                         </td>
                     </template>
@@ -418,6 +426,17 @@ export default {
         }
 
     },
+
+    // watch   :  {
+    //     filter: {
+    //     handler(value) {
+    //         this.unSelectAll()
+    //     },
+    //     deep: true
+    // },
+
+    //  },
+
     data: () => ({
 
 
@@ -587,7 +606,7 @@ export default {
         // select +++++
         blockSelect() {
 
-            if (this.selectedIds.length == 0 || this.selectedIds.length < this.filteredAdmins.length) {
+            if (this.selectedIds.length != this.filteredAdmins().length) {
                 this.selectAll()
             }
 
@@ -659,8 +678,8 @@ export default {
         },
 
 
-        sendMessage() {
-
+        sendEmailMessage() {
+            this.Inertia.get(`/admins/emailMessage/${this.selectedIds}`)
         },
 
         deleteSelected() {

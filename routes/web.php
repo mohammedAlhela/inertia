@@ -74,15 +74,16 @@ Route::post('admin/store' , [AdminController::class , 'store']);
 Route::get('admin/edit/{admin}' , [AdminController::class , 'edit']);
 Route::post('admin/update/{admin}' , [AdminController::class , 'update']);
 Route::delete('admins/{admins}' , [AdminController::class , 'delete']);
-Route::get('admin/permissions/{admin}' , [AdminController::class , 'ShowPermissions']);
-Route::post('admin/permissions/{admin}' , [AdminController::class , 'UpdatePermissions']);
-Route::get('admin/credentials/{admin}' , [AdminController::class , 'ShowCredentials']);
-Route::post('admin/credentials/{admin}' , [AdminController::class , 'UpdateCredentials']);
+Route::get('admin/permissions/{admin}' , [AdminController::class , 'showPermissions']);
+Route::post('admin/permissions/{admin}' , [AdminController::class , 'updatePermissions']);
+Route::get('admin/credentials/{admin}' , [AdminController::class , 'showCredentials']);
+Route::post('admin/credentials/{admin}' , [AdminController::class , 'updateCredentials']);
 Route::get('admins/block/{admins}' , [AdminController::class , 'block']);
 Route::get('admins/unBlock/{admins}' , [AdminController::class , 'unBlock']);
 Route::get('admins/export/excel/{admins}' , [AdminController::class , 'exportExcel']);
 Route::get('admins/export/pdf/{admins}' , [AdminController::class , 'exportPdf']);
-Route::post('admins/emailMessage/{admins}' , [AdminController::class , 'emailMessage']);
+Route::get('admins/emailMessage/{admins}' , [AdminController::class , 'showEmailMessage']);
+Route::post('admins/emailMessage/{admins}' , [AdminController::class , 'sendEmailMessage']);
 // send notification message
 // Invito to login using email message 
 // Invito to login using email message 

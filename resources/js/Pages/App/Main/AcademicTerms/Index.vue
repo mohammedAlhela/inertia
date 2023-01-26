@@ -3,10 +3,10 @@
         <HeaderPanels :headerData="headerData" />
 
         <delete-confirm :deleteSnackbar="deleteSnackbar" @closing="closeDeleteSnackbar()" @deleteData="destroy()"
-            :useDefault="academicYears" user="Academic year" />
+            :useDefault="academicTerms" user="Academic term" />
 
-            <delete-confirm :deleteSnackbar="blockDeleteSnackbar" @closing="blockDeleteSnackbar = false"
-            @deleteData="deleteSelected()" :useDefault="!academicYears"
+        <delete-confirm :deleteSnackbar="blockDeleteSnackbar" @closing="blockDeleteSnackbar = false"
+            @deleteData="deleteSelected()" :useDefault="!academicTerms"
             customParagraph="Are you sure you want to delete the selected records ?" />
 
 
@@ -15,8 +15,8 @@
                 <div class=" table-header">
 
                     <div class="table-actions row">
-                        <div class="col-4">
-                            <span class="header mr-2"> {{ this.filteredAcademicYears().length }} Academic years </span>
+                        <div class="col-6">
+                            <span class="header mr-2"> {{ this.filteredAcademicTerms().length }} Academic temrs </span>
 
 
                             <v-tooltip top>
@@ -40,17 +40,6 @@
 
                                 {{ selectedIds.length }} Selected
                             </span>
-
-
-                        </div>
-
-                        <div class="col-4 ">
-
-
-
-
-
-
                             <v-menu offset-y v-if="selectedIds.length">
                                 <template v-slot:activator="{ on, attrs }">
 
@@ -81,7 +70,7 @@
                                     <v-list-item-title class="selected-menu-header"> Actions </v-list-item-title>
 
 
-                                    <v-list-item v-if="helper.methods.can('academicYear-delete')"
+                                    <v-list-item v-if="helper.methods.can('academicTerm-delete')"
                                         @click="blockDeleteSnackbar = true">
                                         <v-list-item-title> <v-icon>mdi-delete</v-icon> Delete records
                                         </v-list-item-title>
@@ -90,19 +79,19 @@
                                 </v-list>
                             </v-menu>
 
-
                         </div>
 
+                 
 
 
-                        <div class="col-4  create-button-holder ">
+                        <div class="col-6  create-button-holder ">
 
 
 
 
 
 
-                            <Link v-if="helper.methods.can('academicYear-store')" href="/academicYear/create"
+                            <Link v-if="helper.methods.can('academicTerm-store')" href="/academicTerm/create"
                                 class="text-link">
                             <v-btn>
                                 <v-icon> mdi-plus</v-icon> Create
@@ -121,6 +110,16 @@
                     <div class=" filters">
                         <v-form>
                             <v-row class="">
+
+                                <v-col cols="4">
+
+
+
+                                    <v-autocomplete clearable placeholder="Academic year" :items="academicYears" solo
+                                        dense item-text="name" item-value="id" class="textfield"
+                                        v-model="filter.academic_year_id" />
+                                </v-col>
+
                                 <v-col cols="4">
 
 
@@ -164,7 +163,7 @@
 
                 </div>
 
-                <v-data-table :headers="headers" :items="filteredAcademicYears()" :items-per-page="10"
+                <v-data-table :headers="headers" :items="filteredAcademicTerms()" :items-per-page="10"
                     item-key="item.id" :footer-props="{
                         showFirstLastPage: true,
                         firstIcon: 'mdi-arrow-left',
@@ -177,7 +176,7 @@
 
                         <v-icon @click="blockSelect()" color="primary">
                             {{
-                                selectedIds .length == filteredAcademicYears().length ? "mdi-close-box-multiple" :
+                                selectedIds.length == filteredAcademicTerms().length ? "mdi-close-box-multiple" :
                                     "mdi-checkbox-multiple-marked"
                             }}
                         </v-icon>
@@ -196,13 +195,13 @@
                     </template>
 
 
-                    <template v-slot:item.academicTerms="{ item }">
+                    <template v-slot:item.academicYear="{ item }">
                         <td class="py-2 ">
-                         
-                        <span @click = "manageAcademicTerms(record.id)" class = "record-relation-label" v-for = "(record , index ) in item.academic_terms" :key = "index">
-                         {{ record.name }}
-                        </span>
-                    
+
+                            <span class="record-relation-label" @click="manageAcademicYear(item)"> {{
+                                item.academic_year.name
+                            }} </span>
+
                         </td>
                     </template>
 
@@ -212,27 +211,7 @@
 
 
 
-                            <v-tooltip top>
-                                <template v-slot:activator="{
-                                    on,
-                                    attrs,
-                                }">
-                                    <span v-if="helper.methods.can('academicTerm-show')" v-bind="attrs" v-on="on">
-                                        <v-icon @click="
-                                        
-                                            manageAcademicTerms(item)
-                                        
-                                        
-                                        " class="mr-2 icon">
-                                            mdi-file-multiple
-                                        </v-icon>
 
-                                    </span>
-                                </template>
-                                <span>
-                                    Manage record academic terms
-                                </span>
-                            </v-tooltip>
 
 
 
@@ -241,7 +220,7 @@
                                     on,
                                     attrs,
                                 }">
-                                    <span v-if="helper.methods.can('academicYear-update')" v-bind="attrs" v-on="on">
+                                    <span v-if="helper.methods.can('academicTerm-update')" v-bind="attrs" v-on="on">
                                         <v-icon @click="
                                         
                                             editItem(item)
@@ -265,7 +244,7 @@
                                     on,
                                     attrs,
                                 }">
-                                    <span v-if="helper.methods.can('academicYear-delete')" v-bind="attrs" v-on="on">
+                                    <span v-if="helper.methods.can('academicTerm-delete')" v-bind="attrs" v-on="on">
                                         <v-icon @click="
 
     showDeleteSnackbar(item)
@@ -304,22 +283,27 @@ export default {
     components: {},
 
     props: {
-        academicYears: Array,
+        academicTerms: Array,
+        academicYears: Array
+    },
+
+    mounted() {
+        this.filter.academic_year_id = parseInt(new URLSearchParams(window.location.search).get('academic_year_id'));
     },
 
     computed: {
 
         headerData() {
             return {
-                pageTitle: "Sahara School -- Manage academic years",
-                title: "Manage academic years",
+                pageTitle: "Sahara School -- Manage academic terms",
+                title: "Manage academic terms",
 
                 links: [
 
                     {
                         icon: "mdi-file-multiple",
-                        paragraph: "Academic years",
-                        src: "/academicYears",
+                        paragraph: "Academic terms",
+                        src: "/academicTerms",
                     }
 
                 ]
@@ -331,7 +315,7 @@ export default {
         selectedIds() {
 
             let data = []
-            this.filteredAcademicYears().forEach((item) => {
+            this.filteredAcademicTerms().forEach((item) => {
                 item.select ? data.push(item.id) : 1 == 1
 
             })
@@ -346,6 +330,7 @@ export default {
             name: "",
             start_date: "",
             end_date: "",
+            academic_year_id: ""
         },
 
 
@@ -378,9 +363,9 @@ export default {
             },
 
             {
-                text: "Academic terms",
+                text: "Academic Year",
                 sortable: true,
-                value: "academicTerms",
+                value: "academicYear",
             },
 
 
@@ -394,7 +379,7 @@ export default {
         ],
 
 
-        blockDeleteSnackbar : false ,
+        blockDeleteSnackbar: false,
         deleteSnackbar: false,
         deleteIndex: -1,
 
@@ -407,7 +392,7 @@ export default {
 
 
 
-        filteredAcademicYears() {
+        filteredAcademicTerms() {
             let conditions = [];
 
             if (this.filter.name) {
@@ -422,16 +407,20 @@ export default {
                 conditions.push(this.filterEndDate);
             }
 
+            if (this.filter.academic_year_id) {
+                conditions.push(this.filterAcademicYear);
+            }
+
 
             if (conditions.length > 0) {
-                return this.academicYears.filter((item) => {
+                return this.academicTerms.filter((item) => {
                     return conditions.every((condition) => {
                         return condition(item);
                     });
                 });
             }
 
-            return this.academicYears;
+            return this.academicTerms;
         },
 
 
@@ -459,10 +448,22 @@ export default {
         },
 
 
+        filterAcademicYear(item) {
+            if (item.academic_year_id) {
+                return item.academic_year_id == this.filter.academic_year_id;
+            }
+
+        },
+
+
+
+
+
+
         // select +++++
         blockSelect() {
 
-            if (this.selectedIds.length == 0 || this.selectedIds.length < this.filteredAcademicYears.length) {
+            if (this.selectedIds.length != this.filteredAcademicTerms().length) {
                 this.selectAll()
             }
 
@@ -473,7 +474,7 @@ export default {
         },
 
         unSelectAll() {
-            this.filteredAcademicYears().forEach((item) => {
+            this.filteredAcademicTerms().forEach((item) => {
                 item.select = false
 
             })
@@ -481,7 +482,7 @@ export default {
         },
 
         selectAll() {
-            this.filteredAcademicYears().forEach((item) => {
+            this.filteredAcademicTerms().forEach((item) => {
                 item.select = true
 
             })
@@ -491,9 +492,9 @@ export default {
         selectAction(key) {
             let link = ""
             if (key == "excel") {
-                link = `/academicYears/export/excel/${this.selectedIds}`
+                link = `/academicTerms/export/excel/${this.selectedIds}`
             } else {
-                link = `/academicYears/export/pdf/${this.selectedIds}`
+                link = `/academicTerms/export/pdf/${this.selectedIds}`
             }
 
             location.href = link
@@ -503,22 +504,22 @@ export default {
         exportAllExcel() {
 
             let ids = []
-            this.filteredAcademicYears().forEach((item) => {
+            this.filteredAcademicTerms().forEach((item) => {
                 ids.push(item.id)
             })
-            location.href = `/academicYears/export/excel/${ids}`
+            location.href = `/academicTerms/export/excel/${ids}`
         },
 
 
         deleteSelected() {
-            this.Inertia.delete(`/academicYears/${this.selectedIds}`, {
+            this.Inertia.delete(`/academicTerms/${this.selectedIds}`, {
                 preserveState: true,
                 onSuccess: () => {
                     this.blockDeleteSnackbar = false
                     this.helper.methods.fireMessage(
                         "Records deleted", "success"
                     );
-                    this.Inertia.get('/academicYears', {}, {
+                    this.Inertia.get('/academicTerms', {}, {
                         preserveState: true
                     });
                 },
@@ -537,7 +538,7 @@ export default {
 
 
         destroy() {
-            this.Inertia.delete(`/academicYears/${[this.deleteIndex]}`, {
+            this.Inertia.delete(`/academicTerms/${[this.deleteIndex]}`, {
                 preserveState: true,
                 onSuccess: () => {
 
@@ -545,7 +546,7 @@ export default {
                     this.helper.methods.fireMessage(
                         "Record deleted", "success"
                     );
-                    this.Inertia.get('/academicYears', {}, {
+                    this.Inertia.get('/academicTerms', {}, {
                         preserveState: true
                     });
 
@@ -556,18 +557,11 @@ export default {
 
 
         editItem(item) {
-            this.Inertia.get(`/academicYear/edit/${item.id}`)
+            this.Inertia.get(`/academicTerm/edit/${item.id}`)
         },
-
-        manageAcademicTerms(item) {
-            this.Inertia.get(`/academicTerms?academic_year_id=${item.id}`)
+        manageAcademicYear(item) {
+            this.Inertia.get(`/academicYear/edit/${item.academic_year_id}`)
         },
-        manageAcademicTerm(id) {
-            this.Inertia.get(`/academicTerm/edit/${id}`)
-        },
-
-
-        
 
         // select +++++
 

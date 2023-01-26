@@ -27,7 +27,7 @@ class AcademicYearController extends Controller
 
         foreach ($records as $record) {
 
-            $records->select = false;
+            $record->select = false;
         }
 
 

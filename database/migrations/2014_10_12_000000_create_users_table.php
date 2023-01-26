@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->boolean('temp_credentials')->default(1);
             $table->string('role');
             $table->boolean('status')->default(1);
+            $table->timestamp('last_seen')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

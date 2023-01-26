@@ -48,14 +48,16 @@
 
 
                                 <div class="col-3">
-                                    <v-checkbox v-if = "item.module != 'company'" class="" color="primary" hide-details v-model="item.store">
+                                    <v-checkbox v-if="item.module != 'company'" class="" color="primary" hide-details
+                                        v-model="item.store">
                                     </v-checkbox>
                                 </div>
 
-                              
+
 
                                 <div class="col-3">
-                                    <v-checkbox v-if = "item.module != 'company'" class="" color="primary" hide-details v-model="item.delete">
+                                    <v-checkbox v-if="item.module != 'company'" class="" color="primary" hide-details
+                                        v-model="item.delete">
                                     </v-checkbox>
                                 </div>
 
@@ -132,13 +134,31 @@ export default {
                     delete: false
                 },
 
+
+                {
+                    module: "academicYear",
+                    store: false,
+                    update: false,
+                    show: false,
+                    delete: false
+                },
+
+                {
+                    module: "academicTerm",
+                    store: false,
+                    update: false,
+                    show: false,
+                    delete: false
+                },
+
+                
                 {
                     module: "company",
                     store: false,
                     update: false,
                     show: false,
                     delete: false
-                }
+                },
             ],
 
             form: this.$inertia.form({

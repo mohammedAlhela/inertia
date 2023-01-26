@@ -106,7 +106,6 @@ class AdminController extends Controller
 
         Helper::authorizeModel($authArray);
 
-
         return inertia('App/Users/Admins/Edit', [
             'admin' => Admin::find($id),
         ]);
@@ -119,7 +118,7 @@ class AdminController extends Controller
         $authArray = array('admin', 'update');
 
         Helper::authorizeModel($authArray);
-        
+
         $image = request()->file("image");
 
         $admin = Admin::where('id', $id)->update($request->except('image', 'email', 'created_at', 'updated_at'));
@@ -143,7 +142,6 @@ class AdminController extends Controller
         $authArray = array('admin', 'delete');
 
         Helper::authorizeModel($authArray);
-
 
         $ids = Helper::getArrayFromString($ids);
 
@@ -169,7 +167,6 @@ class AdminController extends Controller
 
         Helper::authorizeModel($authArray);
 
-
         $ids = Helper::getArrayFromString($ids);
 
         $usersIds = Admin::with('user')->whereIn('id', $ids)->pluck('user_id')->toArray();
@@ -185,7 +182,6 @@ class AdminController extends Controller
 
         Helper::authorizeModel($authArray);
 
-
         $ids = Helper::getArrayFromString($ids);
 
         $usersIds = Admin::with('user')->whereIn('id', $ids)->pluck('user_id')->toArray();
@@ -194,7 +190,7 @@ class AdminController extends Controller
 
     }
 
-    public function ShowPermissions($id)
+    public function showPermissions($id)
     {
 
         $authArray = array('admin', 'update');
@@ -209,13 +205,12 @@ class AdminController extends Controller
 
     }
 
-    public function UpdatePermissions(Request $request, $id)
+    public function updatePermissions(Request $request, $id)
     {
 
         $authArray = array('admin', 'update');
 
         Helper::authorizeModel($authArray);
-
 
         $user_id = Admin::find($id)->user->id;
 
@@ -229,9 +224,8 @@ class AdminController extends Controller
 
     }
 
-    public function ShowCredentials($id)
+    public function showCredentials($id)
     {
-
 
         $authArray = array('admin', 'update');
 
@@ -245,13 +239,12 @@ class AdminController extends Controller
 
     }
 
-    public function UpdateCredentials(CredentialsRequest $request, $id)
+    public function updateCredentials(CredentialsRequest $request, $id)
     {
 
         $authArray = array('admin', 'update');
 
         Helper::authorizeModel($authArray);
-
 
         $admin = Admin::find($id);
 
@@ -284,13 +277,33 @@ class AdminController extends Controller
 
     }
 
-    public function emailMessage(EmailMessageRequest $request, $ids)
+    public function showEmailMessage($ids)
     {
+
+        $ids = Helper::getArrayFromString($ids);
 
         $authArray = array('admin', 'update');
 
         Helper::authorizeModel($authArray);
 
+
+       $adminsIds =  Admin::with('user')->whereIn('id' , $ids)->pluck('id')->toArray();
+       $emails = User::whereIn('id' , $adminsIds)->pluck('email')->toArray();
+
+
+        return inertia('App/Users/Admins/EmailMessage', [
+            'ids' => $ids,
+            'emails' => $emails 
+        ]);
+
+    }
+
+    public function sendEmailMessage(EmailMessageRequest $request, $ids)
+    {
+
+        $authArray = array('admin', 'update');
+
+        Helper::authorizeModel($authArray);
 
         $data = array(
             'subject' => $request->subject,
@@ -302,40 +315,46 @@ class AdminController extends Controller
 
         $usersIds = Admin::with('user')->whereIn('id', $ids)->pluck('user_id')->toArray();
 
-        $users = User::whereIn('id', $usersIds)->get();
-
-        $emails = $users->pluck('email')->toArray();
+        $emails = User::whereIn('id', $usersIds)->pluck('email')->toArray();
 
         $files = request()->file("files");
 
         $paths = array();
 
-        foreach ($files as $file) {
 
-            $file->move('send', $file->getClientOriginalName());
+        if ($files) {
+            foreach ($files as $file) {
 
-            array_push($paths, 'send/' . $file->getClientOriginalName());
+                $file->move('send', $file->getClientOriginalName());
+
+                array_push($paths, 'send/' . $file->getClientOriginalName());
+            }
         }
 
-        Mail::send('users.emailMessage', array('data' => Helper::getAttachmentData($admins)), function ($mail) use ($data, $emails, $paths) {
+        Mail::send('users.emailMessage', array('data' => $data), function ($mail) use ($data, $emails, $paths) {
             $mail->to($emails)
                 ->subject($data['subject']);
 
-            foreach ($paths as $path) {
-                $mail->attach($path);
+            if (count($paths)) {
+                foreach ($paths as $path) {
+                    $mail->attach($path);
 
+                }
             }
+
         });
 
-        foreach ($paths as $path) {
-            file_exists($path) ? unlink($path) : 1 == 1;
+        if (count($paths)) {
+            foreach ($paths as $path) {
+                file_exists($path) ? unlink($path) : 1 == 1;
+            }
+
         }
 
     }
 
     public function exportPdf(Request $request, $ids)
     {
-
 
         $authArray = array('admin', 'show');
 
