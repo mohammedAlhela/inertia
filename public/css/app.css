@@ -11016,6 +11016,10 @@ button {
   width: 300px;
 }
 
+.m-w-800 {
+  max-width: 800px !important;
+}
+
 .selected-menu-header {
   font-weight: 600;
   color: #7e7e7e;

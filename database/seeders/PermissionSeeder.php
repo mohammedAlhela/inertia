@@ -16,6 +16,9 @@ class PermissionSeeder extends Seeder
     public function run()
     {
 
+
+        DB::table('permissions')->truncate();
+        DB::table('permission_user')->truncate();
         foreach (Helper::getPermissions() as $permission) {
 
             DB::table('permissions')->insert([

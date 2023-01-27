@@ -44,6 +44,10 @@ class Helper
         'company-show',  'company-update',
         'academicYear-show', 'academicYear-delete', 'academicYear-update', 'academicYear-store',
         'academicTerm-show', 'academicTerm-delete', 'academicTerm-update', 'academicTerm-store',
+        'department-show', 'department-delete', 'department-update', 'department-store',
+        'course-show', 'course-delete', 'course-update', 'course-store',
+        'section-show', 'section-delete', 'section-update', 'section-store',
+        'subject-show', 'subject-delete', 'subject-update', 'subject-store',
         ];
     }
 

@@ -9,6 +9,10 @@ use App\Http\Controllers\Main\CompanyController;
 use App\Http\Controllers\Users\AdminController;
 use App\Http\Controllers\Main\AcademicYearController;
 use App\Http\Controllers\Main\AcademicTermController;
+use App\Http\Controllers\Main\DepartmentController;
+use App\Http\Controllers\Main\CourseController;
+use App\Http\Controllers\Main\SectionController;
+use App\Http\Controllers\Main\SubjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -116,6 +120,57 @@ Route::get('academicTerms/export/pdf/{academicTerms}' , [AcademicTermController:
 
 
 
+// ++++++++++ Departments 
+Route::get('departments' , [DepartmentController::class , 'index']);
+Route::get('department/create' , [DepartmentController::class , 'create']);
+Route::post('department/store' , [DepartmentController::class , 'store']);
+Route::get('department/edit/{department}' , [DepartmentController::class , 'edit']);
+Route::post('department/update/{department}' , [DepartmentController::class , 'update']);
+Route::delete('departments/{departments}' , [DepartmentController::class , 'delete']);
+Route::get('departments/export/excel/{departments}' , [DepartmentController::class , 'exportExcel']);
+Route::get('departments/export/pdf/{departments}' , [DepartmentController::class , 'exportPdf']);
+// ++++++++++ Departments 
+
+
+
+// ++++++++++ courses 
+Route::get('courses' , [CourseController::class , 'index']);
+Route::get('course/create' , [CourseController::class , 'create']);
+Route::post('course/store' , [CourseController::class , 'store']);
+Route::get('course/edit/{course}' , [CourseController::class , 'edit']);
+Route::post('course/update/{course}' , [CourseController::class , 'update']);
+Route::delete('courses/{courses}' , [CourseController::class , 'delete']);
+Route::get('courses/export/excel/{courses}' , [CourseController::class , 'exportExcel']);
+Route::get('courses/export/pdf/{courses}' , [CourseController::class , 'exportPdf']);
+// ++++++++++ courses 
+
+
+
+
+// ++++++++++ sections 
+Route::get('sections' , [SectionController::class , 'index']);
+Route::get('section/create' , [SectionController::class , 'create']);
+Route::post('section/store' , [SectionController::class , 'store']);
+Route::get('section/edit/{section}' , [SectionController::class , 'edit']);
+Route::post('section/update/{section}' , [SectionController::class , 'update']);
+Route::delete('sections/{sections}' , [SectionController::class , 'delete']);
+Route::get('sections/export/excel/{sections}' , [SectionController::class , 'exportExcel']);
+Route::get('sections/export/pdf/{sections}' , [SectionController::class , 'exportPdf']);
+// ++++++++++ sections 
+
+
+
+
+// ++++++++++ subjects 
+Route::get('subjects' , [SubjectController::class , 'index']);
+Route::get('subject/create' , [SubjectController::class , 'create']);
+Route::post('subject/store' , [SubjectController::class , 'store']);
+Route::get('subject/edit/{subject}' , [SubjectController::class , 'edit']);
+Route::post('subject/update/{subject}' , [SubjectController::class , 'update']);
+Route::delete('subjects/{subjects}' , [SubjectController::class , 'delete']);
+Route::get('subjects/export/excel/{subjects}' , [SubjectController::class , 'exportExcel']);
+Route::get('subjects/export/pdf/{subjects}' , [SubjectController::class , 'exportPdf']);
+// ++++++++++ subjects 
 
 
 

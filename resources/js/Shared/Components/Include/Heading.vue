@@ -30,7 +30,7 @@
                             <v-tab>
 
                                 Administration
-                             
+
                             </v-tab>
 
 
@@ -41,11 +41,12 @@
                                             <v-col cols="6">
                                                 <div v-for="item, index in modules.academic_left_section" :key="index"
                                                     class="holder">
-                                              
+
                                                     <v-icon> {{ item.head_icon }}</v-icon>
                                                     {{ item.head_paragraph }}
                                                     <div class="links">
-                                                        <Link v-if = "helper.methods.can(link.permission)" @click="showModules = false" class="text-link"
+                                                        <Link v-if="helper.methods.can(link.permission)"
+                                                            @click="showModules = false" class="text-link"
                                                             :href="link.src" v-for="link, key in item.pages" :key="key">
                                                         {{ link.name }}
                                                         </Link>
@@ -61,7 +62,8 @@
                                                     <v-icon> {{ item.head_icon }}</v-icon>
                                                     {{ item.head_paragraph }}
                                                     <div class="links">
-                                                        <Link v-if = "helper.methods.can(link.permission)"  @click="showModules = false" class="text-link"
+                                                        <Link v-if="helper.methods.can(link.permission)"
+                                                            @click="showModules = false" class="text-link"
                                                             :href="link.src" v-for="link, key in item.pages" :key="key">
                                                         {{ link.name }}
                                                         </Link>
@@ -112,15 +114,17 @@
                     </v-btn>
                 </template>
                 <v-list>
-                    <Link v-if = "helper.methods.can('billing-show')"  href='/billing' class="text-link"> <v-list-item> Billing </v-list-item></Link>
-                    <Link v-if = "helper.methods.can('company-show')"  href='/company' class="text-link"> <v-list-item> Company Data</v-list-item> </Link>
+                    <Link v-if="helper.methods.can('billing-show')" href='/billing' class="text-link"> <v-list-item>
+                        Billing </v-list-item></Link>
+                    <Link v-if="helper.methods.can('company-show')" href='/company' class="text-link"> <v-list-item>
+                        Company Data</v-list-item> </Link>
 
 
                 </v-list>
             </v-menu>
 
 
-            <v-menu offset-y  open-on-hover class="profile-menu">
+            <v-menu offset-y open-on-hover class="profile-menu">
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn icon v-bind="attrs" v-on="on">
                         <v-icon> mdi-account</v-icon>
@@ -200,10 +204,10 @@ export default {
                         head_icon: "mdi-teach",
                         head_paragraph: "Teachers/Admins",
                         pages: [
-                            { name: "Manage Admins", src: "/admins" , permission : "admin-show" },
+                            { name: "Manage Admins", src: "/admins", permission: "admin-show" },
                             {
                                 name: "Manage Teachers",
-                                src: "/teachers", permission : "teacher-show"
+                                src: "/teachers", permission: "teacher-show"
                             },
                             {
                                 name: "Subjects Allocation",
@@ -225,8 +229,13 @@ export default {
 
                     {
                         head_icon: "mdi-file-multiple",
-                        head_paragraph: "Classes/Sections",
-                        pages: [{ name: "Manage Classes", src: "/classes" }]
+                        head_paragraph: "Courses/Subjects",
+                        pages: [
+
+                            { name: " Departments", src: "/departments", permission: "department-show" },
+                            { name: " Classes", src: "/courses" , permission: "course-show" },
+                            { name: " Sections", src: "/sections", permission: "section-show" },
+                            { name: " Subjects", src: "/subjects", permission: "subject-show" }]
                     },
 
                     {
@@ -244,12 +253,12 @@ export default {
 
                 academic_right_section: [
 
-                {
+                    {
                         head_icon: "mdi-calendar-range",
                         head_paragraph: "Academic years and terms",
                         pages: [
-                            { name: "Academic years", src: "/academicYears"  , permission : "academicYear-show" },
-                            { name: "Academic terms", src: "/academicTerms"   , permission : "academicTerm-show"},
+                            { name: "Academic years", src: "/academicYears", permission: "academicYear-show" },
+                            { name: "Academic terms", src: "/academicTerms", permission: "academicTerm-show" },
 
                         ]
                     },
@@ -264,7 +273,7 @@ export default {
                         ]
                     },
 
-         
+
 
 
 

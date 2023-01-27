@@ -14,6 +14,9 @@ import { Inertia } from "@inertiajs/inertia";
 import { InertiaProgress } from '@inertiajs/progress'
 import helper from "../mixins/helper"
 import DeleteConfirm from "./Shared/Components/Reusable/DeleteConfirm";
+import CantDeleteSnackbar from "./Shared/Components/Reusable/CantDeleteSnackbar";
+
+
 import HeaderPanels from "./Shared/Components/Reusable/HeaderPanels";
 import AppLayout from "./Shared/Layout/App.vue";
 import AuthLayout from "./Shared/Layout/Auth.vue";
@@ -26,6 +29,7 @@ Vue.prototype.Inertia = Inertia
 Vue.component("Link", Link);
 Vue.component("Head", Head);
 Vue.component("DeleteConfirm", DeleteConfirm);
+Vue.component("CantDeleteSnackbar", CantDeleteSnackbar);
 Vue.component("HeaderPanels", HeaderPanels);
 
 

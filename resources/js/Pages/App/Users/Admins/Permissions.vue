@@ -151,6 +151,39 @@ export default {
                     delete: false
                 },
 
+
+                {
+                    module: "department",
+                    store: false,
+                    update: false,
+                    show: false,
+                    delete: false
+                },
+
+                {
+                    module: "course",
+                    store: false,
+                    update: false,
+                    show: false,
+                    delete: false
+                },
+
+
+                {
+                    module: "section",
+                    store: false,
+                    update: false,
+                    show: false,
+                    delete: false
+                },
+
+                {
+                    module: "subject",
+                    store: false,
+                    update: false,
+                    show: false,
+                    delete: false
+                },
                 
                 {
                     module: "company",
@@ -159,6 +192,8 @@ export default {
                     show: false,
                     delete: false
                 },
+
+
             ],
 
             form: this.$inertia.form({
